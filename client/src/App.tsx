@@ -1,47 +1,77 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import CoursesPage from './pages/CoursesPage';
+import CourseDetailPage from './pages/CourseDetailPage';
+import SchedulePage from './pages/SchedulePage';
+import FeedbackPage from './pages/FeedbackPage';
+import LoginPage from './pages/LoginPage';
+
+/**
+ * App Component
+ *
+ * Main application component with routing configuration.
+ *
+ * Routes:
+ * - / - Redirects to /courses
+ * - /login - Login/authentication page
+ * - /courses - Course listing page
+ * - /course/:courseId - Individual course detail page
+ * - /schedule - User's schedule page
+ * - /feedback - Feedback submission form
+ * - /about - About page (to be implemented)
+ *
+ * Backend Integration:
+ * - Add authentication check: Use context/state to check if user is authenticated
+ * - Protected routes: Wrap routes that require authentication
+ * - User context: Create AuthContext to manage user state across the app
+ */
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    fetch('/api/hello')
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        // optionally set state here if you want to show it in the UI
-      })
-      .catch((err) => {
-        console.error('Error calling /api/hello', err)
-      })
-  }, [])
+  // TODO: Add authentication state management
+  // const { isAuthenticated } = useAuth();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Routes>
+        {/* Redirect root to courses */}
+        <Route path="/" element={<Navigate to="/courses" replace />} />
+
+        {/* Public routes */}
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* Main app routes */}
+        <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/course/:courseId" element={<CourseDetailPage />} />
+        <Route path="/schedule" element={<SchedulePage />} />
+        <Route path="/feedback" element={<FeedbackPage />} />
+
+        {/* About page - placeholder */}
+        <Route
+          path="/about"
+          element={
+            <div style={{ padding: '2rem', textAlign: 'center' }}>
+              <h1>About OpenDore</h1>
+              <p>Course review and scheduling platform for Vanderbilt University students.</p>
+            </div>
+          }
+        />
+
+        {/* 404 page */}
+        <Route
+          path="*"
+          element={
+            <div style={{ padding: '2rem', textAlign: 'center' }}>
+              <h1>404 - Page Not Found</h1>
+              <p>The page you're looking for doesn't exist.</p>
+              <a href="/courses" style={{ color: '#C4B084' }}>
+                Go back to courses
+              </a>
+            </div>
+          }
+        />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
