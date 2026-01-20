@@ -25,13 +25,29 @@
   font-size: 36px;
   font-weight: 700;
   color: #1a1a1a;
-  margin: 0 0 0.25rem 0;
+  margin: 0 0 0.75rem 0;
 }
 
-.schedule-subtitle {
-  font-size: 16px;
-  color: #666;
-  margin: 0;
+.semester-select {
+  padding: 0.625rem 1.25rem;
+  border: 2px solid #C4B084;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.semester-select:focus {
+  outline: none;
+  border-color: #b39f73;
+  box-shadow: 0 0 0 3px rgba(196, 176, 132, 0.1);
+}
+
+.semester-select:hover {
+  background: rgba(196, 176, 132, 0.05);
 }
 
 .schedule-actions {
@@ -127,7 +143,7 @@
 }
 
 .course-block {
-  padding: 0.5rem;
+  padding: 0.35rem;
   border-radius: 6px;
   color: white;
   font-size: 12px;
@@ -135,6 +151,9 @@
   transition: all 0.2s;
   border-left: 4px solid rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
 }
 
 .course-block:hover {
@@ -145,21 +164,19 @@
 
 .course-block-code {
   font-weight: 700;
-  font-size: 13px;
-  margin-bottom: 0.25rem;
+  font-size: 12px;
 }
 
 .course-block-name {
-  font-size: 11px;
+  font-size: 10px;
   opacity: 0.95;
-  margin-bottom: 0.25rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .course-block-prof {
-  font-size: 10px;
+  font-size: 9px;
   opacity: 0.85;
   white-space: nowrap;
   overflow: hidden;
@@ -205,7 +222,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 
 .sidebar-course-code {
@@ -228,6 +245,7 @@
   justify-content: center;
   line-height: 1;
   transition: all 0.2s;
+  flex-shrink: 0;
 }
 
 .remove-btn:hover {
@@ -235,51 +253,21 @@
   color: white;
 }
 
-.sidebar-course-prof {
-  font-size: 13px;
+.sidebar-course-name {
+  font-size: 12px;
   color: #666;
+  margin-bottom: 0.15rem;
+}
+
+.sidebar-course-prof {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 0.15rem;
 }
 
 .sidebar-course-time {
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 0.75rem;
-}
-
-.status-badge {
-  padding: 0.25rem 0.6rem;
-  border-radius: 4px;
   font-size: 11px;
-  font-weight: 700;
-}
-
-.status-badge.cart {
-  background: rgba(76, 175, 80, 0.1);
-  color: #4caf50;
-}
-
-.status-badge.waitlist {
-  background: rgba(255, 152, 0, 0.1);
-  color: #ff9800;
-}
-
-.enroll-btn {
-  width: 100%;
-  padding: 0.5rem;
-  background: #C4B084;
-  color: #1a1a1a;
-  border: none;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-  margin-top: 0.5rem;
-}
-
-.enroll-btn:hover {
-  background: #b39f73;
-  transform: translateY(-1px);
+  color: #999;
 }
 
 /* Responsive Design */
@@ -331,6 +319,10 @@
     font-size: 28px;
   }
 
+  .semester-select {
+    width: 100%;
+  }
+
   .schedule-actions {
     width: 100%;
   }
@@ -352,6 +344,12 @@
 @media (max-width: 480px) {
   .schedule-title {
     font-size: 24px;
+    margin-bottom: 0.5rem;
+  }
+
+  .semester-select {
+    font-size: 14px;
+    padding: 0.5rem 1rem;
   }
 
   .schedule-actions {
@@ -383,5 +381,9 @@
   .day-header {
     font-size: 13px;
     padding: 0.5rem;
+  }
+
+  .sidebar-course-card {
+    padding: 0.75rem;
   }
 }

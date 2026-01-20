@@ -48,14 +48,14 @@ const LoginPage: React.FC = () => {
         {/* Logo Section */}
         <div className="login-logo-section">
           <div className="login-logo">V</div>
-          <div className="login-brand-name">OpenDore</div>
+          <div className="login-brand-name">CourseFlix</div>
           <div className="login-brand-subtitle">VANDERBILT</div>
         </div>
 
         {/* Login Card */}
         <div className="login-card">
           <h1 className="login-title">Welcome Back</h1>
-          <p className="login-subtitle">Sign in to continue to OpenDore</p>
+          <p className="login-subtitle">Sign in to continue to CourseFlix</p>
 
           {/* OAuth Buttons */}
           <div className="oauth-buttons">

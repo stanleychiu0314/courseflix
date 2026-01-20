@@ -1,0 +1,150 @@
+.about-page {
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+/* Sections */
+.mission-section,
+.team-section {
+  margin-bottom: 5rem;
+  text-align: center;
+}
+
+.section-heading {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 1.5rem 0;
+}
+
+.mission-text {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #666;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.team-description {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #666;
+  max-width: 900px;
+  margin: 0 auto 1.5rem;
+}
+
+.team-subtitle {
+  font-size: 16px;
+  color: #666;
+  margin: 2rem 0 1.5rem;
+}
+
+/* Team Members */
+.team-members {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.team-member {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Footer */
+.about-footer {
+  margin-top: 5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.about-footer p {
+  font-size: 16px;
+  color: #666;
+}
+
+.contact-link {
+  color: #C4B084;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.contact-link:hover {
+  color: #b39f73;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 3rem 1.5rem;
+  }
+
+  .section-heading {
+    font-size: 28px;
+  }
+
+  .mission-text,
+  .team-description {
+    font-size: 16px;
+  }
+
+  .team-subtitle {
+    font-size: 15px;
+  }
+
+  .team-member {
+    font-size: 17px;
+  }
+
+  .about-footer p {
+    font-size: 15px;
+  }
+
+  .mission-section,
+  .team-section {
+    margin-bottom: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-container {
+    padding: 2rem 1rem;
+  }
+
+  .section-heading {
+    font-size: 24px;
+    margin-bottom: 1.25rem;
+  }
+
+  .mission-text,
+  .team-description {
+    font-size: 15px;
+  }
+
+  .team-subtitle {
+    font-size: 14px;
+  }
+
+  .team-member {
+    font-size: 16px;
+  }
+
+  .about-footer {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+  }
+
+  .about-footer p {
+    font-size: 13px;
+  }
+}

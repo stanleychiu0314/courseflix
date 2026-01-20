@@ -216,7 +216,7 @@ Check the comments at the top of each page/component file for specific integrati
 - All data is currently mocked with placeholder values
 - TODO comments indicate where backend integration is needed
 - The navbar currently shows hardcoded user initials and course count
-- Color scheme matches the OpenDore brand from the design screenshots
+- Color scheme matches the CourseFlix brand from the design screenshots
 - All components use CSS for styling (no CSS-in-JS libraries)
 - Forms include basic structure but need validation logic
 - OAuth buttons have placeholder handlers that need implementation

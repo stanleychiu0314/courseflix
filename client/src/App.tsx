@@ -5,6 +5,7 @@ import CourseDetailPage from './pages/CourseDetailPage';
 import SchedulePage from './pages/SchedulePage';
 import FeedbackPage from './pages/FeedbackPage';
 import LoginPage from './pages/LoginPage';
+import AboutPage from './pages/AboutPage';
 
 /**
  * App Component
@@ -45,16 +46,8 @@ function App() {
         <Route path="/schedule" element={<SchedulePage />} />
         <Route path="/feedback" element={<FeedbackPage />} />
 
-        {/* About page - placeholder */}
-        <Route
-          path="/about"
-          element={
-            <div style={{ padding: '2rem', textAlign: 'center' }}>
-              <h1>About OpenDore</h1>
-              <p>Course review and scheduling platform for Vanderbilt University students.</p>
-            </div>
-          }
-        />
+        {/* About page */}
+        <Route path="/about" element={<AboutPage />} />
 
         {/* 404 page */}
         <Route

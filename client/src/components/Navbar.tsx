@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
         <Link to="/" className="logo-container">
           <div className="logo">V</div>
           <div className="brand">
-            <div className="brand-name">OpenDore</div>
+            <div className="brand-name">CourseFlix</div>
             <div className="brand-subtitle">VANDERBILT</div>
           </div>
         </Link>

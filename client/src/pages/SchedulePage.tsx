@@ -5,15 +5,12 @@ import '../styles/SchedulePage.css';
 /**
  * SchedulePage Component
  *
- * Displays user's schedule in a calendar view with enrolled and cart courses.
+ * Displays user's schedule in a calendar view with cart courses.
  *
  * Backend Integration:
- * - Fetch enrolled courses: GET /api/users/:userId/enrolled
- * - Fetch cart courses: GET /api/users/:userId/cart
- * - Remove from enrolled: DELETE /api/users/:userId/enrolled/:courseId
+ * - Fetch cart courses: GET /api/users/:userId/cart?semester={semester}
  * - Remove from cart: DELETE /api/users/:userId/cart/:courseId
- * - Enroll in course: POST /api/users/:userId/enroll with { courseId }
- * - Export schedule: GET /api/users/:userId/schedule/export?format={pdf|ics}
+ * - Export schedule: GET /api/users/:userId/schedule/export?format={pdf|ics}&semester={semester}
  */
 
 interface ScheduleCourse {
@@ -25,14 +22,15 @@ interface ScheduleCourse {
   startTime: string;
   endTime: string;
   color: string;
-  status: 'enrolled' | 'cart' | 'waitlist';
 }
 
 const SchedulePage: React.FC = () => {
   const [selectedSemester, setSelectedSemester] = useState('Spring 2026');
 
-  // TODO: Replace with actual API call to fetch user's schedule
-  const enrolledCourses: ScheduleCourse[] = [
+  const semesters = ['Fall 2025', 'Spring 2026', 'Summer 2026', 'Fall 2026'];
+
+  // TODO: Replace with actual API call to fetch user's cart courses
+  const cartCourses: ScheduleCourse[] = [
     {
       id: '1',
       code: 'CS 2201',
@@ -42,7 +40,6 @@ const SchedulePage: React.FC = () => {
       startTime: '10:00',
       endTime: '11:00',
       color: '#8B7FD9',
-      status: 'enrolled',
     },
     {
       id: '2',
@@ -53,7 +50,6 @@ const SchedulePage: React.FC = () => {
       startTime: '11:00',
       endTime: '12:15',
       color: '#5FD9A8',
-      status: 'enrolled',
     },
     {
       id: '3',
@@ -64,7 +60,6 @@ const SchedulePage: React.FC = () => {
       startTime: '13:00',
       endTime: '14:00',
       color: '#D9A25F',
-      status: 'enrolled',
     },
     {
       id: '4',
@@ -75,32 +70,26 @@ const SchedulePage: React.FC = () => {
       startTime: '14:00',
       endTime: '15:00',
       color: '#D95F5F',
-      status: 'enrolled',
     },
-  ];
-
-  const cartCourses: ScheduleCourse[] = [
     {
       id: '5',
       code: 'PSYC 1200',
       name: 'Psychology',
-      professor: '',
+      professor: 'Dr. Lee',
       day: 'MWF',
       startTime: '16:00',
       endTime: '17:00',
       color: '#F9D66D',
-      status: 'cart',
     },
     {
       id: '6',
       code: 'ASTR 1010',
       name: 'Astronomy',
-      professor: '',
+      professor: 'Dr. Miller',
       day: 'TTh',
       startTime: '09:35',
       endTime: '10:50',
       color: '#A9D9F9',
-      status: 'waitlist',
     },
   ];
 
@@ -122,10 +111,11 @@ const SchedulePage: React.FC = () => {
     const hour = parseInt(time.split(':')[0]);
     const adjustedHour = time.includes('PM') && hour !== 12 ? hour + 12 : hour;
 
-    return enrolledCourses.filter((course) => {
-      const dayMatch = course.day.includes(day.substring(0, 1)) ||
-                      (day === 'Tue' && course.day.includes('T') && !course.day.includes('Th')) ||
-                      (day === 'Thu' && course.day.includes('Th'));
+    return cartCourses.filter((course) => {
+      const dayMatch =
+        course.day.includes(day.substring(0, 1)) ||
+        (day === 'Tue' && course.day.includes('T') && !course.day.includes('Th')) ||
+        (day === 'Thu' && course.day.includes('Th'));
       const startHour = parseInt(course.startTime.split(':')[0]);
       return dayMatch && startHour === adjustedHour;
     });
@@ -145,7 +135,17 @@ const SchedulePage: React.FC = () => {
         <div className="schedule-header">
           <div className="schedule-title-section">
             <h1 className="schedule-title">My Schedule</h1>
-            <p className="schedule-subtitle">{selectedSemester}</p>
+            <select
+              className="semester-select"
+              value={selectedSemester}
+              onChange={(e) => setSelectedSemester(e.target.value)}
+            >
+              {semesters.map((semester) => (
+                <option key={semester} value={semester}>
+                  {semester}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="schedule-actions">
             <button className="action-btn export-btn">📥 Export</button>
@@ -197,27 +197,8 @@ const SchedulePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Sidebar - Course Lists */}
+          {/* Sidebar - Cart Courses */}
           <div className="courses-sidebar">
-            {/* Enrolled Courses */}
-            <div className="sidebar-section">
-              <h3 className="sidebar-title">✓ ENROLLED ({enrolledCourses.length})</h3>
-              <div className="course-list">
-                {enrolledCourses.map((course) => (
-                  <div key={course.id} className="sidebar-course-card" style={{ borderLeftColor: course.color }}>
-                    <div className="sidebar-course-header">
-                      <span className="sidebar-course-code">{course.code}</span>
-                      <button className="remove-btn" title="Remove course">
-                        ×
-                      </button>
-                    </div>
-                    <div className="sidebar-course-prof">{course.professor}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Cart Courses */}
             <div className="sidebar-section">
               <h3 className="sidebar-title">🛒 IN CART ({cartCourses.length})</h3>
               <div className="course-list">
@@ -225,12 +206,15 @@ const SchedulePage: React.FC = () => {
                   <div key={course.id} className="sidebar-course-card" style={{ borderLeftColor: course.color }}>
                     <div className="sidebar-course-header">
                       <span className="sidebar-course-code">{course.code}</span>
-                      <span className={`status-badge ${course.status}`}>
-                        {course.status === 'waitlist' ? 'WAITLIST' : 'AVAILABLE'}
-                      </span>
+                      <button className="remove-btn" title="Remove course">
+                        ×
+                      </button>
                     </div>
-                    <div className="sidebar-course-time">{course.day} {course.startTime.substring(0, 5)}-{course.endTime.substring(0, 5)}</div>
-                    <button className="enroll-btn">Enroll</button>
+                    <div className="sidebar-course-name">{course.name}</div>
+                    <div className="sidebar-course-prof">{course.professor}</div>
+                    <div className="sidebar-course-time">
+                      {course.day} {course.startTime.substring(0, 5)}-{course.endTime.substring(0, 5)}
+                    </div>
                   </div>
                 ))}
               </div>
