@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Feedback - OpenDore</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+        }
+
+        /* Header */
+        .header {
+            background: #1a1a1a;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #C4B084;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: #C4B084;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+
+        .brand-name {
+            color: #C4B084;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .brand-subtitle {
+            color: #999;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: #C4B084;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* Form */
+        .feedback-form {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 2.5rem;
+        }
+
+        .form-section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .section-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: #C4B084;
+            color: #1a1a1a;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-right: 0.75rem;
+        }
+
+        .form-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .required {
+            color: #dc3545;
+            margin-left: 0.25rem;
+        }
+
+        .form-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Search Input */
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #C4B084;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+        }
+
+        .course-result {
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .course-result:hover {
+            border-color: #C4B084;
+            background: rgba(196, 176, 132, 0.05);
+        }
+
+        .course-result-title {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+        }
+
+        .course-result-meta {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* Rating Stars */
+        .star-rating {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .star {
+            font-size: 32px;
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #C4B084;
+        }
+
+        /* Radio/Checkbox Options */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .option-card {
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .option-card:hover {
+            border-color: #C4B084;
+            background: rgba(196, 176, 132, 0.05);
+        }
+
+        .option-card.selected {
+            border-color: #C4B084;
+            background: rgba(196, 176, 132, 0.1);
+            color: #C4B084;
+        }
+
+        /* Slider */
+        .slider-container {
+            margin-top: 1rem;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #C4B084;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #C4B084;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .slider-value {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #C4B084;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Text Input */
+        .text-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: #C4B084;
+        }
+
+        textarea.text-input {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Checkbox Group */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkbox-item:hover {
+            border-color: #C4B084;
+            background: rgba(196, 176, 132, 0.05);
+        }
+
+        .checkbox-item.selected {
+            border-color: #C4B084;
+            background: rgba(196, 176, 132, 0.1);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload:hover {
+            border-color: #C4B084;
+            background: rgba(196, 176, 132, 0.05);
+        }
+
+        .file-upload-icon {
+            font-size: 48px;
+            color: #C4B084;
+            margin-bottom: 1rem;
+        }
+
+        .file-upload-text {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .file-upload-text strong {
+            color: #C4B084;
+        }
+
+        /* Submit Button */
+        .submit-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .submit-btn {
+            padding: 1rem 3rem;
+            background: #C4B084;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #b39f73;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(196, 176, 132, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <div class="logo">V</div>
+            <div>
+                <div class="brand-name">OpenDore</div>
+                <div class="brand-subtitle">VANDERBILT</div>
+            </div>
+        </div>
+        <div class="user-avatar">JF</div>
+    </header>
+
+    <!-- Container -->
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Submit Course Feedback</h1>
+            <p class="page-subtitle">Help your fellow students by sharing your experience</p>
+        </div>
+
+        <form class="feedback-form">
+            <!-- Question 1: Select Course -->
+            <div class="form-section">
+                <label class="form-label">
+                    <span class="section-number">1</span>
+                    Which course are you reviewing?<span class="required">*</span>
+                </label>
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Search for a course (e.g., CS 2201, Microeconomics, Dr. Bolton)">
+                </div>
+                <div class="course-result">
+                    <div class="course-result-title">CS 2201: Program Design & Data Structures</div>
+                    <div class="course-result-meta">Dr. Jeremy Bolton • MWF 10:10-11:00a • Fall 2025</div>
+                </div>
+            </div>
+
+            <!-- Question 2: Overall Rating -->
+            <div class="form-section">
+                <label class="form-label">
+                    <span class="section-number">2</span>
+                    Overall Rating<span class="required">*</span>
+                </label>
+                <p class="form-description">How would you rate this course overall?</p>
+                <div class="star-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+            </div>
+
+            <!-- Question 3: Hours per Week -->
+            <div class="form-section">
+                <label class="form-label">
+                    <span class="section-number">3</span>
+                    How much work do you put in per week?<span class="required">*</span>
+                </label>
+                <p class="form-description">Include time spent in class, homework, studying, and projects</p>
+                <div class="slider-value">6 hours</div>
+                <div class="slider-container">
+                    <input type="range" min="0" max="12" value="6" class="slider" step="0.5">
+                    <div class="slider-labels">
+                        <span>0 hrs</span>
+                        <span>6 hrs</span>
+                        <span>12+ hrs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4: Effort Level -->
+            <div class="form-section">
+                <label class="form-label">
+                    <span class="section-number">4</span>
+                    What is the effort level?<span class="required">*</span>
+                </label>
+                <p class="form-description">How challenging is this course?</p>
+                <div class="options-grid">
+                    <div class="option-card">1<br><span style="font-size: 12px; font-weight: normal;">Very Easy</span></div>
+                    <div class="option-card">2<br><span style="font-size: 12px; font-weight: normal;">Easy</span></div>
+                    <div class="option-card">3<br><span style="font-size: 12px; font-weight: normal;">Moderate</span></div>
+                    <div class="option-card">4<br><span style="font-size: 12px; font-weight: normal;">Hard</span></div>
+                    <div class="option-card">5<br><span style="font-size: 12px; font-weight: normal;">Very Hard</span></div>
+                </div>
+            </div>
+
+            <!-- Question 5: Would Take Again -->
+            <div class="form-section">
+                <label class="form-label">
+                    <span class="section-number">5</span>
+                    Would you take it again?<span class="required">*</span>
+                </label>
+                <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="option-card">Yes</div>
+                    <div class="option-card">No</div>
+                </div>
+            </div>
+
+            <!-- Question 6: Course Type -->
+            <div class="form-section">
+                <label class="form-label">
+                    <span class="section-number">6</span>
+                    What type of workload is this course?<span class="required">*</span>
+                </label>
+                <p class="form-description">Select all that apply</p>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Exam Heavy</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Project Heavy</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Paper Heavy</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox">
+                        <span>Discussion-based</span>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
