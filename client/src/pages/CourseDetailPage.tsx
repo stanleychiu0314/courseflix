@@ -6,15 +6,13 @@ import '../styles/CourseDetailPage.css';
 /**
  * CourseDetailPage Component
  *
- * Detailed view of a single course with tabs for Overview, Reviews, Grade Distribution, and Comments.
+ * Detailed view of a single course with tabs for Overview, Reviews, and Grade Distribution.
  *
  * Backend Integration:
  * - Fetch course details: GET /api/courses/:id
  * - Fetch reviews: GET /api/courses/:id/reviews
  * - Fetch grade distribution: GET /api/courses/:id/grades
- * - Fetch comments: GET /api/courses/:id/comments
  * - Add to cart: POST /api/cart with { courseId, userId }
- * - Like review: POST /api/reviews/:reviewId/like
  */
 
 interface Review {
@@ -24,7 +22,7 @@ interface Review {
   grade: string;
   text: string;
   date: string;
-  helpful: number;
+  tags: string[];
 }
 
 const CourseDetailPage: React.FC = () => {
@@ -42,10 +40,6 @@ const CourseDetailPage: React.FC = () => {
     location: 'FGH 134',
     rating: 4.2,
     reviewCount: 47,
-    avgHoursWeek: '10-12',
-    difficulty: '4.1/5',
-    wouldTakeAgain: '85%',
-    gradingStyle: 'Exam Heavy',
     description:
       'Introduction to algorithms and data structures including lists, stacks, queues, trees, and graphs. Emphasis on programming techniques including recursion, sorting, searching, and hashing. Laboratory exercises in C++.',
     prerequisites: ['CS 1101', 'MATH 1300'],
@@ -60,6 +54,18 @@ const CourseDetailPage: React.FC = () => {
       C: 2,
       'C-': 1,
     },
+    gradeBreakdown: [
+      { name: 'Midterm Exam', percentage: 25 },
+      { name: 'Final Exam', percentage: 25 },
+      { name: 'Programming Projects', percentage: 30 },
+      { name: 'Lab Assignments', percentage: 15 },
+      { name: 'Class Participation', percentage: 5 },
+    ],
+    avgHoursPerWeek: 8.5,
+    difficulty: '4/5',
+    wouldTakeAgain: '85%',
+    attendancePolicy: 'Flexible',
+    absencesAllowed: 3,
   };
 
   const mockReviews: Review[] = [
@@ -70,7 +76,7 @@ const CourseDetailPage: React.FC = () => {
       grade: 'A',
       text: "Dr. Bolton is an excellent lecturer who really cares about student understanding. The projects are challenging but you learn so much. Office hours are super helpful.",
       date: 'Fall 2025 • 2 weeks ago',
-      helpful: 24,
+      tags: ['Exam Heavy', 'Challenging Projects', 'Great Professor'],
     },
     {
       id: '2',
@@ -79,7 +85,7 @@ const CourseDetailPage: React.FC = () => {
       grade: 'A-',
       text: 'Very well-structured course. The exams are tough but fair. Make sure to start projects early and attend recitation sections. The TAs are really knowledgeable.',
       date: 'Fall 2025 • 3 weeks ago',
-      helpful: 18,
+      tags: ['Exam Heavy', 'Time-Consuming', 'Helpful Office Hours'],
     },
   ];
 
@@ -138,8 +144,8 @@ const CourseDetailPage: React.FC = () => {
           <button className={`tab ${activeTab === 'grades' ? 'active' : ''}`} onClick={() => setActiveTab('grades')}>
             Grade Distribution
           </button>
-          <button className={`tab ${activeTab === 'comments' ? 'active' : ''}`} onClick={() => setActiveTab('comments')}>
-            Comments
+          <button className={`tab ${activeTab === 'breakdown' ? 'active' : ''}`} onClick={() => setActiveTab('breakdown')}>
+            Grade Breakdown
           </button>
         </div>
 
@@ -179,7 +185,18 @@ const CourseDetailPage: React.FC = () => {
 
             {activeTab === 'reviews' && (
               <div className="reviews-content">
-                <h3 className="section-title">STUDENT REVIEWS ({course.reviewCount})</h3>
+                <h3 className="section-title">TOP COMMENT KEYWORDS</h3>
+                <div className="comment-keywords">
+                  {course.commentHighlights.map((keyword, idx) => (
+                    <span key={keyword} className="keyword-badge">
+                      {keyword} ({32 - idx * 4})
+                    </span>
+                  ))}
+                </div>
+
+                <h3 className="section-title" style={{ marginTop: '2rem' }}>
+                  DETAILED REVIEWS ({course.reviewCount})
+                </h3>
                 <div className="reviews-list">
                   {mockReviews.map((review) => (
                     <div key={review.id} className="review-card">
@@ -191,8 +208,14 @@ const CourseDetailPage: React.FC = () => {
                           <span className="review-date">{review.date}</span>
                         </div>
                       </div>
+                      <div className="comment-tags">
+                        {review.tags.map((tag) => (
+                          <span key={tag} className="comment-tag">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                       <p className="review-text">{review.text}</p>
-                      <button className="helpful-btn">🔥 Helpful ({review.helpful})</button>
                     </div>
                   ))}
                 </div>
@@ -216,33 +239,20 @@ const CourseDetailPage: React.FC = () => {
               </div>
             )}
 
-            {activeTab === 'comments' && (
-              <div className="comments-content">
-                <h3 className="section-title">TOP COMMENT KEYWORDS</h3>
-                <div className="comment-keywords">
-                  {course.commentHighlights.map((keyword, idx) => (
-                    <span key={keyword} className="keyword-badge">
-                      {keyword} ({32 - idx * 4})
-                    </span>
-                  ))}
-                </div>
-
-                <h3 className="section-title" style={{ marginTop: '2rem' }}>
-                  DETAILED COMMENTS
-                </h3>
-                <div className="detailed-comments">
-                  <div className="comment-card">
-                    <div className="comment-tags">
-                      <span className="comment-tag">Exam Heavy</span>
-                      <span className="comment-tag">Challenging Projects</span>
-                      <span className="comment-tag">Great Professor</span>
-                    </div>
-                    <p className="comment-text">
-                      "The exams are really tough and require deep understanding of the concepts. Projects take a lot of time but Dr. Bolton's lectures
-                      prepare you well. Office hours are a lifesaver."
-                    </p>
-                    <div className="comment-meta">Fall 2025 • Anonymous</div>
+            {activeTab === 'breakdown' && (
+              <div className="breakdown-content">
+                <h3 className="section-title">GRADE BREAKDOWN</h3>
+                <div className="grade-breakdown-table">
+                  <div className="breakdown-header">
+                    <div className="breakdown-col">Requirements</div>
+                    <div className="breakdown-col">Grade %</div>
                   </div>
+                  {course.gradeBreakdown.map((item, idx) => (
+                    <div key={idx} className="breakdown-row">
+                      <div className="breakdown-col">{item.name}</div>
+                      <div className="breakdown-col">{item.percentage}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
@@ -253,15 +263,15 @@ const CourseDetailPage: React.FC = () => {
             <h3 className="sidebar-title">QUICK STATS</h3>
 
             <div className="stat-item">
-              <div className="stat-icon">⏰</div>
+              <div className="stat-icon">⏱️</div>
               <div className="stat-content">
-                <div className="stat-label">Avg. Hours/Week</div>
-                <div className="stat-value">{course.avgHoursWeek}</div>
+                <div className="stat-label">Avg Hours/Week</div>
+                <div className="stat-value">{course.avgHoursPerWeek} hrs</div>
               </div>
             </div>
 
             <div className="stat-item">
-              <div className="stat-icon">💪</div>
+              <div className="stat-icon">📊</div>
               <div className="stat-content">
                 <div className="stat-label">Difficulty</div>
                 <div className="stat-value">{course.difficulty}</div>
@@ -269,7 +279,7 @@ const CourseDetailPage: React.FC = () => {
             </div>
 
             <div className="stat-item">
-              <div className="stat-icon">🔁</div>
+              <div className="stat-icon">🔄</div>
               <div className="stat-content">
                 <div className="stat-label">Would Take Again</div>
                 <div className="stat-value">{course.wouldTakeAgain}</div>
@@ -277,25 +287,18 @@ const CourseDetailPage: React.FC = () => {
             </div>
 
             <div className="stat-item">
-              <div className="stat-icon">📚</div>
+              <div className="stat-icon">📋</div>
               <div className="stat-content">
-                <div className="stat-label">Grading Style</div>
-                <div className="stat-value">{course.gradingStyle}</div>
+                <div className="stat-label">Attendance Policy</div>
+                <div className="stat-value">{course.attendancePolicy}</div>
               </div>
             </div>
 
-            <div className="grade-distribution-preview">
-              <h4 className="sidebar-title">GRADE DISTRIBUTION</h4>
-              <div className="mini-grade-bars">
-                {Object.entries(course.gradeDistribution)
-                  .slice(0, 2)
-                  .map(([grade, percentage]) => (
-                    <div key={grade} className="mini-grade-row">
-                      <span className="mini-grade-label">{grade}</span>
-                      <div className="mini-grade-bar" style={{ width: `${percentage}%` }}></div>
-                      <span className="mini-grade-value">{percentage}%</span>
-                    </div>
-                  ))}
+            <div className="stat-item">
+              <div className="stat-icon">🚫</div>
+              <div className="stat-content">
+                <div className="stat-label">Absences Allowed</div>
+                <div className="stat-value">{course.absencesAllowed}</div>
               </div>
             </div>
           </div>

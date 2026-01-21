@@ -22,7 +22,6 @@ interface GradingItem {
 }
 
 const FeedbackPage: React.FC = () => {
-  const [currentStep, setCurrentStep] = useState(1);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     overallRating: 0,
@@ -31,6 +30,8 @@ const FeedbackPage: React.FC = () => {
     wouldTakeAgain: '',
     workloadTypes: [] as string[],
     firstWord: '',
+    attendancePolicy: '',
+    absencesAllowed: 0,
     grade: '',
     gradingBreakdown: [] as GradingItem[],
     syllabus: null as File | null,
@@ -73,17 +74,16 @@ const FeedbackPage: React.FC = () => {
     ));
   };
 
-  if (currentStep === 1) {
-    return (
-      <div className="feedback-page">
-        <Navbar />
-        <div className="feedback-container">
-          <div className="feedback-header">
-            <h1 className="feedback-title">Submit Course Feedback</h1>
-            <p className="feedback-subtitle">Help your fellow students by sharing your experience</p>
-          </div>
+  return (
+    <div className="feedback-page">
+      <Navbar />
+      <div className="feedback-container">
+        <div className="feedback-header">
+          <h1 className="feedback-title">Submit Course Feedback</h1>
+          <p className="feedback-subtitle">Help your fellow students by sharing your experience</p>
+        </div>
 
-          <div className="feedback-form">
+        <div className="feedback-form">
             {/* Question 1: Select Course */}
             <div className="form-section">
               <label className="form-label">
@@ -207,28 +207,6 @@ const FeedbackPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="form-actions">
-              <button className="next-btn" onClick={() => setCurrentStep(2)}>
-                Next →
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Step 2
-  return (
-    <div className="feedback-page">
-      <Navbar />
-      <div className="feedback-container">
-        <div className="feedback-header">
-          <h1 className="feedback-title">Submit Course Feedback</h1>
-          <p className="feedback-subtitle">CS 2201: Program Design & Data Structures</p>
-        </div>
-
-        <div className="feedback-form">
           {/* Question 7: First Word */}
           <div className="form-section">
             <label className="form-label">
@@ -245,11 +223,40 @@ const FeedbackPage: React.FC = () => {
             />
           </div>
 
-          {/* Question 8: Grade */}
+          {/* Question 8: Attendance */}
           <div className="form-section">
             <label className="form-label">
               <span className="section-number">8</span>
-              What grade did you get?<span className="required">*</span>
+              What was the attendance policy?<span className="required">*</span>
+            </label>
+            <p className="form-description">Select the attendance policy and number of absences allowed</p>
+            <div className="options-grid two-col" style={{ marginBottom: '1rem' }}>
+              {['Flexible', 'Strict'].map((policy) => (
+                <div
+                  key={policy}
+                  className={`option-card ${formData.attendancePolicy === policy ? 'selected' : ''}`}
+                  onClick={() => setFormData({ ...formData, attendancePolicy: policy })}
+                >
+                  {policy}
+                </div>
+              ))}
+            </div>
+            <label className="form-sublabel">Number of absences allowed before points deducted:</label>
+            <input
+              type="number"
+              className="text-input"
+              placeholder="e.g., 3"
+              min="0"
+              value={formData.absencesAllowed || ''}
+              onChange={(e) => setFormData({ ...formData, absencesAllowed: parseInt(e.target.value) || 0 })}
+            />
+          </div>
+
+          {/* Question 9: Grade */}
+          <div className="form-section">
+            <label className="form-label">
+              <span className="section-number">9</span>
+              What grade did you get? <span className="optional">(Optional)</span>
             </label>
             <div className="grade-grid">
               {['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D', 'F'].map((grade) => (
@@ -264,11 +271,11 @@ const FeedbackPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Question 9: Grading Breakdown (Optional) */}
+          {/* Question 10: Grading Breakdown */}
           <div className="form-section">
             <label className="form-label">
-              <span className="section-number">9</span>
-              What was the grading breakdown? <span className="optional">(Optional)</span>
+              <span className="section-number">10</span>
+              What was the grading breakdown?<span className="required">*</span>
             </label>
             <p className="form-description">Share how grades were calculated (e.g., exams, papers, projects, participation)</p>
             <div className="grading-breakdown">
@@ -293,11 +300,11 @@ const FeedbackPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Question 10: Syllabus Upload (Optional) */}
+          {/* Question 11: Syllabus Upload */}
           <div className="form-section">
             <label className="form-label">
-              <span className="section-number">10</span>
-              Submit a copy of the syllabus <span className="optional">(Optional)</span>
+              <span className="section-number">11</span>
+              Submit a copy of the syllabus<span className="required">*</span>
             </label>
             <p className="form-description">Help future students by uploading the course syllabus (PDF format preferred)</p>
             <div className="file-upload">
@@ -311,10 +318,10 @@ const FeedbackPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Question 11: Overall Comments */}
+          {/* Question 12: Overall Comments */}
           <div className="form-section">
             <label className="form-label">
-              <span className="section-number">11</span>
+              <span className="section-number">12</span>
               Overall Comments<span className="required">*</span>
             </label>
             <p className="form-description">Share your overall thoughts about this course. What should future students know?</p>
@@ -328,9 +335,6 @@ const FeedbackPage: React.FC = () => {
           </div>
 
           <div className="form-actions">
-            <button className="back-btn" onClick={() => setCurrentStep(1)}>
-              ← Back
-            </button>
             <button className="submit-btn" onClick={handleSubmit}>
               Submit Feedback
             </button>

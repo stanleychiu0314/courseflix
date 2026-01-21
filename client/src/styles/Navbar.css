@@ -10,7 +10,7 @@
 .navbar-content {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 0.75rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,27 +26,27 @@
 }
 
 .logo {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: #C4B084;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   color: #1a1a1a;
 }
 
 .brand-name {
   color: #C4B084;
-  font-size: 28px;
+  font-size: 22px;
   font-weight: bold;
 }
 
 .brand-subtitle {
   color: #999;
-  font-size: 12px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 2px;
 }
@@ -59,12 +59,13 @@
 }
 
 .nav-link {
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1rem;
   color: #fff;
   text-decoration: none;
   border-radius: 8px;
   transition: all 0.3s;
   font-weight: 500;
+  font-size: 14px;
   white-space: nowrap;
 }
 
@@ -92,8 +93,8 @@
 }
 
 .user-avatar {
-  width: 45px;
-  height: 45px;
+  width: 38px;
+  height: 38px;
   background: #C4B084;
   border-radius: 50%;
   display: flex;
