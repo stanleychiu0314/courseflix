@@ -33,7 +33,7 @@ const CourseDetailPage: React.FC = () => {
   const course = {
     code: 'CS 2201',
     credits: 3,
-    enrolled: '42/50 Enrolled',
+    maxSeats: 50,
     name: 'Program Design & Data Structures',
     professor: 'Dr. Jeremy Bolton',
     schedule: 'MWF 10:10-11:00a',
@@ -116,7 +116,7 @@ const CourseDetailPage: React.FC = () => {
             <div className="course-badges">
               <span className="badge badge-code">{course.code}</span>
               <span className="badge badge-credits">{course.credits} Credits</span>
-              <span className="badge badge-enrolled">{course.enrolled}</span>
+              <span className="badge badge-enrolled">{course.maxSeats} Max Seats</span>
             </div>
             <h1 className="course-name">{course.name}</h1>
             <div className="course-info-row">

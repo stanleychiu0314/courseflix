@@ -46,6 +46,8 @@
   border-radius: 8px;
   font-size: 15px;
   transition: border-color 0.3s;
+  height: 48px;
+  box-sizing: border-box;
 }
 
 .search-input:focus {
@@ -63,6 +65,8 @@
   cursor: pointer;
   transition: border-color 0.3s;
   min-width: 150px;
+  height: 48px;
+  box-sizing: border-box;
 }
 
 .semester-select:focus,
@@ -240,17 +244,17 @@
   font-weight: 600;
 }
 
-.meta-badge.high-effort {
+.meta-badge.hard {
   background: rgba(220, 53, 69, 0.1);
   color: #dc3545;
 }
 
-.meta-badge.medium-effort {
+.meta-badge.time-consuming {
   background: rgba(255, 193, 7, 0.1);
   color: #ffa000;
 }
 
-.meta-badge.low-effort {
+.meta-badge.easy {
   background: rgba(40, 167, 69, 0.1);
   color: #28a745;
 }

@@ -28,7 +28,7 @@ interface Course {
   effortLevel: number;
   classSize: string;
   rating: number;
-  effortLabel: string;
+  difficulty: string;
   tags: string[];
 }
 
@@ -52,9 +52,9 @@ const CoursesPage: React.FC = () => {
       location: 'FGH 134',
       avgHoursWeek: 8.5,
       effortLevel: 4.2,
-      classSize: '42/45',
+      classSize: '45',
       rating: 4.2,
-      effortLabel: 'High Effort',
+      difficulty: 'Hard',
       tags: ['Exam Heavy', 'Project Heavy', 'Discussion-based'],
     },
     {
@@ -66,9 +66,9 @@ const CoursesPage: React.FC = () => {
       location: 'Calhoun 109',
       avgHoursWeek: 4.2,
       effortLevel: 3.1,
-      classSize: '98/120',
+      classSize: '120',
       rating: 4.6,
-      effortLabel: 'Medium Effort',
+      difficulty: 'Time Consuming',
       tags: ['Exam Heavy', 'Papers'],
     },
     {
@@ -80,9 +80,9 @@ const CoursesPage: React.FC = () => {
       location: 'Stevenson 3210',
       avgHoursWeek: 3.5,
       effortLevel: 2.3,
-      classSize: '23/25',
+      classSize: '25',
       rating: 4.8,
-      effortLabel: 'Low Effort',
+      difficulty: 'Easy',
       tags: ['Discussion-based', 'Papers'],
     },
   ];
@@ -217,8 +217,8 @@ const CoursesPage: React.FC = () => {
                     <span className="meta-item">👤 {course.professor}</span>
                     <span className="meta-item">📅 {course.schedule}</span>
                     <span className="meta-item">📍 {course.location}</span>
-                    <span className={`meta-badge ${course.effortLabel.replace(' ', '-').toLowerCase()}`}>
-                      {course.effortLabel}
+                    <span className={`meta-badge ${course.difficulty.replace(' ', '-').toLowerCase()}`}>
+                      {course.difficulty}
                     </span>
                   </div>
                   <div className="course-tags">
