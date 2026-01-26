@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: courseflix-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-courseflix}
+      POSTGRES_USER: ${POSTGRES_USER:-courseflix}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-courseflix}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - courseflix_db:/var/lib/postgresql/data
+      - ./db/schemav2.sql:/docker-entrypoint-initdb.d/01_schemav2.sql:ro
+
+volumes:
+  courseflix_db:
