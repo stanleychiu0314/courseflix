@@ -1,6 +1,8 @@
 -- PostgreSQL schema for course + instructor + student feedback (OpenDore-style)
 -- Safe to run as a migration (create tables only). Adjust names/types as you like.
 
+USE courseflix;
+
 BEGIN;
 
 -- =========================
