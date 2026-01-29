@@ -179,14 +179,13 @@ CREATE TABLE IF NOT EXISTS section_instructors (
     PRIMARY KEY (course_section_id, professor_id)
 );
 
--- Meeting patterns for sections (replaces schedule_days/start/end/location)
+-- Meeting patterns for sections (replaces schedule_days/start/end)
 CREATE TABLE IF NOT EXISTS section_meetings (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     course_section_id UUID NOT NULL REFERENCES course_sections(id) ON DELETE CASCADE,
     day day_of_week_type NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
-    location VARCHAR(100),
     meeting_type VARCHAR(30), -- lecture/lab/recitation
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
