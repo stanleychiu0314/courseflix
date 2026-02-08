@@ -1,17 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import '../styles/SchedulePage.css';
 
-/**
- * SchedulePage Component
- *
- * Displays user's schedule in a calendar view with cart courses.
- *
- * Backend Integration:
- * - Fetch cart courses: GET /api/users/:userId/cart?semester={semester}
- * - Remove from cart: DELETE /api/users/:userId/cart/:courseId
- * - Export schedule: GET /api/users/:userId/schedule/export?format={pdf|ics}&semester={semester}
- */
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 interface ScheduleCourse {
   id: string;
@@ -24,74 +15,90 @@ interface ScheduleCourse {
   color: string;
 }
 
+interface Term {
+  id: string;
+  label: string;
+}
+
 const SchedulePage: React.FC = () => {
   const [selectedSemester, setSelectedSemester] = useState('Spring 2026');
+  const [cartCourses, setCartCourses] = useState<ScheduleCourse[]>([]);
+  const [terms, setTerms] = useState<Term[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const semesters = ['Fall 2025', 'Spring 2026', 'Summer 2026', 'Fall 2026'];
+  // For now, we'll use a placeholder userId since auth isn't implemented
+  // In production, this would come from an auth context
+  const userId = localStorage.getItem('userId') || null;
 
-  // TODO: Replace with actual API call to fetch user's cart courses
-  const cartCourses: ScheduleCourse[] = [
-    {
-      id: '1',
-      code: 'CS 2201',
-      name: 'Program Design',
-      professor: 'Dr. Bolton',
-      day: 'MWF',
-      startTime: '10:00',
-      endTime: '11:00',
-      color: '#8B7FD9',
-    },
-    {
-      id: '2',
-      code: 'ECON 1010',
-      name: 'Principles of Ma...',
-      professor: 'Dr. Chen',
-      day: 'TTh',
-      startTime: '11:00',
-      endTime: '12:15',
-      color: '#5FD9A8',
-    },
-    {
-      id: '3',
-      code: 'PHIL 1500',
-      name: 'Ethics & Modern...',
-      professor: 'Dr. Webb',
-      day: 'MWF',
-      startTime: '13:00',
-      endTime: '14:00',
-      color: '#D9A25F',
-    },
-    {
-      id: '4',
-      code: 'MATH 2300',
-      name: 'Multivariable Ca...',
-      professor: 'Dr. Park',
-      day: 'MWF',
-      startTime: '14:00',
-      endTime: '15:00',
-      color: '#D95F5F',
-    },
-    {
-      id: '5',
-      code: 'PSYC 1200',
-      name: 'Psychology',
-      professor: 'Dr. Lee',
-      day: 'MWF',
-      startTime: '16:00',
-      endTime: '17:00',
-      color: '#F9D66D',
-    },
-    {
-      id: '6',
-      code: 'ASTR 1010',
-      name: 'Astronomy',
-      professor: 'Dr. Miller',
-      day: 'TTh',
-      startTime: '09:35',
-      endTime: '10:50',
-      color: '#A9D9F9',
-    },
-  ];
+  // Fetch terms on mount
+  useEffect(() => {
+    const fetchTerms = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/terms`);
+        if (response.ok) {
+          const data = await response.json();
+          setTerms(data);
+          if (data.length > 0) {
+            setSelectedSemester(data[0].label);
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching terms:', err);
+      }
+    };
+
+    fetchTerms();
+  }, []);
+
+  // Fetch schedule courses when semester changes
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      setLoading(true);
+
+      // If no userId, show empty schedule (user not logged in)
+      if (!userId) {
+        setCartCourses([]);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const params = new URLSearchParams();
+        params.append('term', selectedSemester);
+        params.append('userId', userId);
+
+        const response = await fetch(`${API_BASE_URL}/api/schedule?${params.toString()}`);
+        if (response.ok) {
+          const data = await response.json();
+          setCartCourses(data);
+        }
+      } catch (err) {
+        console.error('Error fetching schedule:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSchedule();
+  }, [selectedSemester, userId]);
+
+  const handleRemoveCourse = async (sectionId: string) => {
+    if (!userId) return;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/schedule/${sectionId}?userId=${userId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setCartCourses(cartCourses.filter(c => c.id !== sectionId));
+      }
+    } catch (err) {
+      console.error('Error removing course:', err);
+    }
+  };
+
+  const semesters = terms.length > 0 ? terms.map(t => t.label) : ['Fall 2025', 'Spring 2026', 'Summer 2026', 'Fall 2026'];
 
   const timeSlots = [
     '8:00 AM',
@@ -200,13 +207,19 @@ const SchedulePage: React.FC = () => {
           {/* Sidebar - Cart Courses */}
           <div className="courses-sidebar">
             <div className="sidebar-section">
-              <h3 className="sidebar-title">🛒 IN CART ({cartCourses.length})</h3>
+              <h3 className="sidebar-title">
+                🛒 IN CART ({loading ? '...' : cartCourses.length})
+              </h3>
               <div className="course-list">
                 {cartCourses.map((course) => (
                   <div key={course.id} className="sidebar-course-card" style={{ borderLeftColor: course.color }}>
                     <div className="sidebar-course-header">
                       <span className="sidebar-course-code">{course.code}</span>
-                      <button className="remove-btn" title="Remove course">
+                      <button
+                        className="remove-btn"
+                        title="Remove course"
+                        onClick={() => handleRemoveCourse(course.id)}
+                      >
                         ×
                       </button>
                     </div>

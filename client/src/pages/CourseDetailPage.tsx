@@ -1,19 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../styles/CourseDetailPage.css';
 
-/**
- * CourseDetailPage Component
- *
- * Detailed view of a single course with tabs for Overview, Reviews, and Grade Distribution.
- *
- * Backend Integration:
- * - Fetch course details: GET /api/courses/:id
- * - Fetch reviews: GET /api/courses/:id/reviews
- * - Fetch grade distribution: GET /api/courses/:id/grades
- * - Add to cart: POST /api/cart with { courseId, userId }
- */
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 interface Review {
   id: string;
@@ -23,71 +13,80 @@ interface Review {
   text: string;
   date: string;
   tags: string[];
+  helpfulCount?: number;
+}
+
+interface GradeBreakdownItem {
+  name: string;
+  percentage: number;
+}
+
+interface CourseDetails {
+  id: string;
+  code: string;
+  credits: number;
+  maxSeats: number;
+  name: string;
+  professor: string;
+  schedule: string;
+  location: string;
+  rating: number;
+  reviewCount: number;
+  description: string;
+  prerequisites: string | null;
+  commentHighlights: string[];
+  gradeDistribution: Record<string, number>;
+  gradeBreakdown: GradeBreakdownItem[];
+  avgHoursPerWeek: number;
+  difficulty: string;
+  wouldTakeAgain: string;
+  attendancePolicy: string;
+  absencesAllowed: number;
+  departmentCode?: string;
+  departmentName?: string;
 }
 
 const CourseDetailPage: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
   const [activeTab, setActiveTab] = useState('overview');
+  const [course, setCourse] = useState<CourseDetails | null>(null);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // TODO: Replace with actual API call to fetch course details
-  const course = {
-    code: 'CS 2201',
-    credits: 3,
-    maxSeats: 50,
-    name: 'Program Design & Data Structures',
-    professor: 'Dr. Jeremy Bolton',
-    schedule: 'MWF 10:10-11:00a',
-    location: 'FGH 134',
-    rating: 4.2,
-    reviewCount: 47,
-    description:
-      'Introduction to algorithms and data structures including lists, stacks, queues, trees, and graphs. Emphasis on programming techniques including recursion, sorting, searching, and hashing. Laboratory exercises in C++.',
-    prerequisites: ['CS 1101', 'MATH 1300'],
-    commentHighlights: ['Exam Heavy', 'Challenging Projects', 'Helpful Office Hours', 'Great Professor', 'Time-Consuming'],
-    gradeDistribution: {
-      A: 35,
-      'A-': 20,
-      'B+': 18,
-      B: 12,
-      'B-': 8,
-      'C+': 4,
-      C: 2,
-      'C-': 1,
-    },
-    gradeBreakdown: [
-      { name: 'Midterm Exam', percentage: 25 },
-      { name: 'Final Exam', percentage: 25 },
-      { name: 'Programming Projects', percentage: 30 },
-      { name: 'Lab Assignments', percentage: 15 },
-      { name: 'Class Participation', percentage: 5 },
-    ],
-    avgHoursPerWeek: 8.5,
-    difficulty: '4/5',
-    wouldTakeAgain: '85%',
-    attendancePolicy: 'Flexible',
-    absencesAllowed: 3,
-  };
+  useEffect(() => {
+    const fetchCourseData = async () => {
+      if (!courseId) return;
 
-  const mockReviews: Review[] = [
-    {
-      id: '1',
-      rating: 5,
-      difficulty: '5/5',
-      grade: 'A',
-      text: "Dr. Bolton is an excellent lecturer who really cares about student understanding. The projects are challenging but you learn so much. Office hours are super helpful.",
-      date: 'Fall 2025 • 2 weeks ago',
-      tags: ['Exam Heavy', 'Challenging Projects', 'Great Professor'],
-    },
-    {
-      id: '2',
-      rating: 4,
-      difficulty: '4/5',
-      grade: 'A-',
-      text: 'Very well-structured course. The exams are tough but fair. Make sure to start projects early and attend recitation sections. The TAs are really knowledgeable.',
-      date: 'Fall 2025 • 3 weeks ago',
-      tags: ['Exam Heavy', 'Time-Consuming', 'Helpful Office Hours'],
-    },
-  ];
+      setLoading(true);
+      setError(null);
+
+      try {
+        const [courseRes, reviewsRes] = await Promise.all([
+          fetch(`${API_BASE_URL}/api/courses/${courseId}`),
+          fetch(`${API_BASE_URL}/api/courses/${courseId}/reviews`)
+        ]);
+
+        if (!courseRes.ok) {
+          throw new Error('Course not found');
+        }
+
+        const courseData = await courseRes.json();
+        setCourse(courseData);
+
+        if (reviewsRes.ok) {
+          const reviewsData = await reviewsRes.json();
+          setReviews(reviewsData);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load course');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourseData();
+  }, [courseId]);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -97,6 +96,27 @@ const CourseDetailPage: React.FC = () => {
     ));
   };
 
+  if (loading) {
+    return (
+      <div className="course-detail-page">
+        <Navbar />
+        <div className="loading-container">Loading course details...</div>
+      </div>
+    );
+  }
+
+  if (error || !course) {
+    return (
+      <div className="course-detail-page">
+        <Navbar />
+        <div className="error-container">
+          <p>{error || 'Course not found'}</p>
+          <Link to="/courses">Back to Courses</Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="course-detail-page">
       <Navbar />
@@ -104,7 +124,7 @@ const CourseDetailPage: React.FC = () => {
       <div className="breadcrumb">
         <Link to="/courses">Courses</Link>
         <span> › </span>
-        <Link to="/courses?dept=cs">Computer Science</Link>
+        <Link to={`/courses?department=${course.departmentCode}`}>{course.departmentCode}</Link>
         <span> › </span>
         <span>{course.code}</span>
       </div>
@@ -126,9 +146,9 @@ const CourseDetailPage: React.FC = () => {
             </div>
           </div>
           <div className="course-header-rating">
-            <div className="rating-large">{course.rating}</div>
-            <div className="stars-large">{renderStars(Math.round(course.rating))}</div>
-            <div className="review-count">({course.reviewCount} reviews)</div>
+            <div className="rating-large">{course.rating || 0}</div>
+            <div className="stars-large">{renderStars(Math.round(course.rating || 0))}</div>
+            <div className="review-count">({course.reviewCount || 0} reviews)</div>
             <button className="add-to-cart-btn">🛒 Add to Cart</button>
           </div>
         </div>
@@ -156,28 +176,30 @@ const CourseDetailPage: React.FC = () => {
               <div className="overview-content">
                 <div className="section">
                   <h3 className="section-title">COURSE DESCRIPTION</h3>
-                  <p className="description-text">{course.description}</p>
+                  <p className="description-text">{course.description || 'No description available.'}</p>
                 </div>
 
                 <div className="section">
                   <h3 className="section-title">PREREQUISITES</h3>
                   <div className="prerequisites">
-                    {course.prerequisites.map((prereq) => (
-                      <span key={prereq} className="prerequisite-badge">
-                        {prereq}
-                      </span>
-                    ))}
+                    <span className={course.prerequisites ? "prerequisite-text" : "no-prereqs"}>
+                      {course.prerequisites || 'None'}
+                    </span>
                   </div>
                 </div>
 
                 <div className="section">
                   <h3 className="section-title">COMMENT HIGHLIGHTS</h3>
                   <div className="comment-highlights">
-                    {course.commentHighlights.map((highlight) => (
-                      <span key={highlight} className="highlight-badge">
-                        {highlight}
-                      </span>
-                    ))}
+                    {course.commentHighlights && course.commentHighlights.length > 0 ? (
+                      course.commentHighlights.map((highlight: string) => (
+                        <span key={highlight} className="highlight-badge">
+                          {highlight}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="no-highlights">No highlights yet</span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -187,7 +209,7 @@ const CourseDetailPage: React.FC = () => {
               <div className="reviews-content">
                 <h3 className="section-title">TOP COMMENT KEYWORDS</h3>
                 <div className="comment-keywords">
-                  {course.commentHighlights.map((keyword, idx) => (
+                  {course.commentHighlights && course.commentHighlights.map((keyword: string, idx: number) => (
                     <span key={keyword} className="keyword-badge">
                       {keyword} ({32 - idx * 4})
                     </span>
@@ -195,29 +217,33 @@ const CourseDetailPage: React.FC = () => {
                 </div>
 
                 <h3 className="section-title" style={{ marginTop: '2rem' }}>
-                  DETAILED REVIEWS ({course.reviewCount})
+                  DETAILED REVIEWS ({reviews.length})
                 </h3>
                 <div className="reviews-list">
-                  {mockReviews.map((review) => (
-                    <div key={review.id} className="review-card">
-                      <div className="review-header">
-                        <div className="review-stars">{renderStars(review.rating)}</div>
-                        <div className="review-meta">
-                          <span className="review-badge difficulty">Difficulty: {review.difficulty}</span>
-                          <span className="review-badge grade">Grade: {review.grade}</span>
-                          <span className="review-date">{review.date}</span>
+                  {reviews.length === 0 ? (
+                    <p className="no-reviews">No reviews yet. Be the first to review this course!</p>
+                  ) : (
+                    reviews.map((review: Review) => (
+                      <div key={review.id} className="review-card">
+                        <div className="review-header">
+                          <div className="review-stars">{renderStars(review.rating)}</div>
+                          <div className="review-meta">
+                            <span className="review-badge difficulty">Difficulty: {review.difficulty}</span>
+                            <span className="review-badge grade">Grade: {review.grade}</span>
+                            <span className="review-date">{review.date}</span>
+                          </div>
                         </div>
+                        <div className="comment-tags">
+                          {review.tags?.map((tag: string) => (
+                            <span key={tag} className="comment-tag">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <p className="review-text">{review.text}</p>
                       </div>
-                      <div className="comment-tags">
-                        {review.tags.map((tag) => (
-                          <span key={tag} className="comment-tag">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      <p className="review-text">{review.text}</p>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </div>
             )}
@@ -226,15 +252,19 @@ const CourseDetailPage: React.FC = () => {
               <div className="grades-content">
                 <h3 className="section-title">GRADE DISTRIBUTION - ALL SECTIONS</h3>
                 <div className="grade-bars">
-                  {Object.entries(course.gradeDistribution).map(([grade, percentage]) => (
-                    <div key={grade} className="grade-row">
-                      <div className="grade-label">{grade}</div>
-                      <div className="grade-bar-container">
-                        <div className="grade-bar" style={{ width: `${percentage}%` }}></div>
+                  {course.gradeDistribution && Object.keys(course.gradeDistribution).length > 0 ? (
+                    Object.entries(course.gradeDistribution).map(([grade, percentage]) => (
+                      <div key={grade} className="grade-row">
+                        <div className="grade-label">{grade}</div>
+                        <div className="grade-bar-container">
+                          <div className="grade-bar" style={{ width: `${percentage}%` }}></div>
+                        </div>
+                        <div className="grade-percentage">{percentage}%</div>
                       </div>
-                      <div className="grade-percentage">{percentage}%</div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <p className="no-data">No grade distribution data available.</p>
+                  )}
                 </div>
               </div>
             )}
@@ -247,12 +277,16 @@ const CourseDetailPage: React.FC = () => {
                     <div className="breakdown-col">Requirements</div>
                     <div className="breakdown-col">Grade %</div>
                   </div>
-                  {course.gradeBreakdown.map((item, idx) => (
-                    <div key={idx} className="breakdown-row">
-                      <div className="breakdown-col">{item.name}</div>
-                      <div className="breakdown-col">{item.percentage}</div>
-                    </div>
-                  ))}
+                  {course.gradeBreakdown && course.gradeBreakdown.length > 0 ? (
+                    course.gradeBreakdown.map((item: GradeBreakdownItem, idx: number) => (
+                      <div key={idx} className="breakdown-row">
+                        <div className="breakdown-col">{item.name}</div>
+                        <div className="breakdown-col">{item.percentage}</div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="no-data">No grade breakdown data available.</p>
+                  )}
                 </div>
               </div>
             )}
@@ -266,7 +300,7 @@ const CourseDetailPage: React.FC = () => {
               <div className="stat-icon">⏱️</div>
               <div className="stat-content">
                 <div className="stat-label">Avg Hours/Week</div>
-                <div className="stat-value">{course.avgHoursPerWeek} hrs</div>
+                <div className="stat-value">{course.avgHoursPerWeek || 0} hrs</div>
               </div>
             </div>
 
@@ -274,7 +308,7 @@ const CourseDetailPage: React.FC = () => {
               <div className="stat-icon">📊</div>
               <div className="stat-content">
                 <div className="stat-label">Difficulty</div>
-                <div className="stat-value">{course.difficulty}</div>
+                <div className="stat-value">{course.difficulty || 'N/A'}</div>
               </div>
             </div>
 
@@ -282,7 +316,7 @@ const CourseDetailPage: React.FC = () => {
               <div className="stat-icon">🔄</div>
               <div className="stat-content">
                 <div className="stat-label">Would Take Again</div>
-                <div className="stat-value">{course.wouldTakeAgain}</div>
+                <div className="stat-value">{course.wouldTakeAgain || 'N/A'}</div>
               </div>
             </div>
 
@@ -290,7 +324,7 @@ const CourseDetailPage: React.FC = () => {
               <div className="stat-icon">📋</div>
               <div className="stat-content">
                 <div className="stat-label">Attendance Policy</div>
-                <div className="stat-value">{course.attendancePolicy}</div>
+                <div className="stat-value">{course.attendancePolicy || 'N/A'}</div>
               </div>
             </div>
 
@@ -298,7 +332,7 @@ const CourseDetailPage: React.FC = () => {
               <div className="stat-icon">🚫</div>
               <div className="stat-content">
                 <div className="stat-label">Absences Allowed</div>
-                <div className="stat-value">{course.absencesAllowed}</div>
+                <div className="stat-value">{course.absencesAllowed || 0}</div>
               </div>
             </div>
           </div>

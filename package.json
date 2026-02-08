@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "http-errors": "^2.0.1",
-    "pg": "^8.17.2"
+    "pg": "^8.18.0"
   }
 }
