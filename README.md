@@ -81,6 +81,9 @@ The backend runs on http://localhost:3000 and provides the following API endpoin
 - `GET /api/departments` - List all departments
 - `GET /api/terms` - List all terms
 - `GET /api/schedule` - Get user schedule
+- `POST /api/auth/microsoft/login` - Microsoft login (expects `{ idToken }`)
+- `GET /api/auth/me` - Current session
+- `POST /api/auth/logout` - Clear session
 
 ### 3. Frontend (React + Vite)
 

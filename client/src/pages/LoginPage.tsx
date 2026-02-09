@@ -1,127 +1,135 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PublicClientApplication } from '@azure/msal-browser';
 import '../styles/LoginPage.css';
-
-/**
- * LoginPage Component
- *
- * Authentication page with email/password and OAuth options.
- *
- * Backend Integration:
- * - Email/Password login: POST /api/auth/login with { email, password }
- * - Google OAuth: GET /api/auth/google (redirect to Google OAuth)
- * - GitHub OAuth: GET /api/auth/github (redirect to GitHub OAuth)
- * - Sign up: POST /api/auth/signup with { email, password, name }
- * - Store JWT token in localStorage/cookies after successful authentication
- * - Redirect to /courses after successful login
- */
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [msalReady, setMsalReady] = useState(false);
 
-  const handleEmailLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Implement email/password login
-    console.log('Email login:', { email, password });
-    // After successful login, navigate to courses
-    navigate('/courses');
-  };
+  const msalInstance = useMemo(() => {
+    const clientId = import.meta.env.VITE_MICROSOFT_CLIENT_ID as string | undefined;
+    const redirectUri = (import.meta.env.VITE_MICROSOFT_REDIRECT_URI as string | undefined)
+      || `${window.location.origin}/login`;
 
-  const handleGoogleLogin = () => {
-    // TODO: Redirect to Google OAuth
-    console.log('Google login');
-    window.location.href = '/api/auth/google';
-  };
+    if (!clientId) {
+      return null;
+    }
 
-  const handleGitHubLogin = () => {
-    // TODO: Redirect to GitHub OAuth
-    console.log('GitHub login');
-    window.location.href = '/api/auth/github';
+    return new PublicClientApplication({
+      auth: {
+        clientId,
+        authority: 'https://login.microsoftonline.com/common',
+        redirectUri,
+      },
+      cache: {
+        cacheLocation: 'localStorage',
+      },
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!msalInstance) {
+      setErrorMessage('Missing VITE_MICROSOFT_CLIENT_ID in the frontend environment.');
+      return;
+    }
+
+    let mounted = true;
+
+    (async () => {
+      try {
+        await msalInstance.initialize();
+        const result = await msalInstance.handleRedirectPromise();
+        if (result?.idToken) {
+          const response = await fetch('/api/auth/microsoft/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ idToken: result.idToken }),
+          });
+
+          if (!response.ok) {
+            const data = await response.json().catch(() => ({}));
+            throw new Error(data.message || 'Login failed');
+          }
+
+          navigate('/courses');
+          return;
+        }
+        if (mounted) {
+          setMsalReady(true);
+        }
+      } catch (error) {
+        console.error('Microsoft redirect error', error);
+        if (mounted) {
+          setErrorMessage('Microsoft login failed. Please try again.');
+        }
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, [msalInstance]);
+
+  const handleMicrosoftLogin = async () => {
+    if (!msalInstance) {
+      setErrorMessage('Microsoft login is not configured on this frontend.');
+      return;
+    }
+
+    if (!msalReady) {
+      setErrorMessage('Microsoft login is still initializing. Please try again in a moment.');
+      return;
+    }
+
+    setErrorMessage('');
+    setIsSubmitting(true);
+
+    try {
+      await msalInstance.loginRedirect({
+        scopes: ['openid', 'profile', 'email', 'User.Read'],
+        prompt: 'select_account',
+      });
+    } catch (error) {
+      console.error('Microsoft login error', error);
+      setErrorMessage('Microsoft login failed. Please use a @vanderbilt.edu account.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="login-page">
       <div className="login-container">
-        {/* Logo Section */}
         <div className="login-logo-section">
           <div className="login-logo">V</div>
           <div className="login-brand-name">CourseFlix</div>
           <div className="login-brand-subtitle">VANDERBILT</div>
         </div>
 
-        {/* Login Card */}
         <div className="login-card">
-          <h1 className="login-title">Welcome Back</h1>
-          <p className="login-subtitle">Sign in to continue to CourseFlix</p>
+          <h1 className="login-title">Sign In</h1>
+          <p className="login-subtitle">Use your Vanderbilt Microsoft account to continue.</p>
 
-          {/* OAuth Buttons */}
           <div className="oauth-buttons">
-            <button className="oauth-btn google-btn" onClick={handleGoogleLogin}>
+            <button
+              className="oauth-btn google-btn"
+              onClick={handleMicrosoftLogin}
+              disabled={isSubmitting}
+            >
               <span className="oauth-icon">🔵</span>
-              Continue with Google
-            </button>
-            <button className="oauth-btn github-btn" onClick={handleGitHubLogin}>
-              <span className="oauth-icon">⚫</span>
-              Continue with GitHub
+              {isSubmitting ? 'Signing In...' : 'Continue with Microsoft'}
             </button>
           </div>
 
-          <div className="divider">
-            <span>or</span>
-          </div>
-
-          {/* Email/Password Form */}
-          <form onSubmit={handleEmailLogin} className="login-form">
-            <div className="form-group">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="form-input"
-                placeholder="your.email@vanderbilt.edu"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                className="form-input"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            <button type="submit" className="login-submit-btn">
-              Sign In
-            </button>
-          </form>
-
-          {/* Sign Up Link */}
-          <div className="signup-section">
-            Don't have an account?{' '}
-            <button className="signup-link" onClick={() => setIsSignUp(!isSignUp)}>
-              Sign up
-            </button>
-          </div>
+          {errorMessage && <p className="login-error">{errorMessage}</p>}
         </div>
 
-        {/* Footer */}
         <div className="login-footer">
-          <p>By signing in, you agree to our Terms of Service and Privacy Policy</p>
+          <p>Only Vanderbilt emails are permitted.</p>
         </div>
       </div>
     </div>

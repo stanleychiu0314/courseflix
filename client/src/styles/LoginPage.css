@@ -98,6 +98,13 @@
   background: rgba(196, 176, 132, 0.05);
 }
 
+.oauth-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 .oauth-icon {
   font-size: 20px;
 }
@@ -235,6 +242,14 @@
   color: #999;
   line-height: 1.5;
   margin: 0;
+}
+
+.login-error {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  color: #b42318;
+  font-size: 14px;
+  text-align: center;
 }
 
 /* Responsive Design */

@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var session = require('express-session');
+var pgSession = require('connect-pg-simple')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -11,6 +13,8 @@ var coursesRouter = require('./routes/courses');
 var departmentsRouter = require('./routes/departments');
 var termsRouter = require('./routes/terms');
 var scheduleRouter = require('./routes/schedule');
+var authRouter = require('./routes/auth');
+var db = require('./db');
 
 var app = express();
 
@@ -28,6 +32,24 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.set('trust proxy', 1);
+app.use(session({
+  store: new pgSession({
+    pool: db.pool,
+    tableName: 'user_sessions',
+    createTableIfMissing: true,
+  }),
+  name: 'courseflix.sid',
+  secret: process.env.SESSION_SECRET || 'change-this-in-production',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: Number(process.env.SESSION_MAX_AGE_MS || 7 * 24 * 60 * 60 * 1000),
+  },
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -36,6 +58,7 @@ app.use('/api/courses', coursesRouter);
 app.use('/api/departments', departmentsRouter);
 app.use('/api/terms', termsRouter);
 app.use('/api/schedule', scheduleRouter);
+app.use('/api/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

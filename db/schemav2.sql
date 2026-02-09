@@ -22,7 +22,7 @@ CREATE EXTENSION IF NOT EXISTS "pg_trgm";
 
 -- User authentication provider types
 DO $$ BEGIN
-    CREATE TYPE oauth_provider_type AS ENUM ('google', 'github');
+    CREATE TYPE oauth_provider_type AS ENUM ('google', 'github', 'microsoft');
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- Course attendance policy (section-level)
