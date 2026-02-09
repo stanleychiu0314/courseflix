@@ -110,6 +110,22 @@
   transform: scale(1.05);
 }
 
+.login-btn {
+  padding: 0.5rem 1.25rem;
+  background: #C4B084;
+  color: #1a1a1a;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.login-btn:hover {
+  background: #d4c094;
+  transform: scale(1.02);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .navbar-content {

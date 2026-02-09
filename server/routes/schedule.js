@@ -145,6 +145,36 @@ router.post('/add', async (req, res) => {
 });
 
 /**
+ * GET /api/schedule/count
+ * Get count of courses in user's schedule (cart)
+ */
+router.get('/count', async (req, res) => {
+  try {
+    // Get user from session
+    const userId = req.session?.user?.id;
+
+    if (!userId) {
+      return res.json({ count: 0 });
+    }
+
+    const query = `
+      SELECT COUNT(DISTINCT usi.course_section_id) as count
+      FROM user_schedule_items usi
+      JOIN user_schedules us ON usi.schedule_id = us.id
+      WHERE us.user_id = $1 AND us.is_primary = true
+    `;
+
+    const result = await db.query(query, [userId]);
+    const count = parseInt(result.rows[0]?.count || 0);
+
+    res.json({ count });
+  } catch (err) {
+    console.error('Error fetching schedule count:', err);
+    res.status(500).json({ error: 'Failed to fetch schedule count' });
+  }
+});
+
+/**
  * DELETE /api/schedule/:sectionId
  * Remove a course section from user's schedule
  */

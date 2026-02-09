@@ -1,13 +1,28 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { PublicClientApplication } from '@azure/msal-browser';
+import { useAuth } from '../context/AuthContext';
 import '../styles/LoginPage.css';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login, isAuthenticated } = useAuth();
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [msalReady, setMsalReady] = useState(false);
+
+  // Get the page user was trying to access before being redirected to login
+  const from = (location.state as { from?: { pathname: string } })?.from?.pathname || '/courses';
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, navigate, from]);
 
   const msalInstance = useMemo(() => {
     const clientId = import.meta.env.VITE_MICROSOFT_CLIENT_ID as string | undefined;
@@ -42,27 +57,38 @@ const LoginPage: React.FC = () => {
       try {
         await msalInstance.initialize();
         const result = await msalInstance.handleRedirectPromise();
+        console.log('[Auth] MSAL redirect result:', result ? 'Got token' : 'No token');
         if (result?.idToken) {
-          const response = await fetch('/api/auth/microsoft/login', {
+          console.log('[Auth] Sending idToken to backend...');
+          const response = await fetch(`${API_BASE_URL}/api/auth/microsoft/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
             body: JSON.stringify({ idToken: result.idToken }),
           });
 
+          console.log('[Auth] Backend response status:', response.status);
           if (!response.ok) {
             const data = await response.json().catch(() => ({}));
+            console.error('[Auth] Backend error:', data);
             throw new Error(data.message || 'Login failed');
           }
 
-          navigate('/courses');
+          const data = await response.json();
+          console.log('[Auth] Backend success, user:', data.user);
+          if (data.user) {
+            login(data.user);
+            console.log('[Auth] Called login(), navigating to:', from);
+          }
+
+          navigate(from, { replace: true });
           return;
         }
         if (mounted) {
           setMsalReady(true);
         }
       } catch (error) {
-        console.error('Microsoft redirect error', error);
+        console.error('[Auth] Microsoft redirect error', error);
         if (mounted) {
           setErrorMessage('Microsoft login failed. Please try again.');
         }
@@ -72,7 +98,7 @@ const LoginPage: React.FC = () => {
     return () => {
       mounted = false;
     };
-  }, [msalInstance]);
+  }, [msalInstance, login, from, navigate]);
 
   const handleMicrosoftLogin = async () => {
     if (!msalInstance) {

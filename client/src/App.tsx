@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import CoursesPage from './pages/CoursesPage';
 import CourseDetailPage from './pages/CourseDetailPage';
 import SchedulePage from './pages/SchedulePage';
@@ -11,59 +13,71 @@ import AboutPage from './pages/AboutPage';
  * App Component
  *
  * Main application component with routing configuration.
- *
- * Routes:
- * - / - Redirects to /courses
- * - /login - Login/authentication page
- * - /courses - Course listing page
- * - /course/:courseId - Individual course detail page
- * - /schedule - User's schedule page
- * - /feedback - Feedback submission form
- * - /about - About page (to be implemented)
- *
- * Backend Integration:
- * - Add authentication check: Use context/state to check if user is authenticated
- * - Protected routes: Wrap routes that require authentication
- * - User context: Create AuthContext to manage user state across the app
  */
 
+// Check if URL contains MSAL redirect response (hash with code/id_token)
+const hasMsalResponse = () => {
+  const hash = window.location.hash;
+  return hash.includes('code=') || hash.includes('id_token=') || hash.includes('error=');
+};
+
+// Root redirect component - handles MSAL redirect or goes to courses
+const RootRedirect: React.FC = () => {
+  // If there's an MSAL response in the URL, redirect to login to process it
+  if (hasMsalResponse()) {
+    return <Navigate to={`/login${window.location.hash}`} replace />;
+  }
+  return <Navigate to="/courses" replace />;
+};
+
 function App() {
-  // TODO: Add authentication state management
-  // const { isAuthenticated } = useAuth();
-
   return (
-    <Router>
-      <Routes>
-        {/* Redirect root to courses */}
-        <Route path="/" element={<Navigate to="/courses" replace />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Root - check for MSAL response or redirect to courses */}
+          <Route path="/" element={<RootRedirect />} />
 
-        {/* Public routes */}
-        <Route path="/login" element={<LoginPage />} />
+          {/* Public routes */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/course/:courseId" element={<CourseDetailPage />} />
+          <Route path="/about" element={<AboutPage />} />
 
-        {/* Main app routes */}
-        <Route path="/courses" element={<CoursesPage />} />
-        <Route path="/course/:courseId" element={<CourseDetailPage />} />
-        <Route path="/schedule" element={<SchedulePage />} />
-        <Route path="/feedback" element={<FeedbackPage />} />
+          {/* Protected routes - require authentication */}
+          <Route
+            path="/schedule"
+            element={
+              <ProtectedRoute>
+                <SchedulePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/feedback"
+            element={
+              <ProtectedRoute>
+                <FeedbackPage />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* About page */}
-        <Route path="/about" element={<AboutPage />} />
-
-        {/* 404 page */}
-        <Route
-          path="*"
-          element={
-            <div style={{ padding: '2rem', textAlign: 'center' }}>
-              <h1>404 - Page Not Found</h1>
-              <p>The page you're looking for doesn't exist.</p>
-              <a href="/courses" style={{ color: '#C4B084' }}>
-                Go back to courses
-              </a>
-            </div>
-          }
-        />
-      </Routes>
-    </Router>
+          {/* 404 page */}
+          <Route
+            path="*"
+            element={
+              <div style={{ padding: '2rem', textAlign: 'center' }}>
+                <h1>404 - Page Not Found</h1>
+                <p>The page you're looking for doesn't exist.</p>
+                <a href="/courses" style={{ color: '#C4B084' }}>
+                  Go back to courses
+                </a>
+              </div>
+            }
+          />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

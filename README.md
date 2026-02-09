@@ -7,6 +7,7 @@ CourseFlix is a comprehensive course evaluation and scheduling platform designed
 - Node.js (v18 or higher)
 - Docker and Docker Compose
 - npm
+- Microsoft Azure AD app registration (for authentication)
 
 ## Quick Start
 
@@ -94,6 +95,46 @@ npm run dev
 ```
 
 The frontend runs on http://localhost:5173.
+
+## Environment Configuration
+
+### Backend Environment (`server/.env`)
+
+Create a `server/.env` file with the following variables:
+
+```bash
+SESSION_SECRET=your-secure-random-string-here
+MICROSOFT_CLIENT_ID=your-azure-ad-client-id
+```
+
+### Frontend Environment (`client/.env`)
+
+Create a `client/.env` file with the following variables:
+
+```bash
+VITE_MICROSOFT_CLIENT_ID=your-azure-ad-client-id
+VITE_MICROSOFT_REDIRECT_URI=http://localhost:5173
+```
+
+### Microsoft Azure AD Setup
+
+1. Go to [Azure Portal](https://portal.azure.com)
+2. Navigate to **Azure Active Directory** → **App registrations** → **New registration**
+3. Configure:
+   - Name: `CourseFlix`
+   - Supported account types: Single tenant (Vanderbilt only) or Multitenant
+   - Redirect URI: `http://localhost:5173` (Web platform)
+4. After creation, copy the **Application (client) ID** - this is your `MICROSOFT_CLIENT_ID`
+5. Under **Authentication**, ensure `http://localhost:5173` is listed as a redirect URI
+
+## Database Migrations
+
+If you have an existing database and need to add Microsoft OAuth support:
+
+```bash
+# Add 'microsoft' to the oauth_provider_type enum
+docker exec -it courseflix-db psql -U courseflix -d courseflix -c "ALTER TYPE oauth_provider_type ADD VALUE IF NOT EXISTS 'microsoft';"
+```
 
 ## Project Structure
 

@@ -48,6 +48,15 @@ function nameFromClaims(email, claims) {
   return (localPart || 'Vanderbilt User').slice(0, 255);
 }
 
+function getInitials(name) {
+  if (!name) return 'U';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) {
+    return parts[0].substring(0, 2).toUpperCase();
+  }
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 router.post('/microsoft/login', async function(req, res) {
   const idToken = typeof req.body?.idToken === 'string' ? req.body.idToken : '';
   const clientId = process.env.MICROSOFT_CLIENT_ID;
@@ -97,11 +106,12 @@ router.post('/microsoft/login', async function(req, res) {
       id: user.id,
       email: user.email,
       name: user.name,
+      initials: getInitials(user.name),
     };
 
     return res.json({ authenticated: true, user: req.session.user });
   } catch (error) {
-    console.error('Microsoft login error:', error);
+    console.error('Microsoft login error:', error.message || error);
     return res.status(401).json({ message: 'Invalid or expired token' });
   }
 });
@@ -111,7 +121,13 @@ router.get('/me', function(req, res) {
     return res.status(401).json({ authenticated: false });
   }
 
-  return res.json({ authenticated: true, user: req.session.user });
+  // Ensure initials are always present
+  const user = {
+    ...req.session.user,
+    initials: req.session.user.initials || getInitials(req.session.user.name),
+  };
+
+  return res.json({ authenticated: true, user });
 });
 
 router.post('/logout', function(req, res) {

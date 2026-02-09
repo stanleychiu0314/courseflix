@@ -1,27 +1,49 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import '../styles/Navbar.css';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 /**
  * Navbar Component
  *
  * Main navigation bar for the application.
- * Displays logo, navigation links, and user avatar.
- *
- * Backend Integration:
- * - User avatar initials: Fetch from authenticated user context/state
- * - Course count: Fetch from user's cart/enrolled courses count
- * - Navigation links: Update based on user authentication status
+ * Displays logo, navigation links, and user avatar or login button.
  */
 
 const Navbar: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
+  const [enrolledCount, setEnrolledCount] = useState(0);
 
-  // TODO: Replace with actual user data from authentication context
-  const userInitials = 'SC';
-  const enrolledCount = 3;
+  // Fetch cart count when authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      const fetchCartCount = async () => {
+        try {
+          const response = await fetch(`${API_BASE_URL}/api/schedule/count`, {
+            credentials: 'include',
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setEnrolledCount(data.count || 0);
+          }
+        } catch (error) {
+          console.error('Error fetching cart count:', error);
+        }
+      };
+      fetchCartCount();
+    }
+  }, [isAuthenticated, user]);
 
   const isActive = (path: string) => location.pathname === path;
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/courses');
+  };
 
   return (
     <header className="navbar">
@@ -62,10 +84,20 @@ const Navbar: React.FC = () => {
         </nav>
 
         <div className="navbar-right">
-          <div className="cart-info">
-            🛒 {enrolledCount} courses
-          </div>
-          <div className="user-avatar">{userInitials}</div>
+          {isAuthenticated ? (
+            <>
+              <div className="cart-info">
+                🛒 {enrolledCount} courses
+              </div>
+              <div className="user-avatar" onClick={handleLogout} title="Click to logout">
+                {user?.initials || 'U'}
+              </div>
+            </>
+          ) : (
+            <Link to="/login" className="login-btn">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </header>
