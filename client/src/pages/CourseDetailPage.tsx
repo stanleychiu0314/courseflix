@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { useAuth } from '../context/AuthContext';
 import '../styles/CourseDetailPage.css';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
@@ -23,6 +24,7 @@ interface GradeBreakdownItem {
 
 interface CourseDetails {
   id: string;
+  sectionId: string | null;
   code: string;
   credits: number;
   maxSeats: number;
@@ -48,11 +50,52 @@ interface CourseDetails {
 
 const CourseDetailPage: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
+  const navigate = useNavigate();
+  const { isAuthenticated, refreshCartCount } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
   const [course, setCourse] = useState<CourseDetails | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [addingToCart, setAddingToCart] = useState(false);
+  const [cartMessage, setCartMessage] = useState<string | null>(null);
+
+  const handleAddToCart = async () => {
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: `/courses/${courseId}` } });
+      return;
+    }
+
+    if (!course?.sectionId) {
+      setCartMessage('No section available to add.');
+      return;
+    }
+
+    setAddingToCart(true);
+    setCartMessage(null);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/schedule/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ sectionId: course.sectionId }),
+      });
+
+      if (response.ok) {
+        setCartMessage('Added to cart!');
+        await refreshCartCount();
+      } else {
+        const data = await response.json();
+        setCartMessage(data.error || 'Failed to add to cart.');
+      }
+    } catch {
+      setCartMessage('Failed to add to cart.');
+    } finally {
+      setAddingToCart(false);
+      setTimeout(() => setCartMessage(null), 3000);
+    }
+  };
 
   useEffect(() => {
     const fetchCourseData = async () => {
@@ -149,7 +192,18 @@ const CourseDetailPage: React.FC = () => {
             <div className="rating-large">{course.rating || 0}</div>
             <div className="stars-large">{renderStars(Math.round(course.rating || 0))}</div>
             <div className="review-count">({course.reviewCount || 0} reviews)</div>
-            <button className="add-to-cart-btn">🛒 Add to Cart</button>
+            <button
+              className={`add-to-cart-btn ${cartMessage === 'Added to cart!' ? 'added' : ''}`}
+              onClick={handleAddToCart}
+              disabled={addingToCart}
+            >
+              {addingToCart ? 'Adding...' : '🛒 Add to Cart'}
+            </button>
+            {cartMessage && (
+              <div className={`cart-message ${cartMessage === 'Added to cart!' ? 'success' : 'error'}`}>
+                {cartMessage}
+              </div>
+            )}
           </div>
         </div>
 

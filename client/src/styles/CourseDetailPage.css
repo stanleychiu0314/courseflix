@@ -144,10 +144,35 @@
   white-space: nowrap;
 }
 
-.add-to-cart-btn:hover {
+.add-to-cart-btn:hover:not(:disabled) {
   background: #b39f73;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(196, 176, 132, 0.3);
+}
+
+.add-to-cart-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.add-to-cart-btn.added {
+  background: #4caf50;
+  color: white;
+}
+
+.cart-message {
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.cart-message.success {
+  color: #4caf50;
+}
+
+.cart-message.error {
+  color: #dc3545;
 }
 
 /* Tabs */

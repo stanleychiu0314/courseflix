@@ -50,28 +50,6 @@
   background: rgba(196, 176, 132, 0.05);
 }
 
-.schedule-actions {
-  display: flex;
-  gap: 1rem;
-}
-
-.action-btn {
-  padding: 0.75rem 1.5rem;
-  border: 2px solid #C4B084;
-  border-radius: 8px;
-  background: white;
-  color: #C4B084;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.action-btn:hover {
-  background: #C4B084;
-  color: #1a1a1a;
-}
-
 /* Main Layout */
 .schedule-main {
   display: flex;
@@ -97,14 +75,13 @@
 
 /* Calendar Grid */
 .calendar-grid {
-  min-width: 800px;
+  min-width: 700px;
 }
 
 .calendar-header {
   display: grid;
-  grid-template-columns: 100px repeat(5, 1fr);
-  gap: 1px;
-  margin-bottom: 1rem;
+  grid-template-columns: 80px repeat(5, 1fr);
+  margin-bottom: 0;
 }
 
 .time-column-header {
@@ -117,49 +94,80 @@
   font-weight: 700;
   color: #C4B084;
   font-size: 15px;
+  border-bottom: 2px solid #e0e0e0;
 }
 
-.time-row {
+/* Calendar Body - absolute positioning grid */
+.calendar-body {
   display: grid;
-  grid-template-columns: 100px repeat(5, 1fr);
-  gap: 1px;
-  min-height: 60px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.time-label {
-  padding: 0.5rem;
-  font-size: 13px;
-  color: #999;
-  text-align: right;
-  padding-right: 1rem;
-}
-
-.time-slot {
-  background: #fafafa;
-  border: 1px solid #f0f0f0;
+  grid-template-columns: 80px repeat(5, 1fr);
   position: relative;
-  min-height: 60px;
 }
 
+.time-labels-column {
+  position: relative;
+}
+
+.hour-label {
+  position: absolute;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #999;
+  white-space: nowrap;
+}
+
+.day-column {
+  position: relative;
+  border-left: 1px solid #e0e0e0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #e0e0e0 0px,
+    #e0e0e0 1px,
+    transparent 1px,
+    transparent 60px
+  );
+}
+
+/* Course blocks - absolutely positioned */
 .course-block {
-  padding: 0.35rem;
+  position: absolute;
+  padding: 0.4rem;
   border-radius: 6px;
   color: white;
   font-size: 12px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: box-shadow 0.2s;
   border-left: 4px solid rgba(0, 0, 0, 0.2);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
+  box-sizing: border-box;
+  z-index: 1;
 }
 
 .course-block:hover {
-  transform: scale(1.02);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 10;
+}
+
+.course-block-short {
+  justify-content: center;
+}
+
+.course-block-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.course-block-inline .course-block-name,
+.course-block-inline .course-block-prof {
+  font-weight: 400;
+  opacity: 0.9;
 }
 
 .course-block-code {
@@ -323,14 +331,6 @@
     width: 100%;
   }
 
-  .schedule-actions {
-    width: 100%;
-  }
-
-  .action-btn {
-    flex: 1;
-  }
-
   .calendar-section {
     padding: 1rem;
     overflow-x: scroll;
@@ -352,30 +352,18 @@
     padding: 0.5rem 1rem;
   }
 
-  .schedule-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .action-btn {
-    width: 100%;
-  }
-
   .calendar-grid {
     min-width: 600px;
   }
 
-  .time-row {
-    grid-template-columns: 70px repeat(5, 1fr);
+  .calendar-header,
+  .calendar-body {
+    grid-template-columns: 60px repeat(5, 1fr);
   }
 
-  .calendar-header {
-    grid-template-columns: 70px repeat(5, 1fr);
-  }
-
-  .time-label {
-    font-size: 11px;
-    padding-right: 0.5rem;
+  .hour-label {
+    font-size: 10px;
+    right: 0.4rem;
   }
 
   .day-header {

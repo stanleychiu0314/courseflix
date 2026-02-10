@@ -1,4 +1,4 @@
-# CourseFlix Frontend
+ # CourseFlix Frontend
 
 A responsive course review and scheduling platform for Vanderbilt University students built with React, TypeScript, and Vite.
 

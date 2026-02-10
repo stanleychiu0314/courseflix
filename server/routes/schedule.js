@@ -5,15 +5,15 @@ const db = require('../db');
 /**
  * GET /api/schedule
  * Fetch user's schedule for a specific term
- * For now, returns demo data or empty array since auth is not implemented
  *
  * Query params:
  * - term: term label (e.g., "Spring 2026")
- * - userId: user ID (optional, will use auth later)
  */
 router.get('/', async (req, res) => {
   try {
-    const { term, userId } = req.query;
+    const { term } = req.query;
+    // Use session-based authentication
+    const userId = req.session?.user?.id;
 
     // If no userId, return empty array (user not logged in)
     if (!userId) {
@@ -87,10 +87,16 @@ router.get('/', async (req, res) => {
  */
 router.post('/add', async (req, res) => {
   try {
-    const { userId, sectionId, term, color } = req.body;
+    // Use session-based authentication
+    const userId = req.session?.user?.id;
+    const { sectionId, color } = req.body;
 
-    if (!userId || !sectionId) {
-      return res.status(400).json({ error: 'userId and sectionId are required' });
+    if (!userId) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
+
+    if (!sectionId) {
+      return res.status(400).json({ error: 'sectionId is required' });
     }
 
     // Find or create the user's primary schedule for this term
@@ -181,10 +187,11 @@ router.get('/count', async (req, res) => {
 router.delete('/:sectionId', async (req, res) => {
   try {
     const { sectionId } = req.params;
-    const { userId } = req.query;
+    // Use session-based authentication
+    const userId = req.session?.user?.id;
 
     if (!userId) {
-      return res.status(400).json({ error: 'userId is required' });
+      return res.status(401).json({ error: 'Authentication required' });
     }
 
     const query = `
@@ -207,11 +214,11 @@ router.delete('/:sectionId', async (req, res) => {
 // Helper functions
 function getDayAbbrev(day) {
   const dayMap = {
-    'Monday': 'MWF',
-    'Tuesday': 'TTh',
-    'Wednesday': 'MWF',
-    'Thursday': 'TTh',
-    'Friday': 'MWF'
+    'Monday': 'Mon',
+    'Tuesday': 'Tue',
+    'Wednesday': 'Wed',
+    'Thursday': 'Thu',
+    'Friday': 'Fri'
   };
   return dayMap[day] || day;
 }

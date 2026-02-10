@@ -303,6 +303,35 @@
   color: #C4B084;
 }
 
+/* Add to Cart Button */
+.add-to-cart-btn {
+  padding: 0.625rem 1.25rem;
+  background: #C4B084;
+  border: none;
+  border-radius: 8px;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+  background: #b39b6d;
+  transform: scale(1.02);
+}
+
+.add-to-cart-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.add-to-cart-btn.loading {
+  background: #d4c9a8;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .courses-container {

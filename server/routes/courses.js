@@ -369,6 +369,7 @@ router.get('/:id', async (req, res) => {
     // Format response
     const response = {
       id: course.id,
+      sectionId: section.section_id || null,
       code: course.code,
       name: course.name,
       description: course.description,
