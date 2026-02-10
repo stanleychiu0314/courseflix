@@ -38,13 +38,18 @@ const CoursesPage: React.FC = () => {
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
   const [selectedTimes, setSelectedTimes] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState('Rating');
 
   const [courses, setCourses] = useState<Course[]>([]);
   const [departments, setDepartments] = useState<Department[]>([]);
   const [terms, setTerms] = useState<Term[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const ITEMS_PER_PAGE = 20;
 
   // Fetch departments and terms on mount
   useEffect(() => {
@@ -75,8 +80,8 @@ const CoursesPage: React.FC = () => {
     fetchMetadata();
   }, []);
 
-  // Fetch courses with filters
-  const fetchCourses = useCallback(async () => {
+  // Fetch courses with filters and pagination
+  const fetchCourses = useCallback(async (page: number = 1) => {
     setLoading(true);
     setError(null);
 
@@ -89,7 +94,8 @@ const CoursesPage: React.FC = () => {
       if (selectedDays.length > 0) params.append('days', selectedDays.join(','));
       if (selectedTimes.length > 0) params.append('times', selectedTimes.join(','));
       if (selectedCategories.length > 0) params.append('categories', selectedCategories.join(','));
-      if (sortBy) params.append('sort', sortBy);
+      params.append('page', page.toString());
+      params.append('limit', ITEMS_PER_PAGE.toString());
 
       const response = await fetch(`${API_BASE_URL}/api/courses?${params.toString()}`);
 
@@ -98,23 +104,45 @@ const CoursesPage: React.FC = () => {
       }
 
       const data = await response.json();
-      setCourses(data);
+
+      // Handle both old format (array) and new format (object with pagination)
+      if (Array.isArray(data)) {
+        // Old format - no pagination
+        setCourses(data);
+        setCurrentPage(1);
+        setTotalPages(1);
+        setTotalCount(data.length);
+      } else {
+        // New format with pagination
+        setCourses(data.courses);
+        setCurrentPage(data.pagination.page);
+        setTotalPages(data.pagination.totalPages);
+        setTotalCount(data.pagination.totalCount);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
       setCourses([]);
     } finally {
       setLoading(false);
     }
-  }, [searchQuery, selectedDepartment, selectedSemester, selectedDays, selectedTimes, selectedCategories, sortBy]);
+  }, [searchQuery, selectedDepartment, selectedSemester, selectedDays, selectedTimes, selectedCategories]);
 
-  // Debounce search and fetch courses
+  // Debounce search and fetch courses - reset to page 1 when filters change
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
-      fetchCourses();
+      fetchCourses(1);
     }, 300);
 
     return () => clearTimeout(debounceTimer);
   }, [fetchCourses]);
+
+  // Handle page change
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      fetchCourses(newPage);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   const toggleFilter = (filterArray: string[], setFilter: (val: string[]) => void, value: string) => {
     if (filterArray.includes(value)) {
@@ -229,22 +257,11 @@ const CoursesPage: React.FC = () => {
                 <span className="error-text">Error: {error}</span>
               ) : (
                 <>
-                  Showing <span className="count-number">{courses.length}</span> courses
+                  Showing <span className="count-number">{courses.length}</span> of{' '}
+                  <span className="count-number">{totalCount}</span> courses
+                  {totalPages > 1 && ` (Page ${currentPage} of ${totalPages})`}
                 </>
               )}
-            </div>
-            <div className="sort-container">
-              <label htmlFor="sort-select">Sort by:</label>
-              <select
-                id="sort-select"
-                className="sort-select"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option>Rating</option>
-                <option>Avg Hours/Week</option>
-                <option>Class Size</option>
-              </select>
             </div>
           </div>
 
@@ -259,7 +276,7 @@ const CoursesPage: React.FC = () => {
             ) : (
               courses.map((course: Course, index: number) => (
                 <Link to={`/course/${course.id}`} key={course.id} className="course-card">
-                  <div className="course-number">#{index + 1}</div>
+                  <div className="course-number">#{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</div>
                   <div className="course-main">
                     <h3 className="course-title">
                       {course.code}: {course.name}
@@ -301,6 +318,65 @@ const CoursesPage: React.FC = () => {
               ))
             )}
           </div>
+
+          {/* Pagination Controls */}
+          {!loading && !error && totalPages > 1 && (
+            <div className="pagination">
+              <button
+                className="pagination-btn"
+                onClick={() => handlePageChange(1)}
+                disabled={currentPage === 1}
+              >
+                First
+              </button>
+              <button
+                className="pagination-btn"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+
+              <div className="pagination-pages">
+                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                  let pageNum;
+                  if (totalPages <= 5) {
+                    pageNum = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNum = i + 1;
+                  } else if (currentPage >= totalPages - 2) {
+                    pageNum = totalPages - 4 + i;
+                  } else {
+                    pageNum = currentPage - 2 + i;
+                  }
+                  return (
+                    <button
+                      key={pageNum}
+                      className={`pagination-page ${currentPage === pageNum ? 'active' : ''}`}
+                      onClick={() => handlePageChange(pageNum)}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <button
+                className="pagination-btn"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+              <button
+                className="pagination-btn"
+                onClick={() => handlePageChange(totalPages)}
+                disabled={currentPage === totalPages}
+              >
+                Last
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

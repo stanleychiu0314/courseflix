@@ -4,7 +4,7 @@ const db = require('../db');
 
 /**
  * GET /api/courses
- * Fetch courses with optional search, filters, and sorting
+ * Fetch courses with optional search, filters, sorting, and pagination
  *
  * Query params:
  * - search: search term for course name, code, or professor
@@ -15,10 +15,16 @@ const db = require('../db');
  * - categories: comma-separated categories (e.g., "AXLE,Writing")
  * - sort: sort field (rating, hours, size)
  * - order: sort order (asc, desc)
+ * - page: page number (default: 1)
+ * - limit: results per page (default: 20, max: 100)
  */
 router.get('/', async (req, res) => {
   try {
-    const { search, department, term, days, times, categories, sort, order } = req.query;
+    const { search, department, term, days, times, categories, page, limit } = req.query;
+
+    // Pagination parameters
+    const pageNum = Math.max(1, parseInt(page) || 1);
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 20));
 
     let query = `
       SELECT DISTINCT ON (c.id, cs.id)
@@ -66,15 +72,17 @@ router.get('/', async (req, res) => {
       JOIN departments d ON c.department_id = d.id
       LEFT JOIN course_sections cs ON c.id = cs.course_id
       LEFT JOIN terms t ON cs.term_id = t.id
-      WHERE 1=1
     `;
 
     const params = [];
     let paramIndex = 1;
 
+    // Build WHERE conditions separately so we can reuse for count query
+    let whereConditions = 'WHERE 1=1';
+
     // Search filter
     if (search) {
-      query += ` AND (
+      whereConditions += ` AND (
         c.name ILIKE $${paramIndex}
         OR c.code ILIKE $${paramIndex}
         OR EXISTS (
@@ -89,14 +97,14 @@ router.get('/', async (req, res) => {
 
     // Department filter
     if (department && department !== 'All Departments') {
-      query += ` AND d.name = $${paramIndex}`;
+      whereConditions += ` AND d.name = $${paramIndex}`;
       params.push(department);
       paramIndex++;
     }
 
     // Term filter
     if (term) {
-      query += ` AND t.label = $${paramIndex}`;
+      whereConditions += ` AND t.label = $${paramIndex}`;
       params.push(term);
       paramIndex++;
     }
@@ -107,7 +115,7 @@ router.get('/', async (req, res) => {
         const dayMap = { 'Mon': 'Monday', 'Tue': 'Tuesday', 'Wed': 'Wednesday', 'Thu': 'Thursday', 'Fri': 'Friday' };
         return dayMap[d] || d;
       });
-      query += ` AND EXISTS (
+      whereConditions += ` AND EXISTS (
         SELECT 1 FROM section_meetings sm
         WHERE sm.course_section_id = cs.id
         AND sm.day = ANY($${paramIndex}::day_of_week_type[])
@@ -119,7 +127,7 @@ router.get('/', async (req, res) => {
     // Time periods filter
     if (times) {
       const timesList = times.split(',');
-      query += ` AND EXISTS (
+      whereConditions += ` AND EXISTS (
         SELECT 1 FROM section_meetings sm
         WHERE sm.course_section_id = cs.id
         AND sm.time_of_day = ANY($${paramIndex}::time_of_day_type[])
@@ -131,7 +139,7 @@ router.get('/', async (req, res) => {
     // Categories filter
     if (categories) {
       const categoriesList = categories.split(',');
-      query += ` AND EXISTS (
+      whereConditions += ` AND EXISTS (
         SELECT 1 FROM course_category_mapping ccm
         JOIN course_categories cc ON ccm.category_id = cc.id
         WHERE ccm.course_id = c.id
@@ -141,17 +149,42 @@ router.get('/', async (req, res) => {
       paramIndex++;
     }
 
-    // Sorting - DISTINCT ON requires ORDER BY to start with the DISTINCT columns
-    const sortField = {
-      'Rating': 'c.rating',
-      'Avg Hours/Week': 'c.avg_hours_per_week',
-      'Class Size': 'cs.max_seats'
-    }[sort] || 'c.rating';
+    // Append WHERE conditions to main query
+    query += whereConditions;
 
-    const sortOrder = order === 'asc' ? 'ASC' : 'DESC';
-    query += ` ORDER BY c.id, cs.id, ${sortField} ${sortOrder} NULLS LAST`;
+    // DISTINCT ON requires ORDER BY to start with the DISTINCT columns
+    // So we wrap the query in a subquery and apply proper sorting outside
+    query += ` ORDER BY c.id, cs.id`;
 
-    const result = await db.query(query, params);
+    // Get total count for pagination (before applying LIMIT/OFFSET)
+    // Count distinct (course_id, section_id) pairs to match main query's DISTINCT ON
+    const countQuery = `
+      SELECT COUNT(*) as total FROM (
+        SELECT DISTINCT c.id, cs.id
+        FROM courses c
+        JOIN departments d ON c.department_id = d.id
+        LEFT JOIN course_sections cs ON c.id = cs.course_id
+        LEFT JOIN terms t ON cs.term_id = t.id
+        ${whereConditions}
+      ) as course_sections
+    `;
+    const countResult = await db.query(countQuery, params);
+    const totalCount = parseInt(countResult.rows[0].total) || 0;
+    const totalPages = Math.ceil(totalCount / limitNum);
+
+    // Wrap in subquery to apply proper sorting (alphabetical then numerical by course code)
+    // and pagination
+    const offset = (pageNum - 1) * limitNum;
+    const sortedQuery = `
+      SELECT * FROM (${query}) AS courses_subquery
+      ORDER BY
+        REGEXP_REPLACE(code, '[0-9]', '', 'g') ASC,
+        CAST(NULLIF(REGEXP_REPLACE(code, '[^0-9]', '', 'g'), '') AS INTEGER) ASC NULLS LAST
+      LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
+    `;
+    params.push(limitNum, offset);
+
+    const result = await db.query(sortedQuery, params);
 
     // Format the response to match frontend expectations
     const courses = result.rows.map(row => ({
@@ -177,10 +210,19 @@ router.get('/', async (req, res) => {
       wouldTakeAgain: row.would_take_again_percentage
     }));
 
-    res.json(courses);
+    res.json({
+      courses,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        totalCount,
+        totalPages
+      }
+    });
   } catch (err) {
-    console.error('Error fetching courses:', err);
-    res.status(500).json({ error: 'Failed to fetch courses' });
+    console.error('Error fetching courses:', err.message);
+    console.error('Stack:', err.stack);
+    res.status(500).json({ error: 'Failed to fetch courses', details: err.message });
   }
 });
 
