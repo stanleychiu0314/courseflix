@@ -35,3 +35,17 @@ Step 4: Install pg client and import
 `npm install pg`
 
 `node db/import-courses.js`
+
+
+
+# Testing
+`docker exec -it courseflix-db psql -U courseflix -d courseflix -c "SELECT code, name FROM departments LIMIT 10;"`
+
+`docker exec -it courseflix-db psql -U courseflix -d courseflix -c "SELECT c.code, cc.name as category FROM course_category_mapping ccm JOIN courses c ON c.id = ccm.course_id JOIN course_categories cc ON cc.id = ccm.category_id ORDER BY c.code LIMIT 15;"`
+
+
+# Add course categories
+To add course categories (e.g., HCA, SBS), have a list of all the courses within that category under scraper/course-categories
+
+Example:
+`node scraper/add-categories.js scraper/course-categories/hca.txt HCA`

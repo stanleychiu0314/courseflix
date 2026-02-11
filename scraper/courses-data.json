@@ -92,6 +92,9 @@
         "time": "10:10a - 11:00a",
         "availability": "20/25"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -149,6 +152,9 @@
         "time": "04:15p - 05:30p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -339,6 +345,9 @@
         "time": "02:30p - 03:45p",
         "availability": "7/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -434,6 +443,9 @@
         "time": "08:40a - 09:55a",
         "availability": "31/41"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -928,6 +940,9 @@
         "time": "12:45p - 03:35p",
         "availability": "5/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -954,6 +969,9 @@
         "time": "09:10a - 12:00p",
         "availability": "8/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -973,6 +991,9 @@
         "time": "12:45p - 03:35p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -992,6 +1013,9 @@
         "time": "04:10p - 07:00p",
         "availability": "8/11"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1011,6 +1035,9 @@
         "time": "12:45p - 03:35p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1037,6 +1064,9 @@
         "time": "12:45p - 03:35p",
         "availability": "11/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1056,6 +1086,9 @@
         "time": "12:45p - 03:35p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1075,6 +1108,9 @@
         "time": "09:10a - 12:00p",
         "availability": "7/13"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1094,6 +1130,9 @@
         "time": "12:45p - 03:35p",
         "availability": "5/9"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1113,6 +1152,9 @@
         "time": "12:45p - 03:35p",
         "availability": "8/11"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1132,6 +1174,9 @@
         "time": "12:45p - 03:35p",
         "availability": "9/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1151,6 +1196,9 @@
         "time": "12:45p - 02:45p",
         "availability": "8/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1170,6 +1218,9 @@
         "time": "12:45p - 03:35p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1189,6 +1240,9 @@
         "time": "04:10p - 07:00p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1208,6 +1262,9 @@
         "time": "12:45p - 03:35p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1227,6 +1284,9 @@
         "time": "09:10a - 12:00p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1246,6 +1306,9 @@
         "time": "12:45p - 03:35p",
         "availability": "1/3"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1284,6 +1347,9 @@
         "time": "12:45p - 03:35p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1440,6 +1506,9 @@
         "time": "08:40a - 09:50a",
         "availability": "10/15"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1459,6 +1528,9 @@
         "time": "11:00a - 12:15p",
         "availability": "15/25"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1504,6 +1576,9 @@
         "time": "01:15p - 02:30p",
         "availability": "20/25"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1606,6 +1681,9 @@
         "time": "04:00p - 05:15p",
         "availability": "16/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -1625,6 +1703,9 @@
         "time": "08:40a - 09:55a",
         "availability": "14/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -4216,6 +4297,9 @@
         "time": "01:25p - 02:40p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -4280,6 +4364,9 @@
         "time": "04:15p - 05:30p",
         "availability": "19/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -6805,6 +6892,9 @@
         "time": "01:15p - 02:30p",
         "availability": "29/32"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -6881,6 +6971,9 @@
         "time": "02:45p - 04:00p",
         "availability": "19/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7296,6 +7389,9 @@
         "time": "11:00a - 12:15p",
         "availability": "25/26"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7322,6 +7418,9 @@
         "time": "09:30a - 11:00a",
         "availability": "11/16"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7348,6 +7447,9 @@
         "time": "02:30p - 03:45p",
         "availability": "20/25"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7367,6 +7469,9 @@
         "time": "01:00p - 02:30p",
         "availability": "8/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7386,6 +7491,9 @@
         "time": "04:15p - 07:00p",
         "availability": "7/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7424,6 +7532,9 @@
         "time": "02:45p - 04:00p",
         "availability": "21/30"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7443,6 +7554,9 @@
         "time": "11:00a - 12:15p",
         "availability": "12/15"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7691,6 +7805,9 @@
         "time": "11:00a - 12:15p",
         "availability": "77/78"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7745,6 +7862,9 @@
         "time": "02:45p - 04:00p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7764,6 +7884,9 @@
         "time": "09:30a - 10:45a",
         "availability": "17/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7783,6 +7906,9 @@
         "time": "01:25p - 02:15p",
         "availability": "15/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7802,6 +7928,9 @@
         "time": "02:30p - 03:45p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7821,6 +7950,9 @@
         "time": "02:45p - 04:00p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7840,6 +7972,9 @@
         "time": "11:00a - 12:15p",
         "availability": "19/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7859,6 +7994,9 @@
         "time": "01:15p - 02:30p",
         "availability": "18/21"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -7897,6 +8035,9 @@
         "time": "01:15p - 02:30p",
         "availability": "9/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -8835,6 +8976,9 @@
         "time": "11:00a - 12:15p",
         "availability": "11/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -10502,6 +10646,9 @@
         "time": "12:20p - 01:10p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -10528,6 +10675,9 @@
         "time": "11:00a - 12:15p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -10623,6 +10773,9 @@
         "time": "01:25p - 02:40p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -14727,6 +14880,9 @@
         "time": "11:15a - 12:05p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -14760,6 +14916,9 @@
         "time": "12:20p - 01:10p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -14793,6 +14952,9 @@
         "time": "10:10a - 11:00a",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -14847,6 +15009,9 @@
         "time": "02:45p - 04:00p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -14866,6 +15031,9 @@
         "time": "09:30a - 10:45a",
         "availability": "5/16"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -14892,6 +15060,9 @@
         "time": "08:00a - 09:15a",
         "availability": "9/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -14918,6 +15089,9 @@
         "time": "09:30a - 10:45a",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -14937,6 +15111,9 @@
         "time": "02:30p - 03:45p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -14956,6 +15133,9 @@
         "time": "01:15p - 02:30p",
         "availability": "15/18"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -14975,6 +15155,9 @@
         "time": "09:05a - 09:55a",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -14994,6 +15177,9 @@
         "time": "11:00a - 12:15p",
         "availability": "13/18"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15013,6 +15199,9 @@
         "time": "11:00a - 12:15p",
         "availability": "15/18"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15032,6 +15221,9 @@
         "time": "02:45p - 04:00p",
         "availability": "11/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15051,6 +15243,9 @@
         "time": "01:15p - 02:30p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15070,6 +15265,9 @@
         "time": "11:00a - 12:15p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15089,6 +15287,9 @@
         "time": "02:45p - 05:45p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15108,6 +15309,9 @@
         "time": "09:30a - 10:45a",
         "availability": "10/18"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15127,6 +15331,9 @@
         "time": "02:30p - 03:20p",
         "availability": "17/18"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15146,6 +15353,9 @@
         "time": "09:30a - 10:45a",
         "availability": "13/18"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15165,6 +15375,9 @@
         "time": "12:20p - 01:10p",
         "availability": "17/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15184,6 +15397,9 @@
         "time": "01:15p - 02:30p",
         "availability": "14/18"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15203,6 +15419,9 @@
         "time": "02:30p - 03:45p",
         "availability": "6/7"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15248,6 +15467,9 @@
         "time": "08:40a - 09:55a",
         "availability": "6/16"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15286,6 +15508,9 @@
         "time": "03:35p - 04:25p",
         "availability": "9/18"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15305,6 +15530,9 @@
         "time": "02:45p - 04:00p",
         "availability": "9/18"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15324,6 +15552,9 @@
         "time": "12:30p - 03:30p",
         "availability": "1/7"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -15425,6 +15656,9 @@
         "time": "04:40p - 05:55p",
         "availability": "6/7"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -16819,6 +17053,9 @@
         "time": "09:30a - 10:45a",
         "availability": "11/16"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -16876,6 +17113,9 @@
         "time": "11:00a - 12:15p",
         "availability": "12/16"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -16947,6 +17187,9 @@
         "time": "11:00a - 12:15p",
         "availability": "15/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -17137,6 +17380,9 @@
         "time": "10:10a - 11:00a",
         "availability": "2/13"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -17333,6 +17579,9 @@
         "time": "11:00a - 12:15p",
         "availability": "14/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -17447,6 +17696,9 @@
         "time": "08:00a - 09:15a",
         "availability": "18/20"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -17851,6 +18103,9 @@
         "time": "02:45p - 04:00p",
         "availability": "23/35"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -17946,6 +18201,9 @@
         "time": "09:30a - 10:45a",
         "availability": "10/15"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -17965,6 +18223,9 @@
         "time": "11:00a - 12:15p",
         "availability": "21/32"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -18079,6 +18340,9 @@
         "time": "02:30p - 05:00p",
         "availability": "9/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -18456,6 +18720,9 @@
         "time": "09:30a - 10:45a",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -18579,6 +18846,9 @@
         "time": "10:10a - 11:00a",
         "availability": "14/15"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -20322,6 +20592,9 @@
         "time": "01:15p - 02:30p",
         "availability": "10/13"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -21289,6 +21562,9 @@
         "time": "09:30a - 10:45a",
         "availability": "9/15"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -21972,6 +22248,9 @@
         "time": "01:25p - 02:15p",
         "availability": "7/17"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -22048,6 +22327,9 @@
         "time": "09:30a - 10:45a",
         "availability": "3/15"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -22277,6 +22559,9 @@
         "time": "09:30a - 10:45a",
         "availability": "2/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -22410,6 +22695,9 @@
         "time": "01:25p - 02:15p",
         "availability": "7/13"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -24956,6 +25244,9 @@
         "time": "04:00p - 05:15p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -25141,6 +25432,9 @@
         "time": "08:00a - 09:15a",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -25160,6 +25454,9 @@
         "time": "04:30p - 07:00p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -25179,6 +25476,9 @@
         "time": "01:15p - 02:30p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -27297,6 +27597,9 @@
         "time": "04:15p - 05:30p",
         "availability": "6/15"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -27335,6 +27638,9 @@
         "time": "10:10a - 11:00a",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -27373,6 +27679,9 @@
         "time": "11:00a - 12:15p",
         "availability": "86/152"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -27458,6 +27767,9 @@
         "time": "02:45p - 04:00p",
         "availability": "15/18"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -27477,6 +27789,9 @@
         "time": "01:15p - 02:30p",
         "availability": "16/35"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -27496,6 +27811,9 @@
         "time": "08:00a - 09:15a",
         "availability": "13/15"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -27515,6 +27833,9 @@
         "time": "09:30a - 10:45a",
         "availability": "9/25"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -29648,6 +29969,9 @@
         "time": "01:25p - 02:15p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -29806,6 +30130,9 @@
         "time": "09:30a - 10:45a",
         "availability": "12/80"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -29832,6 +30159,9 @@
         "time": "11:15a - 12:05p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -29870,6 +30200,9 @@
         "time": "10:10a - 11:00a",
         "availability": "28/30"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -29927,6 +30260,9 @@
         "time": "02:30p - 03:20p",
         "availability": "17/25"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -29946,6 +30282,9 @@
         "time": "01:25p - 02:15p",
         "availability": "15/25"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -29984,6 +30323,9 @@
         "time": "01:25p - 02:15p",
         "availability": "17/25"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -30069,6 +30411,9 @@
         "time": "03:10p - 05:30p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -31631,6 +31976,9 @@
         "time": "09:30a - 10:45a",
         "availability": "26/120"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -31669,6 +32017,9 @@
         "time": "08:40a - 09:55a",
         "availability": "35/40"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -33681,6 +34032,9 @@
         "time": "11:00a - 12:15p",
         "availability": "14/25"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -33700,6 +34054,9 @@
         "time": "02:45p - 04:00p",
         "availability": "4/25"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -33795,6 +34152,9 @@
         "time": "01:15p - 02:30p",
         "availability": "3/25"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -33871,6 +34231,9 @@
         "time": "11:00a - 12:15p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -35192,6 +35555,9 @@
         "time": "09:30a - 10:45a",
         "availability": "13/15"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -35313,6 +35679,9 @@
         "time": "12:20p - 01:10p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -35415,6 +35784,9 @@
         "time": "09:05a - 09:55a",
         "availability": "7/16"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -35434,6 +35806,9 @@
         "time": "01:15p - 02:30p",
         "availability": "9/12"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -35453,6 +35828,9 @@
         "time": "11:00a - 12:15p",
         "availability": "13/16"
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -35995,6 +36373,9 @@
         "time": "09:00a - 10:50a",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -36033,6 +36414,9 @@
         "time": "01:15p - 02:30p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -36052,6 +36436,9 @@
         "time": "01:00p - 02:15p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -36071,6 +36458,9 @@
         "time": "11:10a - 01:00p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -36090,6 +36480,9 @@
         "time": "11:00a - 12:15p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {
@@ -36170,6 +36563,9 @@
         "time": "11:15a - 01:05p",
         "availability": ""
       }
+    ],
+    "categories": [
+      "HCA"
     ]
   },
   {

@@ -112,12 +112,14 @@ async function importCourses() {
         const termResult = await client.query('SELECT id, season, year FROM terms');
         const termMap = new Map(termResult.rows.map(r => [`${r.year} ${r.season}`, r.id]));
 
-        // Track professors for upsert
+        // Track professors and categories for upsert
         const professorCache = new Map();
+        const categoryCache = new Map();
 
         let courseCount = 0;
         let sectionCount = 0;
         let meetingCount = 0;
+        let categoryCount = 0;
         let skippedCount = 0;
 
         for (const course of courses) {
@@ -242,6 +244,45 @@ async function importCourses() {
                 }
             }
 
+            // Handle categories
+            if (course.categories && course.categories.length > 0) {
+                for (const catName of course.categories) {
+                    let categoryId = categoryCache.get(catName);
+
+                    if (!categoryId) {
+                        const catResult = await client.query(`
+                            INSERT INTO course_categories (name)
+                            VALUES ($1)
+                            ON CONFLICT (name) DO NOTHING
+                            RETURNING id
+                        `, [catName]);
+
+                        if (catResult.rows.length > 0) {
+                            categoryId = catResult.rows[0].id;
+                        } else {
+                            const existingCat = await client.query(
+                                'SELECT id FROM course_categories WHERE name = $1',
+                                [catName]
+                            );
+                            categoryId = existingCat.rows[0]?.id;
+                        }
+
+                        if (categoryId) {
+                            categoryCache.set(catName, categoryId);
+                        }
+                    }
+
+                    if (categoryId) {
+                        await client.query(`
+                            INSERT INTO course_category_mapping (course_id, category_id)
+                            VALUES ($1, $2)
+                            ON CONFLICT DO NOTHING
+                        `, [courseId, categoryId]);
+                        categoryCount++;
+                    }
+                }
+            }
+
             if (courseCount % 50 === 0) {
                 console.log(`  Processed ${courseCount} courses...`);
             }
@@ -253,6 +294,7 @@ async function importCourses() {
         console.log(`Courses imported: ${courseCount}`);
         console.log(`Sections imported: ${sectionCount}`);
         console.log(`Meetings created: ${meetingCount}`);
+        console.log(`Category mappings: ${categoryCount}`);
         console.log(`Skipped: ${skippedCount}`);
         console.log('========================================\n');
 
