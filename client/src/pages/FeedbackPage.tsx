@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import '../styles/FeedbackPage.css';
 
@@ -16,13 +16,27 @@ import '../styles/FeedbackPage.css';
  *   - workloadTypes[], firstWord, grade, gradingBreakdown{}, syllabus (file), comments
  */
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
+interface Course {
+  id: string;
+  sectionId: string;
+  code: string;
+  name: string;
+  professor: string;
+  schedule: string;
+  termLabel: string;
+}
+
 interface GradingItem {
   name: string;
   percentage: number;
 }
 
 const FeedbackPage: React.FC = () => {
-  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
+  const [courseSearchQuery, setCourseSearchQuery] = useState('');
+  const [courseResults, setCourseResults] = useState<Course[]>([]);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [formData, setFormData] = useState({
     overallRating: 0,
     hoursPerWeek: 6,
@@ -39,6 +53,46 @@ const FeedbackPage: React.FC = () => {
   });
 
   const [hoverRating, setHoverRating] = useState(0);
+
+  // Fetch courses based on search query
+  useEffect(() => {
+    const fetchCourses = async () => {
+      if (!courseSearchQuery.trim()) {
+        setCourseResults([]);
+        return;
+      }
+
+      try {
+        const params = new URLSearchParams();
+        params.append('search', courseSearchQuery);
+        params.append('limit', '10'); // Limit to 10 results
+
+        const response = await fetch(`${API_BASE_URL}/api/courses?${params.toString()}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch courses');
+        }
+
+        const data = await response.json();
+        const courses = Array.isArray(data) ? data : data.courses || [];
+        setCourseResults(courses);
+      } catch (err) {
+        console.error('Error fetching courses:', err);
+        setCourseResults([]);
+      }
+    };
+
+    const debounceTimer = setTimeout(() => {
+      fetchCourses();
+    }, 300);
+
+    return () => clearTimeout(debounceTimer);
+  }, [courseSearchQuery]);
+
+  const handleCourseSelect = (course: Course) => {
+    setSelectedCourse(course);
+    setCourseSearchQuery('');
+    setCourseResults([]);
+  };
 
   const toggleWorkloadType = (type: string) => {
     if (formData.workloadTypes.includes(type)) {
@@ -90,18 +144,57 @@ const FeedbackPage: React.FC = () => {
                 <span className="section-number">1</span>
                 Which course are you reviewing?<span className="required">*</span>
               </label>
-              <div className="search-container">
-                <span className="search-icon">🔍</span>
-                <input
-                  type="text"
-                  className="search-input"
-                  placeholder="Search for a course (e.g., CS 2201, Microeconomics, Dr. Bolton)"
-                />
-              </div>
-              <div className="course-result" onClick={() => setSelectedCourse('CS 2201')}>
-                <div className="course-result-title">CS 2201: Program Design & Data Structures</div>
-                <div className="course-result-meta">Dr. Jeremy Bolton • MWF 10:10-11:00a • Fall 2025</div>
-              </div>
+
+              {selectedCourse ? (
+                <div className="selected-course-display">
+                  <div className="course-result selected">
+                    <div className="course-result-title">{selectedCourse.code}: {selectedCourse.name}</div>
+                    <div className="course-result-meta">
+                      👤 {selectedCourse.professor} • 📅 {selectedCourse.schedule} • {selectedCourse.termLabel}
+                    </div>
+                  </div>
+                  <button
+                    className="change-course-btn"
+                    onClick={() => setSelectedCourse(null)}
+                  >
+                    Change Course
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <div className="search-container">
+                    <span className="search-icon">🔍</span>
+                    <input
+                      type="text"
+                      className="search-input"
+                      placeholder="Search for a course (e.g., CS 2201, Microeconomics, Dr. Bolton)"
+                      value={courseSearchQuery}
+                      onChange={(e) => setCourseSearchQuery(e.target.value)}
+                    />
+                  </div>
+
+                  {courseResults.length > 0 && (
+                    <div className="course-results-container">
+                      {courseResults.map((course) => (
+                        <div
+                          key={`${course.id}-${course.sectionId}`}
+                          className="course-result"
+                          onClick={() => handleCourseSelect(course)}
+                        >
+                          <div className="course-result-title">{course.code}: {course.name}</div>
+                          <div className="course-result-meta">
+                            👤 {course.professor} • 📅 {course.schedule} • {course.termLabel}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {courseSearchQuery && courseResults.length === 0 && (
+                    <div className="no-results">No courses found. Try a different search term.</div>
+                  )}
+                </>
+              )}
             </div>
 
             {/* Question 2: Overall Rating */}
