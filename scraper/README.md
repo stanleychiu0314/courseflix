@@ -25,6 +25,8 @@ Step 2: Start database and apply schema + seeds
 
 Step 3: Re-scrape with new fields
 
+(Note: Only run this script if you are trying to regenerate courses-data.json. Estimated time to run is around 90-150 minutes)
+
 `cd scraper`
 
 `node scrape-all.js`
@@ -45,7 +47,7 @@ Step 4: Install pg client and import
 
 
 # Add course categories
-To add course categories (e.g., HCA, SBS), have a list of all the courses within that category under scraper/course-categories
+To add course categories (e.g., HCA, SBS), have a list of all the courses within that category under `scraper/course-categories`
 
 Example:
 `node scraper/add-categories.js scraper/course-categories/hca.txt HCA`
