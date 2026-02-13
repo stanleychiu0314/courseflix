@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../styles/CoursesPage.css';
 
@@ -33,6 +33,7 @@ interface Term {
 }
 
 const CoursesPage: React.FC = () => {
+  const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSemester, setSelectedSemester] = useState('Spring 2026');
   const [selectedDepartment, setSelectedDepartment] = useState('All Departments');
@@ -51,6 +52,14 @@ const CoursesPage: React.FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const ITEMS_PER_PAGE = 20;
+
+  // Read URL query parameters on mount
+  useEffect(() => {
+    const departmentFromUrl = searchParams.get('department');
+    if (departmentFromUrl) {
+      setSelectedDepartment(departmentFromUrl);
+    }
+  }, [searchParams]);
 
   // Fetch departments and terms on mount
   useEffect(() => {

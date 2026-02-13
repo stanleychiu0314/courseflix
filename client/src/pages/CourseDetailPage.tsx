@@ -167,7 +167,7 @@ const CourseDetailPage: React.FC = () => {
       <div className="breadcrumb">
         <Link to="/courses">Courses</Link>
         <span> › </span>
-        <Link to={`/courses?department=${course.departmentCode}`}>{course.departmentCode}</Link>
+        <Link to={`/courses?department=${course.departmentName}`}>{course.departmentCode}</Link>
         <span> › </span>
         <span>{course.code}</span>
       </div>

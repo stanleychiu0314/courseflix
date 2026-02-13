@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Navbar.css';
@@ -14,13 +14,41 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, isAuthenticated, logout, cartCount } = useAuth();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const isActive = (path: string) => location.pathname === path;
 
   const handleLogout = async () => {
     await logout();
+    setIsDropdownOpen(false);
     navigate('/courses');
   };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleCartClick = () => {
+    navigate('/schedule');
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   return (
     <header className="navbar">
@@ -63,11 +91,23 @@ const Navbar: React.FC = () => {
         <div className="navbar-right">
           {isAuthenticated ? (
             <>
-              <div className="cart-info">
+              <div className="cart-info" onClick={handleCartClick}>
                 🛒 {cartCount} courses
               </div>
-              <div className="user-avatar" onClick={handleLogout} title="Click to logout">
-                {user?.initials || 'U'}
+              <div className="user-menu" ref={dropdownRef}>
+                <div className="user-avatar" onClick={toggleDropdown} title="Click for menu">
+                  {user?.initials || 'U'}
+                </div>
+                {isDropdownOpen && (
+                  <div className="user-dropdown">
+                    <div className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                      View Profile
+                    </div>
+                    <div className="dropdown-item logout-item" onClick={handleLogout}>
+                      Log Out
+                    </div>
+                  </div>
+                )}
               </div>
             </>
           ) : (

@@ -167,7 +167,7 @@ const FeedbackPage: React.FC = () => {
                     <input
                       type="text"
                       className="search-input"
-                      placeholder="Search for a course (e.g., CS 2201, Microeconomics, Dr. Bolton)"
+                      placeholder="Search for a course (e.g., CS 2201, Intermediate Software Design, Hemingway)"
                       value={courseSearchQuery}
                       onChange={(e) => setCourseSearchQuery(e.target.value)}
                     />
@@ -264,7 +264,7 @@ const FeedbackPage: React.FC = () => {
             <div className="form-section">
               <label className="form-label">
                 <span className="section-number">5</span>
-                Would you take it again?<span className="required">*</span>
+                Would you take it again if it wasn't a required course?<span className="required">*</span>
               </label>
               <div className="options-grid two-col">
                 {['Yes', 'No'].map((option) => (

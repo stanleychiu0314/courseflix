@@ -90,6 +90,19 @@
   color: #C4B084;
   font-weight: 500;
   white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+}
+
+.cart-info:hover {
+  background: rgba(196, 176, 132, 0.1);
+  transform: scale(1.02);
+}
+
+.user-menu {
+  position: relative;
 }
 
 .user-avatar {
@@ -108,6 +121,47 @@
 
 .user-avatar:hover {
   transform: scale(1.05);
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: #2a2a2a;
+  border: 2px solid #C4B084;
+  border-radius: 8px;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 1100;
+}
+
+.dropdown-item {
+  padding: 0.75rem 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(196, 176, 132, 0.2);
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background: rgba(196, 176, 132, 0.1);
+  color: #C4B084;
+}
+
+.logout-item {
+  color: #e8a5a5;
+}
+
+.logout-item:hover {
+  background: rgba(232, 165, 165, 0.1);
+  color: #ff8888;
 }
 
 .login-btn {
