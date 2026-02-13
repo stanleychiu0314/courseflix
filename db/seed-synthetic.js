@@ -1,6 +1,6 @@
 /* Synthetic data loader for PostgreSQL (CourseFlix)
  * Usage:
- *   node db/seed-synthetic.js --users=200 --reviews=400 --seed=42
+ *   node db/seed-synthetic.js --users=200 --min-reviews=2 --max-reviews=8 --seed=42
  * Optional:
  *   --wipe=true      (truncate users/reviews/schedules and related tables)
  *   --wipe=all       (truncate all core tables, including courses/sections/etc)
@@ -8,18 +8,16 @@
 
 'use strict';
 
-let Pool;
-try {
-  ({ Pool } = require('pg'));
-} catch (error) {
-  ({ Pool } = require('../server/node_modules/pg'));
-}
+const { Pool } = require('pg');
 
 const args = parseArgs(process.argv.slice(2));
 
 const CONFIG = {
   users: Number(args.users || 200),
-  reviews: Number(args.reviews || 400),
+  minReviews: Number(args['min-reviews'] || 1),
+  maxReviews: Number(args['max-reviews'] || 5),
+  positiveBiasRate: Number(args['positive-rate'] || 0.3),
+  negativeBiasRate: Number(args['negative-rate'] || 0.2),
   seed: args.seed ? Number(args.seed) : null,
   wipe: String(args.wipe || 'false').toLowerCase(),
 };
@@ -44,9 +42,19 @@ const LAST_NAMES = [
   'Martin', 'Clark', 'Lewis', 'Walker', 'Hall', 'Allen', 'Young', 'King', 'Wright', 'Scott',
 ];
 
-const REVIEW_WORDS = [
-  'Challenging', 'Rewarding', 'Fast-paced', 'Insightful', 'Well-structured',
-  'Demanding', 'Practical', 'Thought-provoking', 'Collaborative', 'Intense',
+const REVIEW_POSITIVE = [
+  'Excellent', 'Engaging', 'Insightful', 'Well-structured', 'Inspiring',
+  'Supportive', 'Clear', 'Rewarding', 'Practical', 'Motivating',
+];
+
+const REVIEW_NEGATIVE = [
+  'Disorganized', 'Overwhelming', 'Confusing', 'Frustrating', 'Inefficient',
+  'Unclear', 'Challenging', 'Time-consuming', 'Dry', 'Stressful',
+];
+
+const REVIEW_NEUTRAL = [
+  'Fast-paced', 'Balanced', 'Mixed', 'Average', 'Reasonable',
+  'Standard', 'Straightforward', 'Survey', 'Introductory', 'Routine',
 ];
 
 const GRADE_LETTERS = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'];
@@ -94,11 +102,15 @@ async function main() {
           departments
         CASCADE;
       `);
+
+      await client.query('COMMIT');
+      console.log('Database wiped (all core tables).');
+      return;
     }
 
     const users = await insertUsers(client, CONFIG.users);
     const sections = await fetchExistingSections(client);
-    const reviews = await insertReviews(client, CONFIG.reviews, sections, users);
+    const reviews = await insertReviewsByCourse(client, sections, users);
     await insertReviewTags(client, reviews);
 
     await client.query('COMMIT');
@@ -159,7 +171,7 @@ function uniquePairs(count, aLen, bLen) {
 }
 
 async function fetchExistingSections(client) {
-  const result = await client.query('SELECT id, term_id FROM course_sections');
+  const result = await client.query('SELECT id, term_id, course_id FROM course_sections');
   if (result.rows.length === 0) {
     throw new Error('No course sections found. Load real course/section data before generating reviews.');
   }
@@ -182,64 +194,122 @@ async function insertUsers(client, count) {
   return users;
 }
 
-async function insertReviews(client, count, sections, users) {
+async function insertReviewsByCourse(client, sections, users) {
   const reviews = [];
   const pairSet = new Set();
-  const maxAttempts = count * 20;
-  let attempts = 0;
+  const sectionsByCourse = new Map();
 
-  while (reviews.length < count && attempts < maxAttempts) {
-    attempts += 1;
-    const section = pick(sections);
-    const user = pick(users);
-    const key = `${section.id}:${user.id}`;
-    if (pairSet.has(key)) {
-      continue;
+  for (const section of sections) {
+    const list = sectionsByCourse.get(section.course_id) || [];
+    list.push(section);
+    sectionsByCourse.set(section.course_id, list);
+  }
+
+  for (const [courseId, courseSections] of sectionsByCourse.entries()) {
+    const target = randomInt(CONFIG.maxReviews - CONFIG.minReviews + 1) + CONFIG.minReviews;
+    const courseBias = pickCourseBias();
+    let createdForCourse = 0;
+    let attempts = 0;
+    const maxAttempts = target * 20;
+
+    while (createdForCourse < target && attempts < maxAttempts) {
+      attempts += 1;
+      const section = pick(courseSections);
+      const user = pick(users);
+      const key = `${section.id}:${user.id}`;
+      if (pairSet.has(key)) {
+        continue;
+      }
+      pairSet.add(key);
+
+      const sentiment = pickSentiment(courseBias);
+      const { rating, difficulty, text, firstWord, wouldTakeAgain } = buildReviewContent(sentiment);
+      const grade = pick(GRADE_LETTERS);
+      const hours = Number((2 + rand() * 12).toFixed(2));
+      const attendanceRequired = rand() > 0.5;
+
+      const result = await client.query(
+        `
+          INSERT INTO reviews (
+            course_section_id, user_id, rating, difficulty, grade_received,
+            text, first_impression_word, hours_per_week, would_take_again, attendance_required
+          )
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+          ON CONFLICT (course_section_id, user_id) DO NOTHING
+          RETURNING id
+        `,
+        [
+          section.id,
+          user.id,
+          rating,
+          difficulty,
+          grade,
+          text,
+          firstWord,
+          hours,
+          wouldTakeAgain,
+          attendanceRequired,
+        ]
+      );
+
+      if (result.rows.length > 0) {
+        reviews.push({ id: result.rows[0].id, courseId });
+        createdForCourse += 1;
+      }
     }
-    pairSet.add(key);
 
-    const rating = 1 + randomInt(5);
-    const difficulty = 1 + randomInt(5);
-    const grade = pick(GRADE_LETTERS);
-    const text = `${pick(REVIEW_WORDS)} course with ${pick(REVIEW_WORDS).toLowerCase()} content.`;
-    const firstWord = pick(REVIEW_WORDS);
-    const hours = Number((2 + rand() * 12).toFixed(2));
-    const wouldTakeAgain = rand() > 0.3;
-    const attendanceRequired = rand() > 0.5;
-
-    const result = await client.query(
-      `
-        INSERT INTO reviews (
-          course_section_id, user_id, rating, difficulty, grade_received,
-          text, first_impression_word, hours_per_week, would_take_again, attendance_required
-        )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-        ON CONFLICT (course_section_id, user_id) DO NOTHING
-        RETURNING id
-      `,
-      [
-        section.id,
-        user.id,
-        rating,
-        difficulty,
-        grade,
-        text,
-        firstWord,
-        hours,
-        wouldTakeAgain,
-        attendanceRequired,
-      ]
-    );
-
-    if (result.rows.length > 0) {
-      reviews.push({ id: result.rows[0].id });
+    if (createdForCourse < target) {
+      console.warn(`Course ${courseId}: created ${createdForCourse}/${target} reviews. Consider more users or fewer reviews per course.`);
     }
   }
 
-  if (reviews.length < count) {
-    console.warn(`Only created ${reviews.length} reviews (requested ${count}). Consider increasing users/sections or using --wipe=true.`);
-  }
   return reviews;
+}
+
+function pickCourseBias() {
+  const roll = rand();
+  if (roll < CONFIG.positiveBiasRate) return 'positive';
+  if (roll < CONFIG.positiveBiasRate + CONFIG.negativeBiasRate) return 'negative';
+  return 'neutral';
+}
+
+function pickSentiment(courseBias) {
+  if (courseBias === 'positive') {
+    return rand() < 0.75 ? 'positive' : 'neutral';
+  }
+  if (courseBias === 'negative') {
+    return rand() < 0.75 ? 'negative' : 'neutral';
+  }
+  return rand() < 0.5 ? 'neutral' : (rand() < 0.75 ? 'positive' : 'negative');
+}
+
+function buildReviewContent(sentiment) {
+  let rating;
+  let difficulty;
+  let words;
+  let wouldTakeAgain;
+
+  if (sentiment === 'positive') {
+    rating = 4 + randomInt(2);
+    difficulty = 1 + randomInt(3);
+    words = REVIEW_POSITIVE;
+    wouldTakeAgain = true;
+  } else if (sentiment === 'negative') {
+    rating = 1 + randomInt(2);
+    difficulty = 3 + randomInt(3);
+    words = REVIEW_NEGATIVE;
+    wouldTakeAgain = false;
+  } else {
+    rating = 2 + randomInt(3);
+    difficulty = 2 + randomInt(3);
+    words = REVIEW_NEUTRAL;
+    wouldTakeAgain = rand() > 0.5;
+  }
+
+  const firstWord = pick(words);
+  const text = `${firstWord} course with ${pick(words).toLowerCase()} content.`;
+
+  return { rating, difficulty, text, firstWord, wouldTakeAgain };
 }
 
 async function insertReviewTags(client, reviews) {

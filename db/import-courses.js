@@ -105,7 +105,7 @@ async function importCourses() {
         const courses = JSON.parse(rawData);
         console.log(`Loaded ${courses.length} courses from JSON`);
 
-        // Pre-fetch departments and terms for lookup
+        // Pre-fetch departments and terms for lookup (will auto-create missing entries)
         const deptResult = await client.query('SELECT id, code FROM departments');
         const deptMap = new Map(deptResult.rows.map(r => [r.code, r.id]));
 
@@ -123,11 +123,18 @@ async function importCourses() {
         let skippedCount = 0;
 
         for (const course of courses) {
-            const departmentId = deptMap.get(course.subject);
+            let departmentId = deptMap.get(course.subject);
             if (!departmentId) {
-                console.warn(`  Skipping ${course.subject} ${course.catalogNumber}: department not found`);
-                skippedCount++;
-                continue;
+                const deptName = course.subject;
+                const deptInsert = await client.query(
+                    `INSERT INTO departments (code, name)
+                     VALUES ($1, $2)
+                     ON CONFLICT (code) DO UPDATE SET name = EXCLUDED.name
+                     RETURNING id`,
+                    [course.subject, deptName]
+                );
+                departmentId = deptInsert.rows[0].id;
+                deptMap.set(course.subject, departmentId);
             }
 
             const termParsed = parseTerm(course.term);
@@ -138,11 +145,17 @@ async function importCourses() {
             }
 
             const termKey = `${termParsed.year} ${termParsed.season}`;
-            const termId = termMap.get(termKey);
+            let termId = termMap.get(termKey);
             if (!termId) {
-                console.warn(`  Skipping ${course.subject} ${course.catalogNumber}: term not found "${termKey}"`);
-                skippedCount++;
-                continue;
+                const termInsert = await client.query(
+                    `INSERT INTO terms (season, year, label)
+                     VALUES ($1, $2, $3)
+                     ON CONFLICT (season, year) DO UPDATE SET label = EXCLUDED.label
+                     RETURNING id`,
+                    [termParsed.season, termParsed.year, termKey]
+                );
+                termId = termInsert.rows[0].id;
+                termMap.set(termKey, termId);
             }
 
             const credits = parseCredits(course.hours);
