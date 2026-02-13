@@ -196,7 +196,6 @@ router.get('/', async (req, res) => {
       credits: row.credits,
       professor: row.professors || 'TBA',
       schedule: formatSchedule(row.meetings),
-      location: 'TBA', // Location would need to be added to section_meetings if needed
       avgHoursWeek: parseFloat(row.avg_hours_per_week) || 0,
       effortLevel: parseFloat(row.difficulty_rating) || 0,
       classSize: row.max_seats ? String(row.max_seats) : 'N/A',
@@ -377,7 +376,6 @@ router.get('/:id', async (req, res) => {
       maxSeats: section.max_seats || 0,
       professor: section.professors || 'TBA',
       schedule: formatSchedule(section.meetings),
-      location: 'TBA',
       rating: parseFloat(course.rating) || 0,
       reviewCount: course.review_count || 0,
       prerequisites,

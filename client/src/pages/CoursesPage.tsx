@@ -234,7 +234,7 @@ const CoursesPage: React.FC = () => {
             <div className="filter-group">
               <div className="filter-label">CATEGORIES</div>
               <div className="filter-buttons">
-                {['AXLE', 'Writing', 'FYS'].map((category) => (
+                {['HCA', 'Writing', 'FYS'].map((category) => (
                   <button
                     key={category}
                     className={`filter-btn ${selectedCategories.includes(category) ? 'active' : ''}`}
@@ -285,7 +285,6 @@ const CoursesPage: React.FC = () => {
                     <div className="course-meta">
                       <span className="meta-item">👤 {course.professor}</span>
                       <span className="meta-item">📅 {course.schedule}</span>
-                      <span className="meta-item">📍 {course.location}</span>
                       <span className={`meta-badge ${course.difficulty.replace(' ', '-').toLowerCase()}`}>
                         {course.difficulty}
                       </span>
