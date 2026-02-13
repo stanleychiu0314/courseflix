@@ -146,7 +146,7 @@ async function importCourses() {
             }
 
             const credits = parseCredits(course.hours);
-            if (!credits || credits < 1 || credits > 6) {
+            if (credits == null || credits < 0 || credits > 20) {
                 console.warn(`  Skipping ${course.subject} ${course.catalogNumber}: invalid credits "${course.hours}"`);
                 skippedCount++;
                 continue;

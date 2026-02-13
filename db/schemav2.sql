@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS courses (
     name VARCHAR(255) NOT NULL,
     department_id UUID NOT NULL REFERENCES departments(id) ON DELETE CASCADE,
     description TEXT,
-    credits INTEGER NOT NULL CHECK (credits > 0 AND credits <= 6),
+    credits INTEGER NOT NULL CHECK (credits >= 0 AND credits <= 20),
 
     -- Cached aggregate statistics (computed from reviews/sections)
     rating NUMERIC(3, 2) CHECK (rating >= 0 AND rating <= 5),
@@ -155,8 +155,8 @@ CREATE TABLE IF NOT EXISTS course_sections (
     section_number VARCHAR(20),
 
     -- Enrollment
-    max_seats INTEGER NOT NULL CHECK (max_seats > 0),
-    enrolled_count INTEGER DEFAULT 0 CHECK (enrolled_count >= 0 AND enrolled_count <= max_seats),
+    max_seats INTEGER NOT NULL CHECK (max_seats >= 0),
+    enrolled_count INTEGER DEFAULT 0 CHECK (enrolled_count >= 0),
 
     -- Section-specific policies
     attendance_policy attendance_policy_type DEFAULT 'flexible',

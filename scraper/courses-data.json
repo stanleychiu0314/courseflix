@@ -33,7 +33,7 @@
         "instructor": "Joseph, Matthew E.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "26/25"
       }
     ]
   },
@@ -71,7 +71,7 @@
         "instructor": "Taaffe, Claudine O.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -150,7 +150,7 @@
         "instructor": "Joseph, Matthew E.",
         "days": "TR",
         "time": "04:15p - 05:30p",
-        "availability": ""
+        "availability": "17/15"
       }
     ],
     "categories": [
@@ -248,7 +248,7 @@
         "instructor": "Sauer, Jacob J.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "30/30"
       }
     ]
   },
@@ -267,7 +267,7 @@
         "instructor": "Lopez Juarez, Juan Jose",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -384,7 +384,7 @@
         "instructor": "Gamez, Rebeca",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -482,7 +482,7 @@
         "instructor": "Bjork-James, Sophie S.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "32/30"
       }
     ]
   },
@@ -520,7 +520,7 @@
         "instructor": "Sauer, Jacob J.",
         "days": "MWF",
         "time": "02:30p - 03:20p",
-        "availability": ""
+        "availability": "42/42"
       }
     ]
   },
@@ -960,7 +960,7 @@
         "instructor": "Blau, Alexandra C.",
         "days": "TR",
         "time": "04:10p - 07:00p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "02",
@@ -989,7 +989,7 @@
         "instructor": "Pavlovic', Vesna",
         "days": "TR",
         "time": "12:45p - 03:35p",
-        "availability": ""
+        "availability": "12/12"
       }
     ],
     "categories": [
@@ -1033,7 +1033,7 @@
         "instructor": "Blau, Alexandra C.",
         "days": "TR",
         "time": "12:45p - 03:35p",
-        "availability": ""
+        "availability": "11/11"
       }
     ],
     "categories": [
@@ -1055,7 +1055,7 @@
         "instructor": "Filsoofi, Raheleh",
         "days": "MW",
         "time": "09:10a - 12:00p",
-        "availability": ""
+        "availability": "8/8"
       },
       {
         "section": "02",
@@ -1084,7 +1084,7 @@
         "instructor": "Deguira, Patrick",
         "days": "MW",
         "time": "12:45p - 03:35p",
-        "availability": ""
+        "availability": "10/10"
       }
     ],
     "categories": [
@@ -1216,7 +1216,7 @@
         "instructor": "Pavlovic', Vesna",
         "days": "TR",
         "time": "12:45p - 03:35p",
-        "availability": ""
+        "availability": "0/0"
       }
     ],
     "categories": [
@@ -1238,7 +1238,7 @@
         "instructor": "Reynolds, Tamara",
         "days": "TR",
         "time": "04:10p - 07:00p",
-        "availability": ""
+        "availability": "2/1"
       }
     ],
     "categories": [
@@ -1260,7 +1260,7 @@
         "instructor": "Blau, Alexandra C.",
         "days": "TR",
         "time": "12:45p - 03:35p",
-        "availability": ""
+        "availability": "2/2"
       }
     ],
     "categories": [
@@ -1282,7 +1282,7 @@
         "instructor": "Filsoofi, Raheleh",
         "days": "MW",
         "time": "09:10a - 12:00p",
-        "availability": ""
+        "availability": "4/4"
       }
     ],
     "categories": [
@@ -1326,7 +1326,7 @@
         "instructor": "Hosford, Mark B.",
         "days": "TR",
         "time": "12:45p - 03:35p",
-        "availability": ""
+        "availability": "2/1"
       }
     ]
   },
@@ -1345,7 +1345,7 @@
         "instructor": "Blau, Alexandra C.",
         "days": "TR",
         "time": "12:45p - 03:35p",
-        "availability": ""
+        "availability": "0/0"
       }
     ],
     "categories": [
@@ -1367,7 +1367,7 @@
         "instructor": "Hosford, Mark B.",
         "days": "TR",
         "time": "12:45p - 03:35p",
-        "availability": ""
+        "availability": "0/0"
       }
     ]
   },
@@ -1433,7 +1433,7 @@
         "instructor": "Harper, Jana K.",
         "days": "MW",
         "time": "04:10p - 07:00p",
-        "availability": ""
+        "availability": "10/10"
       }
     ]
   },
@@ -1548,14 +1548,14 @@
         "instructor": "Nakano, Asami",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "14/10"
       },
       {
         "section": "02",
         "instructor": "Nakano, Asami",
         "days": "MW",
         "time": "04:00p - 05:15p",
-        "availability": ""
+        "availability": "13/10"
       }
     ]
   },
@@ -1723,7 +1723,7 @@
         "instructor": "Li, Pengfei",
         "days": "W",
         "time": "02:30p - 05:15p",
-        "availability": ""
+        "availability": "15/14"
       }
     ]
   },
@@ -1780,28 +1780,28 @@
         "instructor": "Molina, Mallory E.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "31/31"
       },
       {
         "section": "02",
         "instructor": "Shepard, Katherine",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "71/71"
       },
       {
         "section": "01",
         "instructor": "Grundstrom, Erika D.",
         "days": "M",
         "time": "07:00p - 10:30p",
-        "availability": ""
+        "availability": "31/31"
       },
       {
         "section": "02",
         "instructor": "Grundstrom, Erika D.",
         "days": "T",
         "time": "07:00p - 10:30p",
-        "availability": "18/21"
+        "availability": "71/71"
       },
       {
         "section": "03",
@@ -1846,14 +1846,14 @@
         "instructor": "Grundstrom, Erika D.",
         "days": "M",
         "time": "03:35p - 06:25p",
-        "availability": ""
+        "availability": "21/21"
       },
       {
         "section": "03",
         "instructor": "Grundstrom, Erika D.",
         "days": "W",
         "time": "03:35p - 06:25p",
-        "availability": ""
+        "availability": "21/21"
       }
     ]
   },
@@ -2273,7 +2273,7 @@
         "instructor": "Bachmann, Brian O.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "12/10"
       }
     ]
   },
@@ -2349,7 +2349,7 @@
         "instructor": "Paschal, Cynthia B.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "21/20"
       },
       {
         "section": "02",
@@ -2614,14 +2614,14 @@
         "instructor": "Zhou, Xin (Maizie)",
         "days": "TR",
         "time": "04:15p - 05:30p",
-        "availability": ""
+        "availability": "10/10"
       },
       {
         "section": "03",
         "instructor": "Byram, Brett C.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "04",
@@ -2685,7 +2685,7 @@
         "instructor": "Lowery, Amanda R.",
         "days": "W",
         "time": "01:25p - 04:15p",
-        "availability": ""
+        "availability": "25/20"
       }
     ]
   },
@@ -2704,7 +2704,7 @@
         "instructor": "Moore, Marc C.",
         "days": "F",
         "time": "01:25p - 04:15p",
-        "availability": ""
+        "availability": "60/60"
       }
     ]
   },
@@ -2848,7 +2848,7 @@
         "instructor": "Hillyer, Julian F. | \n            \n               Grawe DeSantis, Larisa R.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "215/215"
       },
       {
         "section": "02",
@@ -2862,7 +2862,7 @@
         "instructor": "Pask, James D.",
         "days": "T",
         "time": "09:30a - 12:20p",
-        "availability": "58/60"
+        "availability": "215/215"
       },
       {
         "section": "02",
@@ -3397,7 +3397,7 @@
         "instructor": "Broadie, Kendal S.",
         "days": "R",
         "time": "11:15a - 01:05p",
-        "availability": ""
+        "availability": "14/12"
       }
     ]
   },
@@ -3579,7 +3579,7 @@
         "instructor": "Yang, Daniel",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "60/60"
       },
       {
         "section": "02",
@@ -3600,7 +3600,7 @@
         "instructor": "Yang, Daniel",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "60/60"
       }
     ]
   },
@@ -3640,7 +3640,7 @@
         "instructor": "Fairbanks, Joshua C.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "59/60"
       }
     ]
   },
@@ -3713,7 +3713,7 @@
         "instructor": "Riley, Jennifer N.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "60/60"
       }
     ]
   },
@@ -3739,7 +3739,7 @@
         "instructor": "Feylessoufi, Antoine",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "60/60"
       },
       {
         "section": "03",
@@ -3753,7 +3753,7 @@
         "instructor": "Feylessoufi, Antoine",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": "59/60"
+        "availability": "60/60"
       }
     ]
   },
@@ -3791,7 +3791,7 @@
         "instructor": "Avila, Mario",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "26/25"
       }
     ]
   },
@@ -3810,7 +3810,7 @@
         "instructor": "Stat, Thomas",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -3848,7 +3848,7 @@
         "instructor": "Lovinger, Daniel B.",
         "days": "W",
         "time": "01:15p - 03:45p",
-        "availability": ""
+        "availability": "40/40"
       }
     ]
   },
@@ -3905,7 +3905,7 @@
         "instructor": "White, George B.",
         "days": "W",
         "time": "02:45p - 05:15p",
-        "availability": ""
+        "availability": "45/44"
       }
     ]
   },
@@ -3976,7 +3976,7 @@
         "instructor": "Dyke, Jonathan N.",
         "days": "MW",
         "time": "08:40a - 09:55a",
-        "availability": ""
+        "availability": "40/40"
       }
     ]
   },
@@ -3995,7 +3995,7 @@
         "instructor": "Williamson, Leonora",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "32/32"
       }
     ]
   },
@@ -4040,7 +4040,7 @@
         "instructor": "Mcclure, Gary C.",
         "days": "M",
         "time": "04:10p - 06:40p",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "03",
@@ -4054,7 +4054,7 @@
         "instructor": "Leddin, Jamie",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "05",
@@ -4281,7 +4281,7 @@
         "instructor": "Hensley, Victoria",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "29/25"
       },
       {
         "section": "02",
@@ -4295,7 +4295,7 @@
         "instructor": "Halbert, Christy",
         "days": "MW",
         "time": "01:25p - 02:40p",
-        "availability": ""
+        "availability": "25/25"
       }
     ],
     "categories": [
@@ -4317,7 +4317,7 @@
         "instructor": "Stob, Paul H.",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "17/15"
       },
       {
         "section": "02",
@@ -4343,7 +4343,7 @@
         "instructor": "Malak, Kamaal",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "26/26"
       }
     ]
   },
@@ -4384,7 +4384,7 @@
         "instructor": "Valentine, Danyelle A.",
         "days": "T",
         "time": "04:00p - 06:30p",
-        "availability": ""
+        "availability": "14/12"
       }
     ]
   },
@@ -4403,7 +4403,7 @@
         "instructor": "Oliver, Charlane J.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "23/20"
       },
       {
         "section": "02",
@@ -4467,7 +4467,7 @@
         "instructor": "Peel, Rechard L.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "32/31"
       }
     ]
   },
@@ -4486,7 +4486,7 @@
         "instructor": "Stob, Paul H. | \n            \n               Spaulding, Bailey H.",
         "days": "MW",
         "time": "04:00p - 05:15p",
-        "availability": ""
+        "availability": "30/25"
       }
     ]
   },
@@ -4505,7 +4505,7 @@
         "instructor": "Torres Colón, Gabriel A.",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "5/5"
       },
       {
         "section": "02",
@@ -4526,7 +4526,7 @@
         "instructor": "Stob, Paul H.",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "7/5"
       },
       {
         "section": "07",
@@ -4675,7 +4675,7 @@
         "instructor": "Absi, Ghina N.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "02",
@@ -5001,7 +5001,7 @@
         "instructor": "Troxel, Lori A. | \n            \n               Absi, Ghina N.",
         "days": "T",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "22/22"
       }
     ]
   },
@@ -5217,7 +5217,7 @@
         "instructor": "Pereira, Allison G.",
         "days": "M",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "16/15"
       }
     ]
   },
@@ -5438,7 +5438,7 @@
         "instructor": "Capps, Shannon L.",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "1/1"
       }
     ]
   },
@@ -5464,7 +5464,7 @@
         "instructor": "Pereira, Allison G. | \n            \n               Lang, Matthew J.",
         "days": "W",
         "time": "01:15p - 06:05p",
-        "availability": ""
+        "availability": "15/15"
       }
     ]
   },
@@ -5521,7 +5521,7 @@
         "instructor": "Wilson, John T.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "18/16"
       }
     ]
   },
@@ -5559,7 +5559,7 @@
         "instructor": "Rogers, Bridget R.",
         "days": "M",
         "time": "01:25p - 02:40p",
-        "availability": ""
+        "availability": "10/10"
       },
       {
         "section": "02",
@@ -5663,7 +5663,7 @@
         "instructor": "Phillips, Shawn T.",
         "days": "M",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "24/24"
       },
       {
         "section": "22",
@@ -5684,7 +5684,7 @@
         "instructor": "Phillips, Shawn T.",
         "days": "W",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "24/24"
       }
     ]
   },
@@ -5717,7 +5717,7 @@
         "instructor": "Tainter, Craig J.",
         "days": "TR R",
         "time": "09:30a - 10:45a 07:00p - 09:00p",
-        "availability": ""
+        "availability": "160/160"
       },
       {
         "section": "21",
@@ -5773,7 +5773,7 @@
         "instructor": "Todd, Tara D.",
         "days": "T",
         "time": "02:45p - 03:35p",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "29",
@@ -5829,7 +5829,7 @@
         "instructor": "Todd, Tara D.",
         "days": "W",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "37",
@@ -5878,7 +5878,7 @@
         "instructor": "Daniel, Aaron W.",
         "days": "T",
         "time": "01:20p - 04:10p",
-        "availability": "71/72"
+        "availability": "160/160"
       },
       {
         "section": "04",
@@ -5958,7 +5958,7 @@
         "instructor": "Hare, Alissa A.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "37/32"
       },
       {
         "section": "21",
@@ -5984,7 +5984,7 @@
         "instructor": "Ni, Chi-Li",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "80/80"
       },
       {
         "section": "02",
@@ -5998,7 +5998,7 @@
         "instructor": "List, Adam K.",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "108/108"
       },
       {
         "section": "04",
@@ -6033,7 +6033,7 @@
         "instructor": "Clements, Katherine A.",
         "days": "T",
         "time": "01:15p - 02:05p",
-        "availability": ""
+        "availability": "27/27"
       },
       {
         "section": "23",
@@ -6061,7 +6061,7 @@
         "instructor": "Clements, Katherine A.",
         "days": "M",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "24/24"
       },
       {
         "section": "32",
@@ -6089,7 +6089,7 @@
         "instructor": "Clements, Katherine A.",
         "days": "T",
         "time": "02:45p - 03:35p",
-        "availability": ""
+        "availability": "24/24"
       },
       {
         "section": "44",
@@ -6159,7 +6159,7 @@
         "instructor": "Ni, Chi-Li",
         "days": "M",
         "time": "12:20p - 04:10p",
-        "availability": "69/72"
+        "availability": "80/80"
       },
       {
         "section": "02",
@@ -6173,7 +6173,7 @@
         "instructor": "Ni, Chi-Li",
         "days": "W",
         "time": "01:20p - 05:10p",
-        "availability": ""
+        "availability": "108/108"
       },
       {
         "section": "04",
@@ -6232,7 +6232,7 @@
         "instructor": "Verberne-Sutton, Susan D.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "02",
@@ -6303,7 +6303,7 @@
         "instructor": "Yang, Zhongyue",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "30/30"
       }
     ]
   },
@@ -6455,7 +6455,7 @@
         "instructor": "Sulikowski, Gary A.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "63/50"
       }
     ]
   },
@@ -6481,7 +6481,7 @@
         "instructor": "Verberne-Sutton, Susan D. | \n            \n               List, Adam K.",
         "days": "M T R",
         "time": "01:25p - 02:15p 01:20p - 05:10p 01:20p - 03:10p",
-        "availability": ""
+        "availability": "0/0"
       }
     ]
   },
@@ -6585,7 +6585,7 @@
         "instructor": "Yu, Xiang Hua",
         "days": "MW",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "8/8"
       },
       {
         "section": "03",
@@ -6611,7 +6611,7 @@
         "instructor": "Li, Pengfei",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "12/12"
       }
     ]
   },
@@ -6630,7 +6630,7 @@
         "instructor": "Wei, Qing",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "12/12"
       }
     ]
   },
@@ -6649,7 +6649,7 @@
         "instructor": "Yu, Xiang Hua",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "17/12"
       }
     ]
   },
@@ -6912,7 +6912,7 @@
         "instructor": "Harris, Jason R.",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "33/32"
       }
     ]
   },
@@ -7725,7 +7725,7 @@
         "instructor": "Waters, Jonathan M.",
         "days": "TR",
         "time": "04:15p - 06:00p",
-        "availability": ""
+        "availability": "15/15"
       }
     ]
   },
@@ -7839,7 +7839,7 @@
         "instructor": "Wood, Dustin A.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "04",
@@ -7853,7 +7853,7 @@
         "instructor": "Sandoz, M L",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "16/16"
       },
       {
         "section": "06",
@@ -7926,7 +7926,7 @@
         "instructor": "West, Isaac N.",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "21/20"
       }
     ],
     "categories": [
@@ -7948,7 +7948,7 @@
         "instructor": "Kim, Bohyeong",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "20/20"
       }
     ],
     "categories": [
@@ -8014,7 +8014,7 @@
         "instructor": "Dosser, Maxwell A.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "16/15"
       }
     ]
   },
@@ -8486,7 +8486,7 @@
         "instructor": "Deguira, Patrick",
         "days": "TR",
         "time": "08:00a - 09:15a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "02",
@@ -8500,7 +8500,7 @@
         "instructor": "Da Silva Pinto Jorge, Maria L.",
         "days": "TR",
         "time": "08:00a - 09:15a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "04",
@@ -8521,7 +8521,7 @@
         "instructor": "Tift, Kristyl",
         "days": "TR",
         "time": "08:00a - 09:15a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "07",
@@ -8535,7 +8535,7 @@
         "instructor": "Seiffert, Adriane E.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "09",
@@ -8549,7 +8549,7 @@
         "instructor": "Simplican, Stacy C.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "11",
@@ -8563,7 +8563,7 @@
         "instructor": "Kelner, Saul J.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "13",
@@ -8591,7 +8591,7 @@
         "instructor": "Hill, Ruth A.",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "17",
@@ -8612,7 +8612,7 @@
         "instructor": "Yao, Linan",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "20",
@@ -8626,7 +8626,7 @@
         "instructor": "Dosser, Maxwell A.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "22",
@@ -8640,7 +8640,7 @@
         "instructor": "Benn Torres, Jada",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "24",
@@ -8654,7 +8654,7 @@
         "instructor": "Catania, Elizabeth J.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "26",
@@ -8668,7 +8668,7 @@
         "instructor": "Trigo, Benigno L.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "28",
@@ -8682,7 +8682,7 @@
         "instructor": "Durst, Paul",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "30",
@@ -8696,21 +8696,21 @@
         "instructor": "Kelner, Saul J.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "32",
         "instructor": "Modena, Letizia",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "33",
         "instructor": "Sucre, Andrew J.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "34",
@@ -8724,7 +8724,7 @@
         "instructor": "Molvig, Ole R.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "36",
@@ -8738,7 +8738,7 @@
         "instructor": "Grundstrom, Erika D.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "38",
@@ -8759,7 +8759,7 @@
         "instructor": "Finkelman, Samuel J.",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "41",
@@ -8773,7 +8773,7 @@
         "instructor": "Crawford, Jack",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "43",
@@ -8787,7 +8787,7 @@
         "instructor": "Betz, Jacob M.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "45",
@@ -8801,7 +8801,7 @@
         "instructor": "Rife, Joseph L.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "47",
@@ -8815,7 +8815,7 @@
         "instructor": "Makhdoumian, Helen",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "49",
@@ -8829,7 +8829,7 @@
         "instructor": "Rahmati, Payam",
         "days": "MW",
         "time": "08:40a - 09:55a",
-        "availability": ""
+        "availability": "15/15"
       }
     ]
   },
@@ -8862,7 +8862,7 @@
         "instructor": "Mirabile, Andrea",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "21/21"
       },
       {
         "section": "05",
@@ -8876,7 +8876,7 @@
         "instructor": "Marra, Anna",
         "days": "MW",
         "time": "11:10a - 12:25p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "08",
@@ -8890,7 +8890,7 @@
         "instructor": "McNicholl, Adeana",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "30/30"
       },
       {
         "section": "10",
@@ -8939,7 +8939,7 @@
         "instructor": "Jacobs, Alexander I.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "50/50"
       },
       {
         "section": "22",
@@ -8960,7 +8960,7 @@
         "instructor": "Trigo, Benigno L.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "25",
@@ -9112,7 +9112,7 @@
         "instructor": "Narasimham, Gayathri",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "35/35"
       },
       {
         "section": "02",
@@ -9126,7 +9126,7 @@
         "instructor": "Narasimham, Gayathri",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "35/35"
       }
     ]
   },
@@ -9258,7 +9258,7 @@
         "instructor": "Bond, Josh",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "35/35"
       },
       {
         "section": "02",
@@ -9420,7 +9420,7 @@
         "instructor": "Arena, Daniel B.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "30/30"
       },
       {
         "section": "02",
@@ -10459,7 +10459,7 @@
         "instructor": "Moyer, Daniel C.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "33/32"
       }
     ]
   },
@@ -10637,7 +10637,7 @@
         "instructor": "Morales, Alexander W.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "17/17"
       },
       {
         "section": "02",
@@ -10666,7 +10666,7 @@
         "instructor": "Spicer, Sabrina K.",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "02",
@@ -10695,7 +10695,7 @@
         "instructor": "Danilovic, Dusan",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -10733,7 +10733,7 @@
         "instructor": "Durst, Paul",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -10752,7 +10752,7 @@
         "instructor": "Richards, Michelle F. | \n            \n               Wright, David W.",
         "days": "T",
         "time": "01:15p - 03:30p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -10771,7 +10771,7 @@
         "instructor": "Richards, Michelle F.",
         "days": "MW",
         "time": "01:25p - 02:40p",
-        "availability": ""
+        "availability": "19/15"
       }
     ],
     "categories": [
@@ -10793,7 +10793,7 @@
         "instructor": "Wright, David W.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -10895,7 +10895,7 @@
         "instructor": "Morales, Alexander W.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "23/20"
       }
     ]
   },
@@ -10947,7 +10947,7 @@
         "instructor": "Florian, David C.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "21/20"
       },
       {
         "section": "03",
@@ -10992,7 +10992,7 @@
         "instructor": "Florian, David C.",
         "days": "TR",
         "time": "04:15p - 05:30p",
-        "availability": ""
+        "availability": "12/10"
       }
     ]
   },
@@ -11051,7 +11051,7 @@
         "instructor": "Narasimham, Gayathri",
         "days": "TR",
         "time": "04:15p - 05:30p",
-        "availability": ""
+        "availability": "60/60"
       },
       {
         "section": "91",
@@ -11065,7 +11065,7 @@
         "instructor": "Darrah, Tim",
         "days": "TR",
         "time": "04:15p - 05:30p",
-        "availability": ""
+        "availability": "60/60"
       },
       {
         "section": "93",
@@ -11157,7 +11157,7 @@
         "instructor": "Lilburn, Simon",
         "days": "T",
         "time": "05:30p - 07:30p",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "04",
@@ -11185,7 +11185,7 @@
         "instructor": "Lilburn, Simon",
         "days": "M",
         "time": "04:40p - 06:40p",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "13",
@@ -11394,14 +11394,14 @@
         "instructor": "Amat, Ashwaq",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "60/60"
       },
       {
         "section": "01",
         "instructor": "Kang, Weng P.",
         "days": "M",
         "time": "02:30p - 05:20p",
-        "availability": ""
+        "availability": "30/60"
       },
       {
         "section": "02",
@@ -11415,7 +11415,7 @@
         "instructor": "Kang, Weng P.",
         "days": "W",
         "time": "05:45p - 08:35p",
-        "availability": "8/12"
+        "availability": "60/60"
       }
     ]
   },
@@ -11441,7 +11441,7 @@
         "instructor": "Amat, Ashwaq",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "42/40"
       },
       {
         "section": "01",
@@ -11455,7 +11455,7 @@
         "instructor": "Amat, Ashwaq",
         "days": "T",
         "time": "02:45p - 05:35p",
-        "availability": ""
+        "availability": "42/40"
       },
       {
         "section": "03",
@@ -11547,7 +11547,7 @@
         "instructor": "Reed, Robert A.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "38/38"
       },
       {
         "section": "02",
@@ -11660,7 +11660,7 @@
         "instructor": "Ebrish, Mona",
         "days": "M",
         "time": "05:45p - 08:35p",
-        "availability": ""
+        "availability": "28/35"
       },
       {
         "section": "02",
@@ -12316,7 +12316,7 @@
         "instructor": "Stromme, John",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "130/130"
       },
       {
         "section": "02",
@@ -12349,7 +12349,7 @@
         "instructor": "Vides De Andrade, Ana R.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "50/50"
       },
       {
         "section": "02",
@@ -12396,7 +12396,7 @@
         "instructor": "Domenech-Arumi, Gerard",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "36/36"
       }
     ]
   },
@@ -12491,7 +12491,7 @@
         "instructor": "Saggi, Rupinder K.",
         "days": "MW",
         "time": "08:40a - 09:55a",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "02",
@@ -12517,7 +12517,7 @@
         "instructor": "Rennhoff, Christina H.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "40/40"
       },
       {
         "section": "02",
@@ -12550,7 +12550,7 @@
         "instructor": "Ghandi, Hojjatallah",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "40/40"
       },
       {
         "section": "03",
@@ -12564,7 +12564,7 @@
         "instructor": "Ghandi, Hojjatallah",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "40/40"
       },
       {
         "section": "05",
@@ -12590,7 +12590,7 @@
         "instructor": "VanVuren, Mitchell",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "40/40"
       },
       {
         "section": "02",
@@ -12618,7 +12618,7 @@
         "instructor": "Crockett, Amy",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "40/40"
       }
     ]
   },
@@ -12670,7 +12670,7 @@
         "instructor": "Nchare Fogam, Abdoul Karim",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "36/36"
       }
     ]
   },
@@ -12727,7 +12727,7 @@
         "instructor": "Quincy, Sarah",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "32/32"
       }
     ]
   },
@@ -12746,7 +12746,7 @@
         "instructor": "Crockett, Amy",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "36/36"
       }
     ]
   },
@@ -12765,7 +12765,7 @@
         "instructor": "Domenech-Arumi, Gerard",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "36/36"
       }
     ]
   },
@@ -13115,7 +13115,7 @@
         "instructor": "Zaiour, Reem",
         "days": "MW",
         "time": "08:40a - 09:55a",
-        "availability": ""
+        "availability": "37/36"
       }
     ]
   },
@@ -13153,14 +13153,14 @@
         "instructor": "Titova, Mariia",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "38/36"
       },
       {
         "section": "02",
         "instructor": "Titova, Mariia",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "36/36"
       }
     ]
   },
@@ -13236,7 +13236,7 @@
         "instructor": "Zimran, Ariell",
         "days": "M",
         "time": "01:30p - 02:45p",
-        "availability": ""
+        "availability": "6/6"
       }
     ]
   },
@@ -13849,7 +13849,7 @@
         "instructor": "Peterson, Becky",
         "days": "F F F F",
         "time": "04:30p - 09:00p 01/09/2026 - 01/09/2026 04:30p - 09:00p 01/30/2026 - 01/30/2026 04:30p - 09:00p 02/20/2026 - 02/20/2026 04:30p - 09:00p 03/27/2026 - 03/27/2026",
-        "availability": ""
+        "availability": "28/15"
       },
       {
         "section": "02",
@@ -13998,7 +13998,7 @@
         "instructor": "Klyce, Ann M.",
         "days": "M",
         "time": "01:25p - 04:10p",
-        "availability": ""
+        "availability": "72/100"
       },
       {
         "section": "02",
@@ -14751,7 +14751,7 @@
         "instructor": "Rahmati, Payam",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "16/15"
       },
       {
         "section": "03",
@@ -14765,7 +14765,7 @@
         "instructor": "Harvey, Jared J.",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "05",
@@ -14779,7 +14779,7 @@
         "instructor": "Wisniewski, Mark",
         "days": "TR",
         "time": "08:00a - 09:15a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "07",
@@ -14819,7 +14819,7 @@
         "instructor": "Cotman, Langston",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "7/7"
       }
     ]
   },
@@ -14838,7 +14838,7 @@
         "instructor": "Nassar, Athena A.",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "7/7"
       }
     ]
   },
@@ -14857,7 +14857,7 @@
         "instructor": "Kutzinski, Vera M.",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "16/16"
       },
       {
         "section": "02",
@@ -14900,7 +14900,7 @@
         "instructor": "Rendeiro, Remy R.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "02",
@@ -14943,7 +14943,7 @@
         "instructor": "Dordal, Lisa A.",
         "days": "MW",
         "time": "08:40a - 09:55a",
-        "availability": ""
+        "availability": "16/16"
       },
       {
         "section": "03",
@@ -15000,7 +15000,7 @@
         "instructor": "He, Huan",
         "days": "MWF",
         "time": "02:30p - 03:20p",
-        "availability": ""
+        "availability": "16/16"
       },
       {
         "section": "06",
@@ -15080,7 +15080,7 @@
         "instructor": "Castillo, Christiana D.",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "02",
@@ -15109,7 +15109,7 @@
         "instructor": "Little, Amanda G.",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "14/14"
       }
     ],
     "categories": [
@@ -15153,7 +15153,7 @@
         "instructor": "Lordi, Emily J.",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "18/18"
       }
     ],
     "categories": [
@@ -15241,7 +15241,7 @@
         "instructor": "Karim, Sheba",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "12/12"
       }
     ],
     "categories": [
@@ -15263,7 +15263,7 @@
         "instructor": "Cho, Su R.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "12/12"
       }
     ],
     "categories": [
@@ -15285,7 +15285,7 @@
         "instructor": "Hilles, Richard K.",
         "days": "R",
         "time": "02:45p - 05:45p",
-        "availability": ""
+        "availability": "11/0"
       }
     ],
     "categories": [
@@ -15676,7 +15676,7 @@
         "instructor": "Teukolsky, Rachel K.",
         "days": "T",
         "time": "04:15p - 06:15p",
-        "availability": ""
+        "availability": "10/0"
       }
     ]
   },
@@ -15832,7 +15832,7 @@
         "instructor": "Cooper, Lynne",
         "days": "M",
         "time": "03:35p - 06:05p",
-        "availability": ""
+        "availability": "28/28"
       }
     ]
   },
@@ -16057,7 +16057,7 @@
         "instructor": "Abkowitz, Mark D.",
         "days": "M",
         "time": "12:20p - 03:15p",
-        "availability": ""
+        "availability": "11/10"
       }
     ]
   },
@@ -16114,7 +16114,7 @@
         "instructor": "Tzankova, Zdravka P.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "40/40"
       }
     ]
   },
@@ -16586,7 +16586,7 @@
         "instructor": "Zeller, Christoph M.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -16923,7 +16923,7 @@
         "instructor": "Kevra, Susan K.",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "15/15"
       }
     ]
   },
@@ -17032,7 +17032,7 @@
         "instructor": "Porter, Nathalie",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "16/16"
       }
     ]
   },
@@ -17166,7 +17166,7 @@
         "instructor": "Li, Juntao",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "12/12"
       }
     ]
   },
@@ -17433,7 +17433,7 @@
         "instructor": "Rose, Kristin E.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "20/20"
       },
       {
         "section": "03",
@@ -17459,7 +17459,7 @@
         "instructor": "Threadcraft, Shatema",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "20/20"
       },
       {
         "section": "02",
@@ -17473,7 +17473,7 @@
         "instructor": "Kinard, Amanda M.",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "04",
@@ -17487,7 +17487,7 @@
         "instructor": "Covington, Elizabeth R.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "20/20"
       },
       {
         "section": "02",
@@ -17513,7 +17513,7 @@
         "instructor": "Lowe, Jessica C.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "16/16"
       },
       {
         "section": "02",
@@ -17539,7 +17539,7 @@
         "instructor": "Charles, Antoinette L.",
         "days": "MW",
         "time": "12:20p - 01:35p",
-        "availability": ""
+        "availability": "24/20"
       }
     ]
   },
@@ -17656,7 +17656,7 @@
         "instructor": "Rose, Kristin E.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -17675,7 +17675,7 @@
         "instructor": "Valentine, Danyelle A.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -17754,7 +17754,7 @@
         "instructor": "Rose, Kristin E.",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "1/1"
       },
       {
         "section": "02",
@@ -17787,7 +17787,7 @@
         "instructor": "Essin, Elizabeth C.",
         "days": "T",
         "time": "03:30p - 06:00p",
-        "availability": ""
+        "availability": "12/12"
       }
     ]
   },
@@ -17858,7 +17858,7 @@
         "instructor": "Kimbrough, Jerome J.",
         "days": "F",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "7/7"
       },
       {
         "section": "02",
@@ -18123,7 +18123,7 @@
         "instructor": "Dine, Susan M.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "15/15"
       }
     ]
   },
@@ -18243,7 +18243,7 @@
         "instructor": "Moodey, Elizabeth J.",
         "days": "R",
         "time": "02:45p - 05:15p",
-        "availability": ""
+        "availability": "12/11"
       }
     ]
   },
@@ -18642,7 +18642,7 @@
         "instructor": "Haim, Mazalit",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "16/15"
       }
     ]
   },
@@ -18718,7 +18718,7 @@
         "instructor": "Genkins, Daniel N.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "15/15"
       }
     ],
     "categories": [
@@ -18740,7 +18740,7 @@
         "instructor": "Robinson, William F.",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "30/30"
       }
     ]
   },
@@ -18759,7 +18759,7 @@
         "instructor": "Cowie, Jefferson R.",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "15/15"
       }
     ]
   },
@@ -19037,7 +19037,7 @@
         "instructor": "Molineux, Catherine A.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "30/30"
       }
     ]
   },
@@ -19096,7 +19096,7 @@
         "instructor": "Bess, Michael D.",
         "days": "F",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "06",
@@ -19150,7 +19150,7 @@
         "instructor": "Smith, Helmut W.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "16/15"
       },
       {
         "section": "02",
@@ -19171,7 +19171,7 @@
         "instructor": "Finkelman, Samuel J.",
         "days": "MW",
         "time": "08:40a - 09:55a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "06",
@@ -19185,7 +19185,7 @@
         "instructor": "Coffey, Kieran J.",
         "days": "TR",
         "time": "04:15p - 05:30p",
-        "availability": ""
+        "availability": "15/15"
       }
     ]
   },
@@ -19261,7 +19261,7 @@
         "instructor": "Schmidt, Alexander",
         "days": "M",
         "time": "01:25p - 03:55p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "02",
@@ -19384,7 +19384,7 @@
         "instructor": "Chaudhry, Divya",
         "days": "MW",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "10/9"
       },
       {
         "section": "02",
@@ -19476,7 +19476,7 @@
         "instructor": "Oberoi, Ashmeet",
         "days": "M",
         "time": "11:15a - 12:30p",
-        "availability": ""
+        "availability": "102/100"
       },
       {
         "section": "02",
@@ -19588,7 +19588,7 @@
         "instructor": "Oberoi, Ashmeet",
         "days": "W",
         "time": "11:15a - 12:30p",
-        "availability": ""
+        "availability": "14/14"
       },
       {
         "section": "18",
@@ -19614,7 +19614,7 @@
         "instructor": "Payne, Jeremy M.",
         "days": "T",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "103/0"
       },
       {
         "section": "02",
@@ -19628,7 +19628,7 @@
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "14/0"
       },
       {
         "section": "04",
@@ -19642,7 +19642,7 @@
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "13/0"
       },
       {
         "section": "06",
@@ -19656,7 +19656,7 @@
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "13/0"
       },
       {
         "section": "08",
@@ -19670,7 +19670,7 @@
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "12/0"
       },
       {
         "section": "11",
@@ -19684,7 +19684,7 @@
         "instructor": "Blaha, Craig",
         "days": "MW",
         "time": "11:15a - 12:30p",
-        "availability": ""
+        "availability": "30/30"
       },
       {
         "section": "15",
@@ -19724,21 +19724,21 @@
         "instructor": "Gupta, Jyoti",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "30/30"
       },
       {
         "section": "02",
         "instructor": "Wang, Rong",
         "days": "MW",
         "time": "11:15a - 12:30p",
-        "availability": ""
+        "availability": "31/31"
       },
       {
         "section": "03",
         "instructor": "Diehl, David K.",
         "days": "MW",
         "time": "01:25p - 02:40p",
-        "availability": ""
+        "availability": "30/30"
       },
       {
         "section": "05",
@@ -19752,7 +19752,7 @@
         "instructor": "Bess, Kimberly D.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "30/30"
       }
     ]
   },
@@ -19771,14 +19771,14 @@
         "instructor": "Lefkowitz, Heather C.",
         "days": "TR TR TR",
         "time": "09:30a - 10:45a 01/05/2026 - 01/13/2026 09:30a - 10:45a 01/15/2026 - 02/26/2026 09:30a - 10:45a 03/02/2026 - 04/20/2026",
-        "availability": ""
+        "availability": "40/40"
       },
       {
         "section": "02",
         "instructor": "Lefkowitz, Heather C.",
         "days": "TR TR TR",
         "time": "11:00a - 12:15p 01/05/2026 - 01/13/2026 11:00a - 12:15p 01/15/2026 - 02/26/2026 11:00a - 12:15p 03/02/2026 - 04/20/2026",
-        "availability": ""
+        "availability": "40/40"
       }
     ]
   },
@@ -19804,35 +19804,35 @@
         "instructor": "Kruger, Nate",
         "days": "W",
         "time": "01:25p - 02:40p",
-        "availability": ""
+        "availability": "21/20"
       },
       {
         "section": "03",
         "instructor": "Staff",
         "days": "W",
         "time": "01:25p - 02:40p",
-        "availability": ""
+        "availability": "21/20"
       },
       {
         "section": "04",
         "instructor": "Staff",
         "days": "W",
         "time": "01:25p - 02:40p",
-        "availability": ""
+        "availability": "21/20"
       },
       {
         "section": "05",
         "instructor": "Staff",
         "days": "W",
         "time": "01:25p - 02:40p",
-        "availability": ""
+        "availability": "21/20"
       },
       {
         "section": "06",
         "instructor": "Balch, Ryan T.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "85/85"
       }
     ]
   },
@@ -19851,7 +19851,7 @@
         "instructor": "Russell, Jennifer",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "26/25"
       }
     ]
   },
@@ -19877,7 +19877,7 @@
         "instructor": "Owen, Amy M.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "31/30"
       },
       {
         "section": "03",
@@ -19898,7 +19898,7 @@
         "instructor": "Blaha, Craig",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "30/30"
       },
       {
         "section": "06",
@@ -19919,7 +19919,7 @@
         "instructor": "Seiden, Jonathan",
         "days": "MW",
         "time": "01:25p - 02:40p",
-        "availability": ""
+        "availability": "30/30"
       }
     ]
   },
@@ -19978,7 +19978,7 @@
         "instructor": "Carlone, David",
         "days": "M",
         "time": "12:20p - 03:10p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "02",
@@ -20020,7 +20020,7 @@
         "instructor": "Johnson, Stacy",
         "days": "MW",
         "time": "12:20p - 01:35p",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -20058,7 +20058,7 @@
         "instructor": "Tompkins, Kristen",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "124/0"
       }
     ]
   },
@@ -20077,7 +20077,7 @@
         "instructor": "Tompkins, Kristen",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": ""
+        "availability": "10/0"
       },
       {
         "section": "02",
@@ -20091,7 +20091,7 @@
         "instructor": "Iddings, Ana C.",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": ""
+        "availability": "12/0"
       },
       {
         "section": "04",
@@ -20105,7 +20105,7 @@
         "instructor": "Joseph, Nicole M.",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": ""
+        "availability": "11/0"
       },
       {
         "section": "06",
@@ -20119,7 +20119,7 @@
         "instructor": "Anderson, LaToya R.",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": ""
+        "availability": "10/0"
       },
       {
         "section": "08",
@@ -20154,7 +20154,7 @@
         "instructor": "Rogers, Emma R.",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": ""
+        "availability": "13/13"
       }
     ]
   },
@@ -20173,7 +20173,7 @@
         "instructor": "Tompkins, Kristen",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "124/0"
       }
     ]
   },
@@ -20192,7 +20192,7 @@
         "instructor": "Tompkins, Kristen",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "124/0"
       }
     ]
   },
@@ -20249,7 +20249,7 @@
         "instructor": "Payne, Jeremy M.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "26/26"
       }
     ]
   },
@@ -20268,7 +20268,7 @@
         "instructor": "Bess, Kimberly D.",
         "days": "T",
         "time": "02:45p - 05:35p",
-        "availability": ""
+        "availability": "26/25"
       }
     ]
   },
@@ -20344,7 +20344,7 @@
         "instructor": "Martin, Nina C.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "26/26"
       },
       {
         "section": "02",
@@ -20370,7 +20370,7 @@
         "instructor": "Gilchrist, Leigh Z.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -20403,21 +20403,21 @@
         "instructor": "McDonald, Yolanda J.",
         "days": "W",
         "time": "02:30p - 05:20p",
-        "availability": ""
+        "availability": "22/22"
       },
       {
         "section": "04",
         "instructor": "McDonald, Yolanda J.",
         "days": "R",
         "time": "02:45p - 05:35p",
-        "availability": ""
+        "availability": "22/22"
       },
       {
         "section": "05",
         "instructor": "Lefkowitz, Heather C.",
         "days": "W",
         "time": "03:35p - 06:35p",
-        "availability": ""
+        "availability": "41/40"
       }
     ]
   },
@@ -20474,7 +20474,7 @@
         "instructor": "Cravens, Xiu C.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -20493,7 +20493,7 @@
         "instructor": "Falletta, Salvatore",
         "days": "MW",
         "time": "01:25p - 02:40p",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -20512,7 +20512,7 @@
         "instructor": "Balch, Ryan T.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -20557,7 +20557,7 @@
         "instructor": "Booker, Laura",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "27/25"
       }
     ]
   },
@@ -20657,7 +20657,7 @@
         "instructor": "Barsky, Robert F.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "17/16"
       }
     ]
   },
@@ -21482,7 +21482,7 @@
         "instructor": "Sergio, Elena",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "16/16"
       },
       {
         "section": "02",
@@ -21522,7 +21522,7 @@
         "instructor": "Filosa, Elsa",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "12/12"
       }
     ]
   },
@@ -21634,7 +21634,7 @@
         "instructor": "Shimizu, Hideko",
         "days": "TR",
         "time": "10:00a - 10:50a",
-        "availability": ""
+        "availability": "14/12"
       },
       {
         "section": "03",
@@ -22208,7 +22208,7 @@
         "instructor": "Meyer, Adam S.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -22451,7 +22451,7 @@
         "instructor": "Jang, Seok Bae",
         "days": "MW",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "03",
@@ -22598,7 +22598,7 @@
         "instructor": "Ruiz, Jesus",
         "days": "MW",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "27/25"
       }
     ]
   },
@@ -22617,7 +22617,7 @@
         "instructor": "Castilho, Celso T.",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "30/30"
       }
     ]
   },
@@ -22760,7 +22760,7 @@
         "instructor": "Karadag, Tekin",
         "days": "T",
         "time": "08:25a - 09:15a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "03",
@@ -22793,7 +22793,7 @@
         "instructor": "Laan, Jacob",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "02",
@@ -22814,7 +22814,7 @@
         "instructor": "Lim, Jun Hwi",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "38/36"
       },
       {
         "section": "05",
@@ -22828,7 +22828,7 @@
         "instructor": "Staff",
         "days": "R",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "18/18"
       },
       {
         "section": "07",
@@ -22868,7 +22868,7 @@
         "instructor": "Haley, Jacob",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "39/36"
       },
       {
         "section": "02",
@@ -22882,7 +22882,7 @@
         "instructor": "Staff",
         "days": "T",
         "time": "04:15p - 05:05p",
-        "availability": ""
+        "availability": "20/18"
       },
       {
         "section": "04",
@@ -22896,7 +22896,7 @@
         "instructor": "Staff",
         "days": "T",
         "time": "09:55a - 10:45a",
-        "availability": ""
+        "availability": "20/18"
       },
       {
         "section": "06",
@@ -22910,7 +22910,7 @@
         "instructor": "Fernos, Talia",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "08",
@@ -22931,7 +22931,7 @@
         "instructor": "Karadag, Tekin",
         "days": "MWF",
         "time": "02:30p - 03:20p",
-        "availability": ""
+        "availability": "37/36"
       },
       {
         "section": "11",
@@ -22945,7 +22945,7 @@
         "instructor": "Staff",
         "days": "R",
         "time": "01:40p - 02:30p",
-        "availability": ""
+        "availability": "18/18"
       },
       {
         "section": "13",
@@ -22985,7 +22985,7 @@
         "instructor": "McAfee, Sean",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "02",
@@ -23018,7 +23018,7 @@
         "instructor": "Sehayek, Sam B.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "40/36"
       },
       {
         "section": "02",
@@ -23032,7 +23032,7 @@
         "instructor": "Thornburgh, Darrion",
         "days": "T",
         "time": "04:15p - 05:05p",
-        "availability": ""
+        "availability": "18/18"
       },
       {
         "section": "04",
@@ -23046,7 +23046,7 @@
         "instructor": "Mihaila, Maria",
         "days": "T",
         "time": "11:00a - 11:50a",
-        "availability": ""
+        "availability": "21/18"
       },
       {
         "section": "06",
@@ -23074,7 +23074,7 @@
         "instructor": "Sousa, Madi",
         "days": "T",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "18/18"
       },
       {
         "section": "10",
@@ -23088,7 +23088,7 @@
         "instructor": "Dahle, Kristina N.",
         "days": "R",
         "time": "09:55a - 10:45a",
-        "availability": ""
+        "availability": "21/18"
       },
       {
         "section": "12",
@@ -23102,7 +23102,7 @@
         "instructor": "Huang, Yixuan",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "42/36"
       },
       {
         "section": "14",
@@ -23116,7 +23116,7 @@
         "instructor": "Wang, Yanyu",
         "days": "R",
         "time": "01:40p - 02:30p",
-        "availability": ""
+        "availability": "21/18"
       },
       {
         "section": "16",
@@ -23144,7 +23144,7 @@
         "instructor": "Jimoz, Shitu Fawaz",
         "days": "MWF",
         "time": "03:35p - 04:25p",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "20",
@@ -23184,7 +23184,7 @@
         "instructor": "Brandt, Madeline V.",
         "days": "T",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -23203,7 +23203,7 @@
         "instructor": "Yu, Anna",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "26/25"
       },
       {
         "section": "02",
@@ -23217,7 +23217,7 @@
         "instructor": "Yang, Jay K.",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "26/25"
       },
       {
         "section": "04",
@@ -23231,7 +23231,7 @@
         "instructor": "Jin, Tong",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "31/25"
       }
     ]
   },
@@ -23250,7 +23250,7 @@
         "instructor": "Dickmann, Ryan",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "38/36"
       },
       {
         "section": "02",
@@ -23264,7 +23264,7 @@
         "instructor": "Morton, Brian F.",
         "days": "W",
         "time": "03:35p - 04:25p",
-        "availability": ""
+        "availability": "18/18"
       },
       {
         "section": "04",
@@ -23278,7 +23278,7 @@
         "instructor": "Kalita, Jayashree",
         "days": "T",
         "time": "02:45p - 03:35p",
-        "availability": ""
+        "availability": "20/18"
       },
       {
         "section": "06",
@@ -23304,7 +23304,7 @@
         "instructor": "Ying, Li",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "02",
@@ -23384,7 +23384,7 @@
         "instructor": "Hardin, Douglas P.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "21/20"
       },
       {
         "section": "02",
@@ -23398,7 +23398,7 @@
         "instructor": "Mono, Andreas G.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -23417,14 +23417,14 @@
         "instructor": "Tsikalas, Georgios",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "20/20"
       },
       {
         "section": "02",
         "instructor": "McSpirit, Eleanor",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -23443,7 +23443,7 @@
         "instructor": "Chan, Henry Yi-Wei",
         "days": "MWF",
         "time": "08:00a - 08:50a",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "02",
@@ -23457,7 +23457,7 @@
         "instructor": "Zhang, Faith",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "04",
@@ -23471,7 +23471,7 @@
         "instructor": "Housden, Hannah",
         "days": "MWF",
         "time": "02:30p - 03:20p",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -24252,7 +24252,7 @@
         "instructor": "Verrier, Thomas E.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "16/16"
       },
       {
         "section": "02",
@@ -24425,7 +24425,7 @@
         "instructor": "Mitchell, Jason E.",
         "days": "M",
         "time": "02:25p - 04:15p",
-        "availability": ""
+        "availability": "4/4"
       },
       {
         "section": "03",
@@ -24472,7 +24472,7 @@
         "instructor": "Bellan, Leon M.",
         "days": "M",
         "time": "02:20p - 05:10p",
-        "availability": ""
+        "availability": "20/20"
       },
       {
         "section": "03",
@@ -24507,7 +24507,7 @@
         "instructor": "Bellan, Leon M.",
         "days": "W",
         "time": "02:20p - 05:10p",
-        "availability": ""
+        "availability": "20/20"
       },
       {
         "section": "08",
@@ -24547,7 +24547,7 @@
         "instructor": "Dong, Xiaoguang",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "60/60"
       },
       {
         "section": "02",
@@ -24580,7 +24580,7 @@
         "instructor": "Li, Deyu",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "33/33"
       },
       {
         "section": "03",
@@ -24658,7 +24658,7 @@
         "instructor": "Sahai, Ranjana | \n            \n               Goldfarb, Michael",
         "days": "W",
         "time": "03:35p - 06:25p",
-        "availability": ""
+        "availability": "39/38"
       },
       {
         "section": "04",
@@ -24684,7 +24684,7 @@
         "instructor": "Valentine, Jason G.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "32/30"
       },
       {
         "section": "02",
@@ -25098,7 +25098,7 @@
         "instructor": "Madatian, Andre",
         "days": "W",
         "time": "06:10p - 09:00p",
-        "availability": ""
+        "availability": "60/60"
       }
     ]
   },
@@ -25162,7 +25162,7 @@
         "instructor": "Charles, Antoinette L.",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "30/30"
       },
       {
         "section": "02",
@@ -25176,7 +25176,7 @@
         "instructor": "Mitchell, Lauren",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "30/30"
       },
       {
         "section": "04",
@@ -25190,7 +25190,7 @@
         "instructor": "Stark, Laura J.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "31/30"
       },
       {
         "section": "06",
@@ -25204,7 +25204,7 @@
         "instructor": "Bastian, Savannah C.",
         "days": "TR",
         "time": "04:15p - 05:30p",
-        "availability": ""
+        "availability": "30/30"
       }
     ]
   },
@@ -25223,7 +25223,7 @@
         "instructor": "Gonzales, Gilbert",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "35/35"
       }
     ]
   },
@@ -25242,7 +25242,7 @@
         "instructor": "Mitchell, Lauren",
         "days": "MW",
         "time": "04:00p - 05:15p",
-        "availability": ""
+        "availability": "32/30"
       }
     ],
     "categories": [
@@ -25302,7 +25302,7 @@
         "instructor": "Petty, JuLeigh",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "35/35"
       }
     ]
   },
@@ -25321,7 +25321,7 @@
         "instructor": "Bruce, Jaime",
         "days": "R",
         "time": "02:45p - 05:15p",
-        "availability": ""
+        "availability": "25/20"
       }
     ]
   },
@@ -25340,7 +25340,7 @@
         "instructor": "McKay, Tara A.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "30/30"
       }
     ]
   },
@@ -25423,14 +25423,14 @@
         "instructor": "Lindsey, Odie A.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "20/20"
       },
       {
         "section": "04",
         "instructor": "Kola, Fatima",
         "days": "TR",
         "time": "08:00a - 09:15a",
-        "availability": ""
+        "availability": "22/20"
       }
     ],
     "categories": [
@@ -25452,7 +25452,7 @@
         "instructor": "Williams, Caroline R. | \n            \n               Kola, Fatima",
         "days": "R",
         "time": "04:30p - 07:00p",
-        "availability": ""
+        "availability": "35/35"
       }
     ],
     "categories": [
@@ -25474,7 +25474,7 @@
         "instructor": "Fanning, Joseph B.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "28/28"
       }
     ],
     "categories": [
@@ -25496,7 +25496,7 @@
         "instructor": "Peterson, Courtney S.",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -25782,7 +25782,7 @@
         "instructor": "Bruce, Jaime",
         "days": "W",
         "time": "02:30p - 05:00p",
-        "availability": ""
+        "availability": "18/14"
       },
       {
         "section": "03",
@@ -26356,7 +26356,7 @@
         "instructor": "Rogers, Bridget R.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "95/95"
       },
       {
         "section": "02",
@@ -26370,7 +26370,7 @@
         "instructor": "Rogers, Bridget R.",
         "days": "M",
         "time": "01:25p - 04:25p",
-        "availability": ""
+        "availability": "95/95"
       },
       {
         "section": "02",
@@ -26684,7 +26684,7 @@
         "instructor": "Taylor, Daniel",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "16/16"
       }
     ]
   },
@@ -26857,7 +26857,7 @@
         "instructor": "Barham, Sarah K.",
         "days": "R",
         "time": "11:00a - 11:50a",
-        "availability": ""
+        "availability": "8/8"
       },
       {
         "section": "05",
@@ -26904,7 +26904,7 @@
         "instructor": "Barham, Sarah K.",
         "days": "F",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "8/8"
       }
     ]
   },
@@ -26923,7 +26923,7 @@
         "instructor": "Koutsoukos, Sheree D.",
         "days": "M",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "6/6"
       },
       {
         "section": "02",
@@ -26944,7 +26944,7 @@
         "instructor": "Koutsoukos, Sheree D.",
         "days": "T",
         "time": "01:15p - 02:05p",
-        "availability": ""
+        "availability": "6/6"
       },
       {
         "section": "05",
@@ -26977,7 +26977,7 @@
         "instructor": "Koutsoukos, Sheree D.",
         "days": "M",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "7/6"
       },
       {
         "section": "02",
@@ -26991,7 +26991,7 @@
         "instructor": "Koutsoukos, Sheree D.",
         "days": "T",
         "time": "09:30a - 10:20a",
-        "availability": ""
+        "availability": "6/6"
       },
       {
         "section": "04",
@@ -27093,7 +27093,7 @@
         "instructor": "Ahima, Gyane K.",
         "days": "T",
         "time": "07:00p - 08:45p",
-        "availability": ""
+        "availability": "15/15"
       }
     ]
   },
@@ -27223,7 +27223,7 @@
         "instructor": "Biddlecombe, Tucker",
         "days": "MWF T",
         "time": "01:25p - 02:15p 04:15p - 05:05p",
-        "availability": ""
+        "availability": "17/16"
       }
     ]
   },
@@ -27392,7 +27392,7 @@
         "instructor": "Dorfman, Amy R. | \n            \n               Samuel, David",
         "days": "F",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "4/4"
       },
       {
         "section": "02",
@@ -27636,7 +27636,7 @@
         "instructor": "Candelaria, Lorenzo F.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "60/60"
       }
     ],
     "categories": [
@@ -27718,7 +27718,7 @@
         "instructor": "Candelaria, Lorenzo F.",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "60/60"
       }
     ]
   },
@@ -27737,7 +27737,7 @@
         "instructor": "Lowe, Melanie D.",
         "days": "TR",
         "time": "08:00a - 09:15a",
-        "availability": ""
+        "availability": "18/18"
       },
       {
         "section": "02",
@@ -27751,7 +27751,7 @@
         "instructor": "Shadle, Douglas W.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "21/20"
       },
       {
         "section": "04",
@@ -27853,7 +27853,7 @@
         "instructor": "Miranda, Isidora K.",
         "days": "W",
         "time": "06:00p - 08:30p",
-        "availability": ""
+        "availability": "18/16"
       }
     ]
   },
@@ -27910,7 +27910,7 @@
         "instructor": "Chase, Brittany",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "1/1"
       }
     ]
   },
@@ -28668,7 +28668,7 @@
         "instructor": "Rose, Michael A.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "04",
@@ -28694,7 +28694,7 @@
         "instructor": "Sienkiewicz, Frederick A.",
         "days": "MW",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "21/21"
       },
       {
         "section": "02",
@@ -28715,7 +28715,7 @@
         "instructor": "Williams, David B.",
         "days": "MW",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "21/21"
       }
     ]
   },
@@ -28741,7 +28741,7 @@
         "instructor": "Rose, Michael A.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "03",
@@ -28805,7 +28805,7 @@
         "instructor": "Sienkiewicz, Frederick A.",
         "days": "MW",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -29042,7 +29042,7 @@
         "instructor": "McGuire, Jennifer Q.",
         "days": "T",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "35/35"
       },
       {
         "section": "02",
@@ -29239,7 +29239,7 @@
         "instructor": "Jones, Carrie K.",
         "days": "MW",
         "time": "04:00p - 05:15p",
-        "availability": ""
+        "availability": "31/30"
       }
     ]
   },
@@ -29258,7 +29258,7 @@
         "instructor": "Wegener, Meredyth",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "21/20"
       }
     ]
   },
@@ -29360,7 +29360,7 @@
         "instructor": "Catania, Elizabeth J.",
         "days": "T",
         "time": "08:00a - 09:15a",
-        "availability": ""
+        "availability": "16/15"
       },
       {
         "section": "03",
@@ -29374,7 +29374,7 @@
         "instructor": "McMahon, Douglas G.",
         "days": "M",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "17/15"
       }
     ]
   },
@@ -29469,7 +29469,7 @@
         "instructor": "Avona, Amanda D.",
         "days": "M",
         "time": "02:30p - 05:10p",
-        "availability": ""
+        "availability": "18/15"
       }
     ]
   },
@@ -29705,7 +29705,7 @@
         "instructor": "Wise, Alyssa",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "22/20"
       },
       {
         "section": "02",
@@ -29960,7 +29960,7 @@
         "instructor": "Martha, Katherine P.",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "02",
@@ -30041,7 +30041,7 @@
         "instructor": "Staff",
         "days": "F",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "03",
@@ -30069,7 +30069,7 @@
         "instructor": "Staff",
         "days": "F",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "07",
@@ -30150,7 +30150,7 @@
         "instructor": "Hayes, Shannon A.",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "16/15"
       },
       {
         "section": "02",
@@ -30409,7 +30409,7 @@
         "instructor": "Congdon, Matthew L.",
         "days": "W",
         "time": "03:10p - 05:30p",
-        "availability": ""
+        "availability": "5/4"
       }
     ],
     "categories": [
@@ -30506,14 +30506,14 @@
         "instructor": "Shepard, Katherine",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "50/50"
       },
       {
         "section": "01",
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "T",
         "time": "01:15p - 04:00p",
-        "availability": "4/18"
+        "availability": "50/50"
       },
       {
         "section": "02",
@@ -30640,7 +30640,7 @@
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "T",
         "time": "08:00a - 10:45a",
-        "availability": ""
+        "availability": "130/135"
       },
       {
         "section": "04",
@@ -30743,7 +30743,7 @@
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "M",
         "time": "04:40p - 07:30p",
-        "availability": ""
+        "availability": "84/135"
       },
       {
         "section": "03",
@@ -30870,7 +30870,7 @@
         "instructor": "Umar, Sait A.",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "1/1"
       }
     ]
   },
@@ -30908,7 +30908,7 @@
         "instructor": "Johns, Will E.",
         "days": "T",
         "time": "04:10p - 07:00p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "02",
@@ -31017,7 +31017,7 @@
         "instructor": "Kunnawalkam Elayavalli, Raghav",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "5/5"
       },
       {
         "section": "02",
@@ -31031,7 +31031,7 @@
         "instructor": "Haglund, Richard F.",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "4/2"
       },
       {
         "section": "04",
@@ -31782,7 +31782,7 @@
         "instructor": "Purcell, Bill P.",
         "days": "T",
         "time": "06:00p - 08:30p",
-        "availability": ""
+        "availability": "18/18"
       }
     ]
   },
@@ -31891,7 +31891,7 @@
         "instructor": "Wager, Anita A.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "16/0"
       },
       {
         "section": "66",
@@ -32056,7 +32056,7 @@
         "instructor": "Yao, Linan",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "40/40"
       }
     ]
   },
@@ -32170,7 +32170,7 @@
         "instructor": "Carroll, Katherine B.",
         "days": "TR",
         "time": "12:30p - 01:45p",
-        "availability": ""
+        "availability": "50/50"
       }
     ]
   },
@@ -32246,7 +32246,7 @@
         "instructor": "Hiskey, Jonathan T.",
         "days": "W",
         "time": "01:45p - 04:15p",
-        "availability": ""
+        "availability": "16/15"
       }
     ]
   },
@@ -32474,7 +32474,7 @@
         "instructor": "Simplican, Stacy C.",
         "days": "TR",
         "time": "12:30p - 01:45p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -32493,7 +32493,7 @@
         "instructor": "Carroll, Katherine B.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "16/16"
       }
     ]
   },
@@ -32592,7 +32592,7 @@
         "instructor": "Ritter, Emily H.",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "18/10"
       },
       {
         "section": "02",
@@ -33109,7 +33109,7 @@
         "instructor": "Maxcey, Ashleigh",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "199/190"
       }
     ]
   },
@@ -33147,7 +33147,7 @@
         "instructor": "Sandberg, Elisabeth H.",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "39/35"
       },
       {
         "section": "02",
@@ -33192,7 +33192,7 @@
         "instructor": "Balch, Ryan T.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "55/55"
       }
     ]
   },
@@ -33268,7 +33268,7 @@
         "instructor": "Kaczkurkin, Antonia",
         "days": "MW",
         "time": "08:40a - 09:55a",
-        "availability": ""
+        "availability": "30/30"
       }
     ]
   },
@@ -33287,7 +33287,7 @@
         "instructor": "Park, Sohee",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "21/20"
       }
     ]
   },
@@ -33306,7 +33306,7 @@
         "instructor": "Schlundt, David G.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "50/50"
       }
     ]
   },
@@ -33499,7 +33499,7 @@
         "instructor": "Olatunji, Olubunmi O.",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "7/5"
       },
       {
         "section": "16",
@@ -34093,7 +34093,7 @@
         "instructor": "McNicholl, Adeana",
         "days": "MWF",
         "time": "02:30p - 03:20p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -34229,7 +34229,7 @@
         "instructor": "Eido, Issam M.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "12/12"
       }
     ],
     "categories": [
@@ -34289,7 +34289,7 @@
         "instructor": "Khabibulina, Albina",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "15/15"
       }
     ]
   },
@@ -34327,7 +34327,7 @@
         "instructor": "Zhernokleyev, Denis A.",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "18/18"
       }
     ]
   },
@@ -34606,7 +34606,7 @@
         "instructor": "Johnson, Heather J.",
         "days": "W",
         "time": "04:10p - 06:00p",
-        "availability": ""
+        "availability": "23/22"
       },
       {
         "section": "02",
@@ -34708,7 +34708,7 @@
         "instructor": "Cornfield, Daniel B.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "35/35"
       },
       {
         "section": "02",
@@ -34722,7 +34722,7 @@
         "instructor": "Ross, Clifford",
         "days": "MWF",
         "time": "02:30p - 03:20p",
-        "availability": ""
+        "availability": "40/40"
       },
       {
         "section": "04",
@@ -34736,7 +34736,7 @@
         "instructor": "Frierson, Whitney R.",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "40/40"
       }
     ]
   },
@@ -34755,7 +34755,7 @@
         "instructor": "Stacey, Lawrence W.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "40/40"
       },
       {
         "section": "02",
@@ -34807,7 +34807,7 @@
         "instructor": "Murray, Joshua",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "76/75"
       }
     ]
   },
@@ -35220,7 +35220,7 @@
         "instructor": "Woods, Laurie E.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "35/35"
       }
     ]
   },
@@ -35303,7 +35303,7 @@
         "instructor": "Palacios, Carolina",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "16/16"
       },
       {
         "section": "03",
@@ -35317,7 +35317,7 @@
         "instructor": "Wasick, Cynthia M.",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "16/16"
       },
       {
         "section": "05",
@@ -35331,7 +35331,7 @@
         "instructor": "Kelly, Margaret C.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "17/16"
       },
       {
         "section": "07",
@@ -35357,7 +35357,7 @@
         "instructor": "Murphy, Patrick R.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "18/16"
       },
       {
         "section": "02",
@@ -35449,7 +35449,7 @@
         "instructor": "Pintane, Maria P.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "17/16"
       }
     ]
   },
@@ -35487,7 +35487,7 @@
         "instructor": "Falconi, Heraldo C.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "04",
@@ -35575,7 +35575,7 @@
         "instructor": "Wenz, Steven B.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "17/15"
       }
     ]
   },
@@ -35677,7 +35677,7 @@
         "instructor": "Catanzaro, Lorraine J.",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "22/18"
       }
     ],
     "categories": [
@@ -35763,7 +35763,7 @@
         "instructor": "Wasick, Cynthia M.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "18/16"
       }
     ]
   },
@@ -36371,7 +36371,7 @@
         "instructor": "Cizmar, Elizabeth M.",
         "days": "TR",
         "time": "09:00a - 10:50a",
-        "availability": ""
+        "availability": "14/14"
       }
     ],
     "categories": [
@@ -36412,7 +36412,7 @@
         "instructor": "Knight, Krista",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "15/15"
       }
     ],
     "categories": [
@@ -36434,7 +36434,7 @@
         "instructor": "Haynes, Elizabeth",
         "days": "MW",
         "time": "01:00p - 02:15p",
-        "availability": ""
+        "availability": "20/20"
       }
     ],
     "categories": [
@@ -36456,7 +36456,7 @@
         "instructor": "Cizmar, Elizabeth M.",
         "days": "TR",
         "time": "11:10a - 01:00p",
-        "availability": ""
+        "availability": "12/12"
       }
     ],
     "categories": [
@@ -36478,7 +36478,7 @@
         "instructor": "Chalman, Hannah E.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "16/15"
       }
     ],
     "categories": [
@@ -36561,7 +36561,7 @@
         "instructor": "Tift, Kristyl",
         "days": "MW",
         "time": "11:15a - 01:05p",
-        "availability": ""
+        "availability": "12/12"
       }
     ],
     "categories": [
