@@ -95,14 +95,23 @@ async function scrapeCourse(subject, catalogNumber) {
     let courseDescription = '';
 
     if (data.length > 0) {
-        // Click on the first section to open the detail panel
-        const firstSectionSelector = 'td.classSection';
-        await page.waitForSelector(firstSectionSelector);
+        // Click on the first section of the CORRECT course to open the detail panel
+        // We need to find the table whose header matches our target subject/catalog,
+        // since the search results may include courses from other departments with the same number.
+        await page.waitForSelector('td.classSection');
 
-        // Use JavaScript click for reliability (avoids "not clickable" errors)
-        await page.evaluate((selector) => {
-            document.querySelector(selector).click();
-        }, firstSectionSelector);
+        await page.evaluate((targetSubject, targetCatalog) => {
+            const tables = document.querySelectorAll('table.classTable');
+            for (const table of tables) {
+                const abbrev = table.querySelector('.classAbbreviation')?.textContent?.trim() || '';
+                const match = abbrev.match(/^([A-Z]+)\s+(\d+)/);
+                if (match && match[1] === targetSubject && match[2] === targetCatalog) {
+                    const section = table.querySelector('td.classSection');
+                    if (section) section.click();
+                    return;
+                }
+            }
+        }, subject, catalogNumber);
 
         // Wait for the detail panel to appear and content to load
         await page.waitForSelector('#classDetailContainer', { visible: true });

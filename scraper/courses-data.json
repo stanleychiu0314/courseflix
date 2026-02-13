@@ -1788,27 +1788,39 @@
         "days": "MWF",
         "time": "10:10a - 11:00a",
         "availability": "71/71"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "ASTR",
+    "catalogNumber": "1010L",
+    "courseName": "ASTR 1010L",
+    "courseTitle": "Introductory Nighttime Astronomy Laboratory",
+    "courseDescription": "Motion of the celestial sphere and apparent and real motions of celestial bodies as viewed from inside the Milky Way. Observations of meteor showers, comets, and artificial satellites. Telescopic observations of astronomical objects. Stellar spectra. Laboratory ordinarily accompanied by 1010 or 3000. Satisfies the AXLE lab course requirement when completed with 1010 or 3000. Satisfies College Core Inquiry Lab when completed with 1010. [1] (No AXLE credit) (CORE: LB)",
+    "requirements": "Corequisite: ASTR 1010",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Grundstrom, Erika D.",
         "days": "M",
         "time": "07:00p - 10:30p",
-        "availability": "31/31"
+        "availability": "21/21"
       },
       {
         "section": "02",
         "instructor": "Grundstrom, Erika D.",
         "days": "T",
         "time": "07:00p - 10:30p",
-        "availability": "71/71"
+        "availability": "18/21"
       },
       {
         "section": "03",
         "instructor": "Grundstrom, Erika D.",
         "days": "W",
         "time": "07:00p - 10:30p",
-        "availability": ""
+        "availability": "21/21"
       }
     ]
   },
@@ -2191,7 +2203,19 @@
         "days": "MWF",
         "time": "09:05a - 09:55a",
         "availability": "16/28"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "BCB",
+    "catalogNumber": "2200L",
+    "courseName": "BCB 2200L",
+    "courseTitle": "Bioanalytical Chemistry Laboratory",
+    "courseDescription": "Laboratory to accompany BCB 2200. One 3.5-hour laboratory per week. Satisfies the AXLE lab course requirement when completed with BCB 2200. Corequisite: BCB 2200. [1] (No AXLE credit)",
+    "requirements": "Corequisite: BCB 2200",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Tallman, Keri A.",
@@ -2459,7 +2483,19 @@
         "days": "MWF",
         "time": "10:10a - 11:00a",
         "availability": "12/35"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "BME",
+    "catalogNumber": "3301L",
+    "courseName": "BME 3301L",
+    "courseTitle": "Biomedical Instrumentation Laboratory I",
+    "courseDescription": "Laboratory exercises to accompany BME 3301. Construction, verification, and validation of biomedical instruments, including electronic circuits for measuring and processing physiological signals, analysis of clinically relevant biosensors. No credit for students who have earned credit for BME 3300 or 3301 (2024 or prior). Prerequisite: ECE 2112. Corequisite: BME 3301 and 3400. [1]",
+    "requirements": "Prerequisite: ECE 2112. Corequisite: BME 3301 and 3400. No credit for students who have earned credit for BME 3300 or 3301 (2024 or prior).",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Del Bosque, Romina",
@@ -2485,7 +2521,19 @@
         "days": "TR",
         "time": "01:15p - 02:30p",
         "availability": "23/40"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "BME",
+    "catalogNumber": "3302L",
+    "courseName": "BME 3302L",
+    "courseTitle": "Biomedical Instrumentation Laboratory II",
+    "courseDescription": "Laboratory exercises to accompany BME 3302. Instrumentation design and integration of multiple modalities into an instrumentation platform with applications to clinically-relevant physiological functions and variables. No credit for students who have earned credit for BME 3300 or 3302 (2024 or prior). Prerequisite: BME 3301 (2024 or prior), or both 3301 and 3301L, or both ECE 2213 and 2213L, or both ECE 2214 and ECE 2112L. Co-requisite: BME 3302. [1]",
+    "requirements": "No credit for students who have earned credit for BME 3300 or 3302 (2024 or prior). Prerequisite: BME 3301 (2024 or prior), or both 3301 and 3301L, or both ECE 2213 and 2213L, or both ECE 2214 and ECE 2112L. Co-requisite: BME 3302.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Spivey, Eric",
@@ -2757,7 +2805,19 @@
         "days": "MWF",
         "time": "09:05a - 09:55a",
         "availability": "49/100"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "BSCI",
+    "catalogNumber": "1100L",
+    "courseName": "BSCI 1100L",
+    "courseTitle": "Biology Today Laboratory",
+    "courseDescription": "Laboratory investigations of the genetics, physiology, and ecology of plants and animals. One three-hour laboratory per week to accompany 1100 or 1509. Not open to students who have earned credit for BSCI 1510L, 1511L, or 1512L without permission. Satisfies the AXLE lab course requirement when completed with 1100 or 1509. Co- or pre-requisite: 1100 or 1509. [1] (No AXLE credit)",
+    "requirements": "Not open to students who have earned credit for BSCI 1510L, 1511L, or 1512L without permission. BSCI 1100 or 1509 is a co-requisite to this course.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Woelfle, Mark A.",
@@ -2856,13 +2916,25 @@
         "days": "MWF",
         "time": "10:10a - 11:00a",
         "availability": "206/235"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "BSCI",
+    "catalogNumber": "1511L",
+    "courseName": "BSCI 1511L",
+    "courseTitle": "Biological Sciences Laboratory",
+    "courseDescription": "Laboratory to accompany 1511. One three-hour laboratory per week. Satisfies the AXLE lab course requirement when completed with 1511. Prerequisite or corequisite: 1511. [1] (No AXLE credit)",
+    "requirements": "BSCI 1511 is a pre- or co-requisite to this course.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Pask, James D.",
         "days": "T",
         "time": "09:30a - 12:20p",
-        "availability": "215/215"
+        "availability": "58/60"
       },
       {
         "section": "02",
@@ -2876,7 +2948,7 @@
         "instructor": "Pask, James D.",
         "days": "W",
         "time": "01:20p - 04:10p",
-        "availability": ""
+        "availability": "60/58"
       },
       {
         "section": "04",
@@ -2910,7 +2982,7 @@
   },
   {
     "subject": "BSCI",
-    "catalogNumber": "1512",
+    "catalogNumber": "1512L",
     "courseName": "BSCI 1512L:",
     "courseTitle": "Biological Sciences Laboratory",
     "courseDescription": "Alternative to 1511L. Directed research projects with emphasis on experimental design and analysis. Satisfies the AXLE lab course requirement when completed with 1511. Offered on a graded basis only. Prerequisite or corequisite: 1511. [2] (No AXLE credit)",
@@ -3026,7 +3098,19 @@
         "days": "MWF",
         "time": "10:10a - 11:00a",
         "availability": "70/140"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "BSCI",
+    "catalogNumber": "2201L",
+    "courseName": "BSCI 2201L",
+    "courseTitle": "Cell Biology Laboratory",
+    "courseDescription": "One three-hour laboratory and discussion period per week. Satisfies the AXLE lab course requirement when completed with 2201. Prerequisite or corequisite: 2201. [1] (No AXLE credit)",
+    "requirements": "BSCI 2201 as pre- or co-req",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Gonzalez, David I.",
@@ -3078,7 +3162,19 @@
         "days": "MWF",
         "time": "09:05a - 09:55a",
         "availability": "69/70"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "BSCI",
+    "catalogNumber": "2250L",
+    "courseName": "BSCI 2250L",
+    "courseTitle": "General Microbiology Lab",
+    "courseDescription": "(Formerly offered as 2150L) Laboratory to accompany Introduction to Microbiology (1110) or General Microbiology (2250). Two laboratory sessions per week. Satisfies the AXLE lab course requirement when completed with 1110 or 2250 or 2150. Prerequisite or corequisite: BSCI 1110 or 2250 or 2150 or 3234. [1]",
+    "requirements": "This course requires BSCI 1110, BSCI 2150, BSCI 2250 or BSCI 3234 as a Prerequisite or Corequisite.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Bill, Brian",
@@ -5631,7 +5727,19 @@
         "days": "MWF",
         "time": "11:15a - 12:05p",
         "availability": "15/24"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "CHEM",
+    "catalogNumber": "1010L",
+    "courseName": "CHEM 1010L",
+    "courseTitle": "Introductory Chemistry Laboratory",
+    "courseDescription": "Laboratory to accompany 1010. One three-hour laboratory per week. Satisfies the AXLE lab course requirement when completed with 1010. Not open to students who have earned credit for CHEM 1601L or 2221L without permission. Total credit for this course and 1601L or 2221L will not exceed 1 credit hour. Credit reduced from second course taken (or test or transfer credit) as appropriate. Corequisite: 1010. [1] (No AXLE credit)",
+    "requirements": "Co-requisite: CHEM 1010. Not open to students who have earned credit for CHEM 1601L or 2221L without permission.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Phillips, Shawn T.",
@@ -5815,7 +5923,7 @@
         "instructor": "Todd, Tara D.",
         "days": "W",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "35",
@@ -5858,7 +5966,19 @@
         "days": "W",
         "time": "04:40p - 05:30p",
         "availability": "25/25"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "CHEM",
+    "catalogNumber": "1602L",
+    "courseName": "CHEM 1602L",
+    "courseTitle": "General Chemistry Laboratory",
+    "courseDescription": "Laboratory to accompany 1602. One three-hour laboratory per week. Satisfies the AXLE lab course requirement when completed with 1602. Not open to students who have earned credit for CHEM 1020L without permission. Serves as repeat credit for CHEM 1020L. Prerequisite: 1601L. Corequisite: 1602. [1] (No AXLE credit)",
+    "requirements": "Prerequisite: CHEM 1601L. Corequisite: CHEM 1602. Not open to students who have earned credit for CHEM 1020L without permission.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Daniel, Aaron W.",
@@ -5892,7 +6012,7 @@
         "instructor": "Daniel, Aaron W.",
         "days": "R",
         "time": "09:35a - 12:25p",
-        "availability": ""
+        "availability": "24/24"
       },
       {
         "section": "06",
@@ -6019,7 +6139,7 @@
         "instructor": "Townsend, Steven D.",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "46/40"
       },
       {
         "section": "21",
@@ -6075,7 +6195,7 @@
         "instructor": "Clements, Katherine A.",
         "days": "M",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "24/24"
       },
       {
         "section": "42",
@@ -6153,27 +6273,39 @@
         "days": "W",
         "time": "12:20p - 01:10p",
         "availability": "29/30"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "CHEM",
+    "catalogNumber": "2222L",
+    "courseName": "CHEM 2222L",
+    "courseTitle": "Organic Chemistry Laboratory",
+    "courseDescription": "Laboratory to accompany 2212 or 2222. One four-hour laboratory per week. Satisfies the AXLE lab course requirement when completed with 2212 or 2222. Prerequisite or corequisite: 2212 or 2222. [1] (No AXLE credit)",
+    "requirements": "CHEM 2212 or CHEM 2222 as pre- or co-req",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Ni, Chi-Li",
         "days": "M",
         "time": "12:20p - 04:10p",
-        "availability": "80/80"
+        "availability": "69/72"
       },
       {
         "section": "02",
         "instructor": "Ni, Chi-Li",
         "days": "T",
         "time": "01:20p - 05:10p",
-        "availability": "39/40"
+        "availability": "72/72"
       },
       {
         "section": "03",
         "instructor": "Ni, Chi-Li",
         "days": "W",
         "time": "01:20p - 05:10p",
-        "availability": "108/108"
+        "availability": "72/72"
       },
       {
         "section": "04",
@@ -6194,7 +6326,7 @@
         "instructor": "Ni, Chi-Li",
         "days": "M",
         "time": "05:30p - 09:20p",
-        "availability": ""
+        "availability": "71/68"
       }
     ]
   },
@@ -7860,7 +7992,7 @@
         "instructor": "Koch, John P.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "16/15"
       }
     ],
     "categories": [
@@ -8507,7 +8639,7 @@
         "instructor": "Chan, Henry Yi-Wei",
         "days": "TR",
         "time": "08:00a - 09:15a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "05",
@@ -8542,7 +8674,7 @@
         "instructor": "Shepard, Katherine",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "10",
@@ -8577,7 +8709,7 @@
         "instructor": "Legg, Benjamin",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "15",
@@ -8619,7 +8751,7 @@
         "instructor": "Luea, Heather M.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "21",
@@ -8647,7 +8779,7 @@
         "instructor": "Bai, Husile",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "25",
@@ -8675,7 +8807,7 @@
         "instructor": "Holekamp, Abigail A.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "29",
@@ -8717,7 +8849,7 @@
         "instructor": "Legg, Benjamin",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "35",
@@ -8752,7 +8884,7 @@
         "instructor": "Harvey, Jared J.",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "40",
@@ -8780,7 +8912,7 @@
         "instructor": "Black, Cody",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "44",
@@ -8808,7 +8940,7 @@
         "instructor": "Verberne-Sutton, Susan D.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "48",
@@ -9153,7 +9285,19 @@
         "days": "TR",
         "time": "09:30a - 10:45a",
         "availability": "0/40"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "CS",
+    "catalogNumber": "2123L",
+    "courseName": "CS 2123L",
+    "courseTitle": "Digital Systems Laboratory",
+    "courseDescription": "(Also listed as ECE 2123L). Laboratory for CS 2123. One three-hour laboratory per week. Serves as repeat credit for ECE 2123L. CS 2123L is not open to students who have earned credit for ECE 2116L. Corequisite: CS 2123. FALL, SPRING [1].",
+    "requirements": "Not open to students who have earned credit for ECE 2116L without permission. Corequisite: CS 2123.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Amat, Ashwaq",
@@ -9313,7 +9457,19 @@
         "days": "MWF",
         "time": "01:25p - 02:15p",
         "availability": "38/50"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "CS",
+    "catalogNumber": "2281L",
+    "courseName": "CS 2281L",
+    "courseTitle": "Computer Architecture Laboratory",
+    "courseDescription": "(Also listed as ECE 2281L). Laboratory for CS 2281. One three-hour laboratory per week. CS 2281L is not open for students who have earned credit for ECE 2281L without permission. Serves as repeat credit for ECE 2281L. Corequisite: CS 2281. FALL, SPRING [1]",
+    "requirements": "This course requires CS 2281 as a Corequisite.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Hajiamini, Shervin",
@@ -9410,7 +9566,7 @@
     "catalogNumber": "3250",
     "courseName": "CS 3250:",
     "courseTitle": "Algorithms",
-    "courseDescription": "From the second century BCE to ca. 800 CE. Sites of interaction, languages, cultural ties, religious tensions, and political conflicts. Readings include Maccabees, the Septuagint, Aristeas, Josephus, Philo, the rabbis, the New Testament, early Christian authors. Serves as repeat credit for 3250. [3] (INT)",
+    "courseDescription": "Advanced data structures, systematic study and analysis of important algorithms for searching; sorting; string processing; mathematical, geometrical, and graph algorithms, classes of P and NP, NP-complete and intractable problems. Prerequisite: CS 2201, CS 2212. FALL, SPRING. [3]",
     "requirements": "",
     "hours": "3.0",
     "term": "2026 Spring",
@@ -10593,7 +10749,19 @@
         "days": "MW",
         "time": "09:45a - 11:00a",
         "availability": "0/30"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "CS",
+    "catalogNumber": "4375L",
+    "courseName": "CS 3475L",
+    "courseTitle": "Embedded Systems Laboratory",
+    "courseDescription": "(Also listed as ECE 4375L). Design and implementation of embedded computer-based systems. Programming for real-time systems and the Internet of Things. Embedded system modeling, design, analysis, and implementation using real-time and event-driven techniques. A structured project is required. Serves as repeat credit for ECE 4375L. Prerequisite: ECE 2218, CS 2201. Corequisite: CS 4375. FALL. [1]",
+    "requirements": "Prerequisite: ECE 2218, CS 2201. Corequisite: CS 4375.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Karsai, Gabor",
@@ -11072,7 +11240,7 @@
         "instructor": "Srivastava, Namrata",
         "days": "TR",
         "time": "04:15p - 05:30p",
-        "availability": ""
+        "availability": "60/60"
       }
     ]
   },
@@ -11192,7 +11360,7 @@
         "instructor": "Lilburn, Simon",
         "days": "W",
         "time": "04:40p - 06:40p",
-        "availability": ""
+        "availability": "25/25"
       }
     ]
   },
@@ -11395,7 +11563,19 @@
         "days": "TR",
         "time": "01:15p - 02:30p",
         "availability": "60/60"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "ECE",
+    "catalogNumber": "2112L",
+    "courseName": "ECE 2112L",
+    "courseTitle": "Circuits Laboratory",
+    "courseDescription": "Experiments in electrical theory, circuits, and components, including linear circuit theorems, operational amplifiers, comparators, oscillators, multivibrators, data converters, diode circuits, transistors as digital switches, sensors and transducers, data transmission circuits, and first-order filters. Corequisite: ECE 2112. FALL, SPRING. [1]",
+    "requirements": "This course requires ECE 2112 as Corequisite.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Kang, Weng P.",
@@ -11442,7 +11622,19 @@
         "days": "TR",
         "time": "09:30a - 10:45a",
         "availability": "42/40"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "ECE",
+    "catalogNumber": "2123L",
+    "courseName": "ECE 2123L",
+    "courseTitle": "Digital Systems Laboratory",
+    "courseDescription": "(Also listed as CS 2123L). Laboratory for ECE 2123. One three-hour laboratory per week. ECE 2123L is not open to students who have earned credit for ECE 2116L. Serves as repeat credit for CS 2123L. Corequisite: ECE 2123. FALL, SPRING [1].",
+    "requirements": "Not open to students who have earned credit for ECE 2116L without permission. Corequisite: ECE 2123.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Amat, Ashwaq",
@@ -11581,7 +11773,19 @@
         "days": "MWF",
         "time": "01:25p - 02:15p",
         "availability": "3/50"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "ECE",
+    "catalogNumber": "2281L",
+    "courseName": "ECE 2281L",
+    "courseTitle": "Computer Architecture Laboratory",
+    "courseDescription": "(Also listed as CS 2281L). Laboratory for ECE 2281. One three-hour laboratory per week. ECE 2281L is not open for students who have earned credit for CS 2281L without permission. Serves as repeat credit for CS 2281L. Corequisite: ECE 2281. FALL, SPRING [1].",
+    "requirements": "This course requires ECE 2281 as a Corequisite.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Hajiamini, Shervin",
@@ -11654,7 +11858,19 @@
         "days": "TR",
         "time": "11:00a - 12:15p",
         "availability": "28/35"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "ECE",
+    "catalogNumber": "3235L",
+    "courseName": "ECE 3235L",
+    "courseTitle": "Electronics I Laboratory",
+    "courseDescription": "Laboratory for ECE 3235. One three-hour laboratory per week. Corequisite: ECE 3235. FALL. [1]",
+    "requirements": "ECE 3235 Group",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Ebrish, Mona",
@@ -12151,7 +12367,19 @@
         "days": "MW",
         "time": "09:45a - 11:00a",
         "availability": "4/30"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "ECE",
+    "catalogNumber": "4375L",
+    "courseName": "ECE 4375L",
+    "courseTitle": "Embedded Systems Laboratory",
+    "courseDescription": "(Also listed as CS 4375L). Design and implementation of embedded computer-based systems. Programming for real-time systems and the Internet of Things. Embedded system modeling, design, analysis, and implementation using real-time and event-driven techniques. A structured project is required. Serves as repeat credit for CS 4375L. Prerequisite: ECE 2218, CS 2201. Corequisite: ECE 4375. FALL. [1]",
+    "requirements": "ECE 4376 Group",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Karsai, Gabor",
@@ -13959,7 +14187,19 @@
         "days": "TR",
         "time": "09:30a - 10:45a",
         "availability": "63/65"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "EES",
+    "catalogNumber": "1081L",
+    "courseName": "EES 1081L",
+    "courseTitle": "Introduction to the Atmosphere Lab",
+    "courseDescription": "Laboratory to accompany 1081. Corequisite: 1081. One three-hour laboratory per week. Satisfies the AXLE lab course requirement when completed with 1081. [1] (No AXLE credit)",
+    "requirements": "EES 1081 co-requisite",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Bai, Husile",
@@ -13992,13 +14232,25 @@
         "days": "MWF",
         "time": "12:20p - 01:10p",
         "availability": "72/100"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "EES",
+    "catalogNumber": "1510L",
+    "courseName": "EES 1510L",
+    "courseTitle": "Dynamic Earth Laboratory",
+    "courseDescription": "Laboratory to accompany 1510. Corequisite: 1510. One three-hour laboratory per week. Satisfies the AXLE lab course requirement when completed with 1510. Satisfies the CORE Inquiry Lab requirement when completed with 1510 at Vanderbilt. [1] (No AXLE credit) (CORE: LB)",
+    "requirements": "EES 1510 as co-req",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Klyce, Ann M.",
         "days": "M",
         "time": "01:25p - 04:10p",
-        "availability": "72/100"
+        "availability": "20/20"
       },
       {
         "section": "02",
@@ -14012,14 +14264,14 @@
         "instructor": "Klyce, Ann M.",
         "days": "T",
         "time": "01:15p - 04:00p",
-        "availability": ""
+        "availability": "20/20"
       },
       {
         "section": "04",
         "instructor": "Klyce, Ann M.",
         "days": "W",
         "time": "01:25p - 04:10p",
-        "availability": ""
+        "availability": "20/20"
       }
     ]
   },
@@ -14772,7 +15024,7 @@
         "instructor": "Wisniewski, Mark",
         "days": "TR",
         "time": "09:30a - 10:45a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "06",
@@ -19614,63 +19866,63 @@
         "instructor": "Payne, Jeremy M.",
         "days": "T",
         "time": "01:15p - 02:30p",
-        "availability": "103/0"
+        "availability": "103/103"
       },
       {
         "section": "02",
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": "13/0"
+        "availability": "13/13"
       },
       {
         "section": "03",
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": "14/0"
+        "availability": "14/14"
       },
       {
         "section": "04",
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "13/13"
       },
       {
         "section": "05",
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": "13/0"
+        "availability": "13/13"
       },
       {
         "section": "06",
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": "13/0"
+        "availability": "13/13"
       },
       {
         "section": "07",
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": "13/0"
+        "availability": "13/13"
       },
       {
         "section": "08",
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "09",
         "instructor": "Payne, Jeremy M.",
         "days": "R",
         "time": "01:15p - 02:30p",
-        "availability": "12/0"
+        "availability": "12/12"
       },
       {
         "section": "11",
@@ -19912,7 +20164,7 @@
         "instructor": "House, Emily A.",
         "days": "TR",
         "time": "02:45p - 04:00p",
-        "availability": ""
+        "availability": "30/30"
       },
       {
         "section": "09",
@@ -20077,56 +20329,56 @@
         "instructor": "Tompkins, Kristen",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": "10/0"
+        "availability": "10/10"
       },
       {
         "section": "02",
         "instructor": "Palmer, Jeremiah A.",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": "9/0"
+        "availability": "9/9"
       },
       {
         "section": "03",
         "instructor": "Iddings, Ana C.",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": "12/0"
+        "availability": "12/12"
       },
       {
         "section": "04",
         "instructor": "Perot, Sarah C.",
         "days": "M M M",
         "time": "09:05a - 12:00p 01/05/2026 - 01/16/2026 09:05a - 12:00p 01/19/2026 - 02/23/2026 09:05a - 12:00p 03/02/2026 - 04/20/2026",
-        "availability": ""
+        "availability": "11/11"
       },
       {
         "section": "05",
         "instructor": "Joseph, Nicole M.",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": "11/0"
+        "availability": "11/11"
       },
       {
         "section": "06",
         "instructor": "Hall, Shateara L.",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": "10/0"
+        "availability": "10/10"
       },
       {
         "section": "07",
         "instructor": "Anderson, LaToya R.",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": "10/0"
+        "availability": "10/10"
       },
       {
         "section": "08",
         "instructor": "Smith, Blaine E.",
         "days": "M",
         "time": "09:05a - 12:00p",
-        "availability": ""
+        "availability": "10/10"
       },
       {
         "section": "09",
@@ -22821,7 +23073,7 @@
         "instructor": "Staff",
         "days": "R",
         "time": "11:00a - 11:50a",
-        "availability": ""
+        "availability": "20/18"
       },
       {
         "section": "06",
@@ -22889,7 +23141,7 @@
         "instructor": "Salinas, Fabian",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "39/36"
       },
       {
         "section": "05",
@@ -22924,7 +23176,7 @@
         "instructor": "Staff",
         "days": "R",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "19/18"
       },
       {
         "section": "10",
@@ -22959,7 +23211,7 @@
         "instructor": "Staff",
         "days": "R",
         "time": "11:00a - 11:50a",
-        "availability": ""
+        "availability": "18/18"
       },
       {
         "section": "15",
@@ -23039,7 +23291,7 @@
         "instructor": "Gong, Le",
         "days": "MWF",
         "time": "09:05a - 09:55a",
-        "availability": ""
+        "availability": "41/36"
       },
       {
         "section": "05",
@@ -23081,7 +23333,7 @@
         "instructor": "Sehayek, Sam B.",
         "days": "MWF",
         "time": "12:20p - 01:10p",
-        "availability": ""
+        "availability": "40/36"
       },
       {
         "section": "11",
@@ -23109,7 +23361,7 @@
         "instructor": "Wang, Yanyu",
         "days": "R",
         "time": "11:00a - 11:50a",
-        "availability": ""
+        "availability": "21/18"
       },
       {
         "section": "15",
@@ -23158,7 +23410,7 @@
         "instructor": "Shaw, Colby T.",
         "days": "T",
         "time": "01:40p - 02:30p",
-        "availability": ""
+        "availability": "19/18"
       }
     ]
   },
@@ -23224,7 +23476,7 @@
         "instructor": "Mark, Alice H.",
         "days": "TR",
         "time": "01:15p - 02:30p",
-        "availability": ""
+        "availability": "27/25"
       },
       {
         "section": "05",
@@ -23271,7 +23523,7 @@
         "instructor": "Niknejad, Jila",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "40/36"
       },
       {
         "section": "05",
@@ -23464,7 +23716,7 @@
         "instructor": "Housden, Hannah",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "25/25"
       },
       {
         "section": "05",
@@ -23498,7 +23750,19 @@
         "days": "MWF",
         "time": "10:10a - 11:00a",
         "availability": "24/25"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "MATH",
+    "catalogNumber": "2820L",
+    "courseName": "MATH 2820L",
+    "courseTitle": "Statistics Laboratory",
+    "courseDescription": "Applications of the theory developed in 2820. Emphasis on data analysis and interpretation. Topics include the one- and two-sample problems, paired data, correlation and regression, chi-square, and model building. Pre- or corequisite: 2810 or 2820. [1] (No AXLE credit)",
+    "requirements": "MATH 2810 or 2820 as pre/co req",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Lee, Daniel T.",
@@ -24521,7 +24785,7 @@
         "instructor": "Bellan, Leon M.",
         "days": "W",
         "time": "05:45p - 08:45p",
-        "availability": ""
+        "availability": "10/10"
       },
       {
         "section": "10",
@@ -25183,7 +25447,7 @@
         "instructor": "Callahan Kapoor, Celina",
         "days": "MWF",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "24/20"
       },
       {
         "section": "05",
@@ -25803,7 +26067,7 @@
         "instructor": "Ajogbeje, Korede",
         "days": "MW",
         "time": "02:30p - 03:45p",
-        "availability": ""
+        "availability": "30/30"
       },
       {
         "section": "06",
@@ -26364,20 +26628,32 @@
         "days": "MWF",
         "time": "11:15a - 12:05p",
         "availability": "91/95"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "MSE",
+    "catalogNumber": "1500L",
+    "courseName": "MSE 1500L",
+    "courseTitle": "Materials Science Laboratory",
+    "courseDescription": "Laboratory for MSE 1500. One three-hour laboratory per week. Corequisite: MSE 1500. SPRING. [1]",
+    "requirements": "MSE 1500 is required as a corequisite for MSE 1500L",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Rogers, Bridget R.",
         "days": "M",
         "time": "01:25p - 04:25p",
-        "availability": "95/95"
+        "availability": "12/12"
       },
       {
         "section": "02",
         "instructor": "Rogers, Bridget R.",
         "days": "M",
         "time": "01:25p - 04:25p",
-        "availability": "91/95"
+        "availability": "12/12"
       },
       {
         "section": "03",
@@ -26398,21 +26674,21 @@
         "instructor": "Rogers, Bridget R.",
         "days": "T",
         "time": "01:15p - 04:15p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "06",
         "instructor": "Rogers, Bridget R.",
         "days": "T",
         "time": "01:15p - 04:15p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "07",
         "instructor": "Rogers, Bridget R.",
         "days": "T",
         "time": "05:45p - 08:45p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "08",
@@ -26433,14 +26709,14 @@
         "instructor": "Rogers, Bridget R.",
         "days": "W",
         "time": "01:25p - 04:25p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "11",
         "instructor": "Rogers, Bridget R.",
         "days": "W",
         "time": "05:45p - 08:45p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "12",
@@ -26461,14 +26737,14 @@
         "instructor": "Rogers, Bridget R.",
         "days": "R",
         "time": "01:15p - 04:15p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "15",
         "instructor": "Rogers, Bridget R.",
         "days": "R",
         "time": "05:45p - 08:45p",
-        "availability": ""
+        "availability": "12/12"
       },
       {
         "section": "16",
@@ -26951,7 +27227,7 @@
         "instructor": "Koutsoukos, Sheree D.",
         "days": "W",
         "time": "01:25p - 02:15p",
-        "availability": ""
+        "availability": "6/6"
       },
       {
         "section": "06",
@@ -27758,7 +28034,7 @@
         "instructor": "Shadle, Douglas W.",
         "days": "TR",
         "time": "11:00a - 12:15p",
-        "availability": ""
+        "availability": "20/20"
       },
       {
         "section": "05",
@@ -30083,7 +30359,7 @@
         "instructor": "Staff",
         "days": "F",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "15/15"
       },
       {
         "section": "09",
@@ -30507,27 +30783,39 @@
         "days": "MWF",
         "time": "11:15a - 12:05p",
         "availability": "50/50"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "PHYS",
+    "catalogNumber": "1010L",
+    "courseName": "PHYS 1010L",
+    "courseTitle": "Introductory Physics Laboratory",
+    "courseDescription": "Laboratory to accompany 1010 or 1020. Corequisite: 1010 or 1020. One three-hour laboratory per week. Satisfies the AXLE lab course requirement when completed with 1010 or 1020. Satisfies CORE Inquiry Lab when completed with 1010. [1] (No AXLE credit) (CORE: LB)",
+    "requirements": "PHYS 1010 or 1020 as co-requisite",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "T",
         "time": "01:15p - 04:00p",
-        "availability": "50/50"
+        "availability": "4/18"
       },
       {
         "section": "02",
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E.",
         "days": "W",
         "time": "05:45p - 08:30p",
-        "availability": ""
+        "availability": "18/18"
       },
       {
         "section": "03",
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "R",
         "time": "01:15p - 04:00p",
-        "availability": ""
+        "availability": "0/0"
       },
       {
         "section": "04",
@@ -30620,7 +30908,19 @@
         "days": "TR",
         "time": "11:00a - 12:15p",
         "availability": "130/135"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "PHYS",
+    "catalogNumber": "1601L",
+    "courseName": "PHYS 1601L",
+    "courseTitle": "General Physics Laboratory I",
+    "courseDescription": "Laboratory to accompany Physics 1501 and Physics 1601. Satisfies the AXLE lab course requirement when completed with 1501 or 1601. Serves as repeat credit for PHYS 1501L. Not open to students who have earned credit for 1901 without permission. Credit for this course and 1901 will not exceed 5 credit hours. Credit reduced from second course taken (or test or transfer credit) as appropriate. Pre- or co-requisite 1501 or 1601. [1] (No AXLE credit) (CORE: LB)",
+    "requirements": "Pre- or co-requisite 1501 or 1601. Not open to students who have earned credit for PHYS 1501L or 1901 without permission.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E.",
@@ -30640,7 +30940,7 @@
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "T",
         "time": "08:00a - 10:45a",
-        "availability": "130/135"
+        "availability": "36/36"
       },
       {
         "section": "04",
@@ -30654,14 +30954,14 @@
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "T",
         "time": "04:15p - 07:00p",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "06",
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "W",
         "time": "02:30p - 05:15p",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "07",
@@ -30675,7 +30975,7 @@
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "R",
         "time": "08:00a - 10:45a",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "09",
@@ -30730,7 +31030,19 @@
         "days": "TR",
         "time": "02:45p - 04:00p",
         "availability": "74/135"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "PHYS",
+    "catalogNumber": "1602L",
+    "courseName": "PHYS 1602L",
+    "courseTitle": "General Physics Laboratory II",
+    "courseDescription": "Laboratory to accompany Physics 1602. Satisfies the AXLE lab course requirement when completed with 1602 (strongly preferred) or 1502. Serves as repeat credit for PHYS 1502L. Not open to students who have earned credit for 1902 without permission. Credit for this course and 1902 will not exceed 5 credit hours. Credit reduced from second course taken (or test or transfer credit) as appropriate. Pre- or co-requisite: 1502 or 1602. [1] (No AXLE credit) (CORE: LB)",
+    "requirements": "Pre- or co-requisite: 1502 or 1602. Not open to students who have earned credit for PHYS 1502L or 1902 without permission.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
@@ -30743,7 +31055,7 @@
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "M",
         "time": "04:40p - 07:30p",
-        "availability": "84/135"
+        "availability": "36/36"
       },
       {
         "section": "03",
@@ -30764,7 +31076,7 @@
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "T",
         "time": "04:15p - 07:00p",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "06",
@@ -30778,14 +31090,14 @@
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "W",
         "time": "05:45p - 08:30p",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "08",
         "instructor": "Fabela Enriquez, Brenda | \n            \n               Williams, Morgan E. | \n            \n               Rudolph, Aaron",
         "days": "R",
         "time": "08:00a - 10:45a",
-        "availability": ""
+        "availability": "36/36"
       },
       {
         "section": "09",
@@ -30826,7 +31138,19 @@
         "days": "TR W",
         "time": "11:00a - 12:15p 04:40p - 05:30p",
         "availability": "4/25"
-      },
+      }
+    ]
+  },
+  {
+    "subject": "PHYS",
+    "catalogNumber": "1912L",
+    "courseName": "PHYS 1912L",
+    "courseTitle": "Laboratory Skills for Physicists I",
+    "courseDescription": "Fundamental laboratory skills and techniques. Experimental design, instrumentation, data handling and analysis, documentation, presentation of results. Prerequisite: 1501, 1601, 1911, or 2051. Corequisite: 1502, 1602, 1912, or 2053. [1] (No AXLE credit) (CORE LB)",
+    "requirements": "Prerequisite: 1501, 1601, 1911, or 2051. Corequisite: 1502, 1602, 1912, or 2053.",
+    "hours": "1.0",
+    "term": "2026 Spring",
+    "sections": [
       {
         "section": "01",
         "instructor": "Williams, Morgan E. | \n            \n               Fabela Enriquez, Brenda | \n            \n               Rudolph, Aaron",
@@ -30895,7 +31219,7 @@
   },
   {
     "subject": "PHYS",
-    "catalogNumber": "2953",
+    "catalogNumber": "2953L",
     "courseName": "PHYS 2953L:",
     "courseTitle": "Advanced Physics Laboratory: Introduction to Experimental Research",
     "courseDescription": "Fundamental physics experiments and measurements. Statistical analysis of measured data. One laboratory per week. Prerequisite: 2255L, and either 2255 or 3651; or 1912 and either 2255 or 3651; or either 2250W or 2260W. [1] (No AXLE credit)",
@@ -31038,7 +31362,7 @@
         "instructor": "Varga, Kalman | \n            \n               Hanusa, Timothy P.",
         "days": "TBA",
         "time": "TBA",
-        "availability": ""
+        "availability": "2/2"
       },
       {
         "section": "05",
@@ -34729,7 +35053,7 @@
         "instructor": "Frierson, Whitney R.",
         "days": "MWF",
         "time": "11:15a - 12:05p",
-        "availability": ""
+        "availability": "40/40"
       },
       {
         "section": "05",
@@ -35324,7 +35648,7 @@
         "instructor": "Kelly, Margaret C.",
         "days": "MWF",
         "time": "10:10a - 11:00a",
-        "availability": ""
+        "availability": "16/16"
       },
       {
         "section": "06",
