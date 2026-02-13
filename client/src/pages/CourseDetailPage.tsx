@@ -22,6 +22,12 @@ interface GradeBreakdownItem {
   percentage: number;
 }
 
+interface Syllabus {
+  id: string;
+  fileName: string;
+  mimeType: string;
+}
+
 interface CourseDetails {
   id: string;
   sectionId: string | null;
@@ -39,6 +45,7 @@ interface CourseDetails {
   commentHighlights: string[];
   gradeDistribution: Record<string, number>;
   gradeBreakdown: GradeBreakdownItem[];
+  syllabi?: Syllabus[];
   avgHoursPerWeek: number;
   difficulty: string;
   wouldTakeAgain: string;
@@ -59,6 +66,35 @@ const CourseDetailPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [addingToCart, setAddingToCart] = useState(false);
   const [cartMessage, setCartMessage] = useState<string | null>(null);
+  const [syllabusViewUrl, setSyllabusViewUrl] = useState<string | null>(null);
+  const [syllabusLoading, setSyllabusLoading] = useState<string | null>(null);
+
+  const handleViewSyllabus = async (syllabus: Syllabus) => {
+    setSyllabusLoading(syllabus.id);
+    setSyllabusViewUrl(null);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/reviews/syllabus/${syllabus.id}?inline=1`, {
+        credentials: 'include',
+      });
+      if (!res.ok) throw new Error('Failed to load syllabus');
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      setSyllabusViewUrl(url);
+    } catch {
+      setSyllabusViewUrl(null);
+    } finally {
+      setSyllabusLoading(null);
+    }
+  };
+
+  const handleCloseSyllabus = () => {
+    if (syllabusViewUrl) URL.revokeObjectURL(syllabusViewUrl);
+    setSyllabusViewUrl(null);
+  };
+
+  const handleDownloadSyllabus = (syllabus: Syllabus) => {
+    window.open(`${API_BASE_URL}/api/reviews/syllabus/${syllabus.id}`, '_blank');
+  };
 
   const handleAddToCart = async () => {
     if (!isAuthenticated) {
@@ -96,6 +132,13 @@ const CourseDetailPage: React.FC = () => {
       setTimeout(() => setCartMessage(null), 3000);
     }
   };
+
+  // Cleanup syllabus blob URL on unmount or when closing
+  useEffect(() => {
+    return () => {
+      if (syllabusViewUrl) URL.revokeObjectURL(syllabusViewUrl);
+    };
+  }, [syllabusViewUrl]);
 
   useEffect(() => {
     const fetchCourseData = async () => {
@@ -325,7 +368,38 @@ const CourseDetailPage: React.FC = () => {
 
             {activeTab === 'breakdown' && (
               <div className="breakdown-content">
-                <h3 className="section-title">GRADE BREAKDOWN</h3>
+                {/* Course Syllabus */}
+                {course.syllabi && course.syllabi.length > 0 && (
+                  <div className="syllabus-section">
+                    <h3 className="section-title">COURSE SYLLABUS</h3>
+                    <div className="syllabus-list">
+                      {course.syllabi.map((syllabus: Syllabus) => (
+                        <div key={syllabus.id} className="syllabus-item">
+                          <span className="syllabus-filename">📄 {syllabus.fileName}</span>
+                          <div className="syllabus-actions">
+                            <button
+                              className="syllabus-btn view-btn"
+                              onClick={() => handleViewSyllabus(syllabus)}
+                              disabled={syllabusLoading === syllabus.id}
+                            >
+                              {syllabusLoading === syllabus.id ? 'Loading...' : 'View'}
+                            </button>
+                            <button
+                              className="syllabus-btn download-btn"
+                              onClick={() => handleDownloadSyllabus(syllabus)}
+                            >
+                              Download
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <h3 className="section-title" style={{ marginTop: course.syllabi?.length ? '2rem' : 0 }}>
+                  GRADE BREAKDOWN
+                </h3>
                 <div className="grade-breakdown-table">
                   <div className="breakdown-header">
                     <div className="breakdown-col">Requirements</div>
@@ -342,6 +416,24 @@ const CourseDetailPage: React.FC = () => {
                     <p className="no-data">No grade breakdown data available.</p>
                   )}
                 </div>
+
+                {/* Syllabus Viewer Modal */}
+                {syllabusViewUrl && (
+                  <div className="syllabus-viewer-overlay" onClick={handleCloseSyllabus}>
+                    <div className="syllabus-viewer-content" onClick={(e) => e.stopPropagation()}>
+                      <div className="syllabus-viewer-header">
+                        <button className="syllabus-close-btn" onClick={handleCloseSyllabus}>
+                          ✕ Close
+                        </button>
+                      </div>
+                      <iframe
+                        src={syllabusViewUrl}
+                        title="Syllabus"
+                        className="syllabus-iframe"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

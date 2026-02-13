@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import '../styles/FeedbackPage.css';
 
@@ -53,6 +53,10 @@ const FeedbackPage: React.FC = () => {
   });
 
   const [hoverRating, setHoverRating] = useState(0);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Fetch courses based on search query
   useEffect(() => {
@@ -108,10 +112,87 @@ const FeedbackPage: React.FC = () => {
     }
   };
 
-  const handleSubmit = () => {
-    // TODO: Submit form data to backend
-    console.log('Submitting feedback:', formData);
-    alert('Feedback submitted successfully!');
+  const validateForm = (): string | null => {
+    if (!selectedCourse) {
+      return 'Please select a course to review.';
+    }
+    if (formData.overallRating < 1 || formData.overallRating > 5) {
+      return 'Please select an overall rating (1-5 stars).';
+    }
+    if (formData.hoursPerWeek < 0) {
+      return 'Please indicate hours per week.';
+    }
+    if (formData.effortLevel < 1 || formData.effortLevel > 5) {
+      return 'Please select the effort level.';
+    }
+    if (formData.wouldTakeAgain !== 'Yes' && formData.wouldTakeAgain !== 'No') {
+      return 'Please indicate whether you would take this course again.';
+    }
+    return null;
+  };
+
+  const handleSubmit = async () => {
+    setSubmitError(null);
+    setSubmitSuccess(false);
+    const error = validateForm();
+    if (error) {
+      setSubmitError(error);
+      return;
+    }
+
+    if (!selectedCourse) return;
+
+    setIsSubmitting(true);
+    try {
+      const body = new FormData();
+      body.append('sectionId', selectedCourse.sectionId);
+      body.append('overallRating', String(formData.overallRating));
+      body.append('hoursPerWeek', String(formData.hoursPerWeek));
+      body.append('effortLevel', String(formData.effortLevel));
+      body.append('wouldTakeAgain', formData.wouldTakeAgain);
+      body.append('workloadTypes', JSON.stringify(formData.workloadTypes));
+      body.append('comments', formData.comments);
+      if (formData.firstWord) body.append('firstWord', formData.firstWord);
+      if (formData.grade) body.append('grade', formData.grade);
+      if (formData.attendancePolicy) body.append('attendancePolicy', formData.attendancePolicy);
+      if (formData.syllabus) body.append('syllabus', formData.syllabus);
+
+      const response = await fetch(`${API_BASE_URL}/api/reviews`, {
+        method: 'POST',
+        credentials: 'include',
+        body,
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        setSubmitError(data.error || data.message || 'Failed to submit feedback');
+        return;
+      }
+
+      setSubmitSuccess(true);
+      setSelectedCourse(null);
+      setFormData({
+        overallRating: 0,
+        hoursPerWeek: 6,
+        effortLevel: 0,
+        wouldTakeAgain: '',
+        workloadTypes: [],
+        firstWord: '',
+        attendancePolicy: '',
+        absencesAllowed: 0,
+        grade: '',
+        gradingBreakdown: [],
+        syllabus: null,
+        comments: '',
+      });
+      setTimeout(() => setSubmitSuccess(false), 4000);
+    } catch (err) {
+      console.error('Error submitting feedback:', err);
+      setSubmitError('Network error. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const renderStars = () => {
@@ -283,7 +364,7 @@ const FeedbackPage: React.FC = () => {
             <div className="form-section">
               <label className="form-label">
                 <span className="section-number">6</span>
-                What type of workload is this course?<span className="required">*</span>
+                What type of workload is this course?<span className="optional">(Optional)</span>
               </label>
               <p className="form-description">Select all that apply</p>
               <div className="checkbox-group">
@@ -304,7 +385,7 @@ const FeedbackPage: React.FC = () => {
           <div className="form-section">
             <label className="form-label">
               <span className="section-number">7</span>
-              What is the first word that comes to mind?<span className="required">*</span>
+              What is the first word that comes to mind?<span className="optional">(Optional)</span>
             </label>
             <p className="form-description">When you reflect about this course, what's the first word you think of?</p>
             <input
@@ -320,7 +401,7 @@ const FeedbackPage: React.FC = () => {
           <div className="form-section">
             <label className="form-label">
               <span className="section-number">8</span>
-              What was the attendance policy?<span className="required">*</span>
+              What was the attendance policy?<span className="optional">(Optional)</span>
             </label>
             <p className="form-description">Select the attendance policy and number of absences allowed</p>
             <div className="options-grid two-col" style={{ marginBottom: '1rem' }}>
@@ -368,7 +449,7 @@ const FeedbackPage: React.FC = () => {
           <div className="form-section">
             <label className="form-label">
               <span className="section-number">10</span>
-              What was the grading breakdown?<span className="required">*</span>
+              What was the grading breakdown?<span className="optional">(Optional)</span>
             </label>
             <p className="form-description">Share how grades were calculated (e.g., exams, papers, projects, participation)</p>
             <div className="grading-breakdown">
@@ -397,17 +478,35 @@ const FeedbackPage: React.FC = () => {
           <div className="form-section">
             <label className="form-label">
               <span className="section-number">11</span>
-              Submit a copy of the syllabus<span className="required">*</span>
+              Submit a copy of the syllabus<span className="optional">(Optional)</span>
             </label>
             <p className="form-description">Help future students by uploading the course syllabus (PDF format preferred)</p>
-            <div className="file-upload">
+            <div
+              className="file-upload"
+              onClick={() => fileInputRef.current?.click()}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && fileInputRef.current?.click()}
+            >
               <div className="file-upload-icon">📄</div>
               <div className="file-upload-text">
                 <strong>Click to upload</strong> or drag and drop
                 <br />
                 PDF, DOC, DOCX (Max 10MB)
               </div>
-              <input type="file" accept=".pdf,.doc,.docx" style={{ display: 'none' }} />
+              {formData.syllabus && (
+                <div className="file-selected">{formData.syllabus.name}</div>
+              )}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".pdf,.doc,.docx"
+                style={{ display: 'none' }}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  setFormData((prev) => ({ ...prev, syllabus: file || null }));
+                }}
+              />
             </div>
           </div>
 
@@ -428,8 +527,23 @@ const FeedbackPage: React.FC = () => {
           </div>
 
           <div className="form-actions">
-            <button className="submit-btn" onClick={handleSubmit}>
-              Submit Feedback
+            {submitError && (
+              <div className="submit-error" role="alert">
+                {submitError}
+              </div>
+            )}
+            {submitSuccess && (
+              <div className="submit-success" role="status">
+                ✓ Feedback submitted successfully! Thank you for sharing your experience.
+              </div>
+            )}
+            <button
+              type="button"
+              className="submit-btn"
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
             </button>
           </div>
         </div>

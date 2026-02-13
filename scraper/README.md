@@ -22,6 +22,7 @@ Step 2: Start database and apply schema + seeds
 
 `docker exec -i courseflix-db psql -U courseflix -d courseflix < db/seed-terms.sql`
 
+`docker exec -i courseflix-db psql -U courseflix -d courseflix < db/migrations/20260212_syllabus_file_storage.sql`
 
 Step 3: Re-scrape with new fields
 
