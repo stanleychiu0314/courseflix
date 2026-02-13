@@ -1,12 +1,12 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var session = require('express-session');
 var pgSession = require('connect-pg-simple')(session);
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var coursesRouter = require('./routes/courses');
