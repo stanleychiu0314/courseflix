@@ -86,6 +86,23 @@ The backend runs on http://localhost:3000 and provides the following API endpoin
 - `GET /api/auth/me` - Current session
 - `POST /api/auth/logout` - Clear session
 
+### Synthetic data
+
+Generate synthetic users and reviews only:
+```bash
+node db/seed-synthetic.js --users=200 --reviews=400 --seed=42
+```
+
+To wipe synthetic users and reviews first:
+```bash
+node db/seed-synthetic.js --wipe=true
+```
+
+To wipe all core tables (destructive):
+```bash
+node db/seed-synthetic.js --wipe=all
+```
+
 ### 3. Frontend (React + Vite)
 
 ```bash
