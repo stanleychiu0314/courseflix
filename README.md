@@ -90,7 +90,7 @@ The backend runs on http://localhost:3000 and provides the following API endpoin
 
 Generate synthetic users and reviews only:
 ```bash
-node db/seed-synthetic.js --users=200 --reviews=400 --seed=42
+node db/seed-synthetic.js --users=200 --min-reviews=2 --max-reviews=8 --positive-rate=0.35 --negative-rate=0.25 --seed=42
 ```
 
 To wipe synthetic users and reviews first:
