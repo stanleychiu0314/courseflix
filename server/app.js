@@ -7,7 +7,6 @@ var logger = require('morgan');
 var cors = require('cors');
 var session = require('express-session');
 var pgSession = require('connect-pg-simple')(session);
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var coursesRouter = require('./routes/courses');
@@ -15,6 +14,7 @@ var departmentsRouter = require('./routes/departments');
 var termsRouter = require('./routes/terms');
 var scheduleRouter = require('./routes/schedule');
 var authRouter = require('./routes/auth');
+var reviewsRouter = require('./routes/reviews');
 var profileRouter = require('./routes/profile');
 var db = require('./db');
 
@@ -61,6 +61,7 @@ app.use('/api/departments', departmentsRouter);
 app.use('/api/terms', termsRouter);
 app.use('/api/schedule', scheduleRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/reviews', reviewsRouter);
 app.use('/api/profile', profileRouter);
 
 // catch 404 and forward to error handler

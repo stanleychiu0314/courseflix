@@ -650,6 +650,22 @@ router.get('/:id', async (req, res) => {
       percentage: parseFloat(r.percentage)
     }));
 
+    // Get syllabi for ALL sections of this course (so syllabi from any section show up)
+    let syllabi = [];
+    const syllabiResult = await db.query(
+      `SELECT csyl.id, csyl.file_name, csyl.mime_type
+       FROM course_syllabi csyl
+       JOIN course_sections cs ON csyl.course_section_id = cs.id
+       WHERE cs.course_id = $1
+       ORDER BY csyl.uploaded_at DESC`,
+      [id]
+    );
+    syllabi = syllabiResult.rows.map(r => ({
+      id: r.id,
+      fileName: r.file_name,
+      mimeType: r.mime_type,
+    }));
+
     // Get top tags from reviews
     const tagsQuery = `
       SELECT t.name, COUNT(*) as count
@@ -691,7 +707,8 @@ router.get('/:id', async (req, res) => {
       absencesAllowed: section.absences_allowed || 0,
       termLabel: section.term_label,
       departmentCode: course.department_code,
-      departmentName: course.department_name
+      departmentName: course.department_name,
+      syllabi,
     };
 
     res.json(response);
