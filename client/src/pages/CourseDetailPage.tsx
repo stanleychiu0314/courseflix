@@ -60,6 +60,28 @@ const CourseDetailPage: React.FC = () => {
   const [addingToCart, setAddingToCart] = useState(false);
   const [cartMessage, setCartMessage] = useState<string | null>(null);
 
+  const handleWriteReview = () => {
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: `/courses/${courseId}` } });
+      return;
+    }
+
+    // Navigate to feedback page with course pre-selected
+    navigate('/feedback', {
+      state: {
+        preSelectedCourse: {
+          id: course?.id,
+          sectionId: course?.sectionId,
+          code: course?.code,
+          name: course?.name,
+          professor: course?.professor,
+          schedule: course?.schedule,
+          termLabel: 'Spring 2026', // You might want to get this from the course data
+        },
+      },
+    });
+  };
+
   const handleAddToCart = async () => {
     if (!isAuthenticated) {
       navigate('/login', { state: { from: `/courses/${courseId}` } });
@@ -192,13 +214,21 @@ const CourseDetailPage: React.FC = () => {
             <div className="rating-large">{course.rating || 0}</div>
             <div className="stars-large">{renderStars(Math.round(course.rating || 0))}</div>
             <div className="review-count">({course.reviewCount || 0} reviews)</div>
-            <button
-              className={`add-to-cart-btn ${cartMessage === 'Added to cart!' ? 'added' : ''}`}
-              onClick={handleAddToCart}
-              disabled={addingToCart}
-            >
-              {addingToCart ? 'Adding...' : '🛒 Add to Cart'}
-            </button>
+            <div className="action-buttons">
+              <button
+                className="write-review-btn"
+                onClick={handleWriteReview}
+              >
+                ✍️ Write a Review!
+              </button>
+              <button
+                className={`add-to-cart-btn ${cartMessage === 'Added to cart!' ? 'added' : ''}`}
+                onClick={handleAddToCart}
+                disabled={addingToCart}
+              >
+                {addingToCart ? 'Adding...' : '🛒 Add to Cart'}
+              </button>
+            </div>
             {cartMessage && (
               <div className={`cart-message ${cartMessage === 'Added to cart!' ? 'success' : 'error'}`}>
                 {cartMessage}

@@ -15,6 +15,7 @@ var departmentsRouter = require('./routes/departments');
 var termsRouter = require('./routes/terms');
 var scheduleRouter = require('./routes/schedule');
 var authRouter = require('./routes/auth');
+var profileRouter = require('./routes/profile');
 var db = require('./db');
 
 var app = express();
@@ -60,6 +61,7 @@ app.use('/api/departments', departmentsRouter);
 app.use('/api/terms', termsRouter);
 app.use('/api/schedule', scheduleRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/profile', profileRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
