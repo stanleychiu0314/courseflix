@@ -8,6 +8,7 @@ import SchedulePage from './pages/SchedulePage';
 import FeedbackPage from './pages/FeedbackPage';
 import LoginPage from './pages/LoginPage';
 import AboutPage from './pages/AboutPage';
+import ProfilePage from './pages/ProfilePage';
 
 /**
  * App Component
@@ -58,6 +59,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <FeedbackPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
               </ProtectedRoute>
             }
           />

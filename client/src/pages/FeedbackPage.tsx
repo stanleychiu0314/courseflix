@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../styles/FeedbackPage.css';
 
@@ -34,6 +35,7 @@ interface GradingItem {
 }
 
 const FeedbackPage: React.FC = () => {
+  const location = useLocation();
   const [courseSearchQuery, setCourseSearchQuery] = useState('');
   const [courseResults, setCourseResults] = useState<Course[]>([]);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -57,6 +59,14 @@ const FeedbackPage: React.FC = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Check for pre-selected course from navigation state
+  useEffect(() => {
+    const state = location.state as { preSelectedCourse?: Course };
+    if (state?.preSelectedCourse) {
+      setSelectedCourse(state.preSelectedCourse);
+    }
+  }, [location.state]);
 
   // Fetch courses based on search query
   useEffect(() => {

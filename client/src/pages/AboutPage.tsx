@@ -17,7 +17,7 @@ const AboutPage: React.FC = () => {
 
       <div className="about-container">
         <section className="mission-section">
-          <h1 className="section-heading">Our Mission</h1>
+          <h1 className="about-heading">Our Mission</h1>
           <p className="mission-text">
             CourseFlix is for students looking for better work-life balance! Sort courses from least to most time consuming
             and filter by department, professor, and time offered to put together your optimal schedule each semester.
@@ -25,7 +25,7 @@ const AboutPage: React.FC = () => {
         </section>
 
         <section className="team-section">
-          <h2 className="section-heading">Who we are</h2>
+          <h2 className="about-heading">Who we are</h2>
           <p className="team-description">
             CourseFlix arose from the need for a simpler way to browse courses by workload to construct a balanced schedule.
           </p>

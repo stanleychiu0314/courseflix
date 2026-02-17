@@ -1,6 +1,6 @@
 .about-page {
   min-height: 100vh;
-  background: #ffffff;
+  background: #f5f0e8;
 }
 
 .about-container {
@@ -16,11 +16,24 @@
   text-align: center;
 }
 
-.section-heading {
-  font-size: 36px;
+.about-heading {
+  font-size: 24px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #C4B084;
   margin: 0 0 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.about-heading::before,
+.about-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #d4cbbe;
+  max-width: 200px;
 }
 
 .mission-text {
@@ -89,7 +102,7 @@
     padding: 3rem 1.5rem;
   }
 
-  .section-heading {
+  .about-heading {
     font-size: 28px;
   }
 
@@ -121,7 +134,7 @@
     padding: 2rem 1rem;
   }
 
-  .section-heading {
+  .about-heading {
     font-size: 24px;
     margin-bottom: 1.25rem;
   }

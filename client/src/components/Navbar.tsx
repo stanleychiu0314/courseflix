@@ -100,7 +100,7 @@ const Navbar: React.FC = () => {
                 </div>
                 {isDropdownOpen && (
                   <div className="user-dropdown">
-                    <div className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                    <div className="dropdown-item" onClick={() => { setIsDropdownOpen(false); navigate('/profile'); }}>
                       View Profile
                     </div>
                     <div className="dropdown-item logout-item" onClick={handleLogout}>

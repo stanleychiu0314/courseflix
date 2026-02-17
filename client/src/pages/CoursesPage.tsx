@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
 import '../styles/CoursesPage.css';
 
@@ -33,6 +34,7 @@ interface Term {
 }
 
 const CoursesPage: React.FC = () => {
+  const { isAuthenticated } = useAuth();
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSemester, setSelectedSemester] = useState('Spring 2026');
@@ -53,6 +55,10 @@ const CoursesPage: React.FC = () => {
   const [totalCount, setTotalCount] = useState(0);
   const ITEMS_PER_PAGE = 20;
 
+  // Recommendation state
+  const [profileComplete, setProfileComplete] = useState<boolean | null>(null);
+  const [recommendedMode, setRecommendedMode] = useState(false);
+
   // Read URL query parameters on mount
   useEffect(() => {
     const departmentFromUrl = searchParams.get('department');
@@ -60,6 +66,34 @@ const CoursesPage: React.FC = () => {
       setSelectedDepartment(departmentFromUrl);
     }
   }, [searchParams]);
+
+  // Check profile completeness for logged-in users
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setProfileComplete(null);
+      setRecommendedMode(false);
+      return;
+    }
+
+    const checkProfile = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/profile/status`, { credentials: 'include' });
+        if (res.ok) {
+          const data = await res.json();
+          setProfileComplete(data.complete);
+          setRecommendedMode(data.complete);
+        } else {
+          setProfileComplete(false);
+          setRecommendedMode(false);
+        }
+      } catch {
+        setProfileComplete(false);
+        setRecommendedMode(false);
+      }
+    };
+
+    checkProfile();
+  }, [isAuthenticated]);
 
   // Fetch departments and terms on mount
   useEffect(() => {
@@ -107,7 +141,14 @@ const CoursesPage: React.FC = () => {
       params.append('page', page.toString());
       params.append('limit', ITEMS_PER_PAGE.toString());
 
-      const response = await fetch(`${API_BASE_URL}/api/courses?${params.toString()}`);
+      // Use recommended endpoint if profile is complete
+      const endpoint = recommendedMode
+        ? `${API_BASE_URL}/api/courses/recommended`
+        : `${API_BASE_URL}/api/courses`;
+
+      const response = await fetch(`${endpoint}?${params.toString()}`, {
+        credentials: 'include',
+      });
 
       if (!response.ok) {
         throw new Error('Failed to fetch courses');
@@ -117,13 +158,11 @@ const CoursesPage: React.FC = () => {
 
       // Handle both old format (array) and new format (object with pagination)
       if (Array.isArray(data)) {
-        // Old format - no pagination
         setCourses(data);
         setCurrentPage(1);
         setTotalPages(1);
         setTotalCount(data.length);
       } else {
-        // New format with pagination
         setCourses(data.courses);
         setCurrentPage(data.pagination.page);
         setTotalPages(data.pagination.totalPages);
@@ -135,7 +174,7 @@ const CoursesPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [searchQuery, selectedDepartment, selectedSemester, selectedDays, selectedTimes, selectedCategories]);
+  }, [searchQuery, selectedDepartment, selectedSemester, selectedDays, selectedTimes, selectedCategories, recommendedMode]);
 
   // Debounce search and fetch courses - reset to page 1 when filters change
   useEffect(() => {
@@ -257,8 +296,35 @@ const CoursesPage: React.FC = () => {
           </div>
         </div>
 
+        {/* Recommendation Banner */}
+        {!isAuthenticated && (
+          <div className="recommendation-banner">
+            <Link to="/login" className="recommendation-banner-link">Log in</Link> to get personalized course recommendations.
+          </div>
+        )}
+        {isAuthenticated && profileComplete === false && (
+          <div className="recommendation-banner">
+            <Link to="/profile" className="recommendation-banner-link">Complete your profile</Link> to get personalized course recommendations.
+          </div>
+        )}
+
         {/* Results Section */}
         <div className="results-section">
+          {profileComplete && (
+            <div className="recommended-header">
+              <span className="recommended-header-text">
+                {recommendedMode
+                  ? 'Recommended courses based on your preferences'
+                  : 'Showing all courses'}
+              </span>
+              <button
+                className="toggle-courses-btn"
+                onClick={() => setRecommendedMode(!recommendedMode)}
+              >
+                {recommendedMode ? 'Search All Courses' : 'View Recommended'}
+              </button>
+            </div>
+          )}
           <div className="results-header">
             <div className="results-count">
               {loading ? (
