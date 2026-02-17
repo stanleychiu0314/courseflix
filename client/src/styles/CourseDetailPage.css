@@ -1,6 +1,6 @@
 .course-detail-page {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #f5f0e8;
 }
 
 .breadcrumb {
@@ -129,6 +129,31 @@
   font-size: 13px;
   color: #999;
   margin-bottom: 0.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.write-review-btn {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: #C4B084;
+  border: 2px solid #C4B084;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.write-review-btn:hover {
+  background: rgba(196, 176, 132, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(196, 176, 132, 0.2);
 }
 
 .add-to-cart-btn {
