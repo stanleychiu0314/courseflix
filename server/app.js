@@ -16,6 +16,7 @@ var scheduleRouter = require('./routes/schedule');
 var authRouter = require('./routes/auth');
 var reviewsRouter = require('./routes/reviews');
 var profileRouter = require('./routes/profile');
+var adminRouter = require('./routes/admin');
 var db = require('./db');
 
 var app = express();
@@ -63,6 +64,7 @@ app.use('/api/schedule', scheduleRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/reviews', reviewsRouter);
 app.use('/api/profile', profileRouter);
+app.use('/api/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

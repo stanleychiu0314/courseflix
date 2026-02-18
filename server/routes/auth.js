@@ -1,6 +1,7 @@
 const express = require('express');
 const { createRemoteJWKSet, jwtVerify } = require('jose');
 const db = require('../db');
+const { isAdminEmail } = require('../middleware/adminAuth');
 
 const router = express.Router();
 
@@ -109,7 +110,10 @@ router.post('/microsoft/login', async function(req, res) {
       initials: getInitials(user.name),
     };
 
-    return res.json({ authenticated: true, user: req.session.user });
+    return res.json({
+      authenticated: true,
+      user: { ...req.session.user, isAdmin: isAdminEmail(user.email) },
+    });
   } catch (error) {
     console.error('Microsoft login error:', error.message || error);
     return res.status(401).json({ message: 'Invalid or expired token' });
@@ -125,6 +129,7 @@ router.get('/me', function(req, res) {
   const user = {
     ...req.session.user,
     initials: req.session.user.initials || getInitials(req.session.user.name),
+    isAdmin: isAdminEmail(req.session.user.email),
   };
 
   return res.json({ authenticated: true, user });

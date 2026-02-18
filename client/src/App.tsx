@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
 import CoursesPage from './pages/CoursesPage';
 import CourseDetailPage from './pages/CourseDetailPage';
 import SchedulePage from './pages/SchedulePage';
@@ -9,6 +10,7 @@ import FeedbackPage from './pages/FeedbackPage';
 import LoginPage from './pages/LoginPage';
 import AboutPage from './pages/AboutPage';
 import ProfilePage from './pages/ProfilePage';
+import AdminSyllabiPage from './pages/AdminSyllabiPage';
 
 /**
  * App Component
@@ -68,6 +70,16 @@ function App() {
               <ProtectedRoute>
                 <ProfilePage />
               </ProtectedRoute>
+            }
+          />
+
+          {/* Admin routes */}
+          <Route
+            path="/admin/syllabi"
+            element={
+              <AdminRoute>
+                <AdminSyllabiPage />
+              </AdminRoute>
             }
           />
 
