@@ -656,7 +656,7 @@ router.get('/:id', async (req, res) => {
       `SELECT csyl.id, csyl.file_name, csyl.mime_type
        FROM course_syllabi csyl
        JOIN course_sections cs ON csyl.course_section_id = cs.id
-       WHERE cs.course_id = $1
+       WHERE cs.course_id = $1 AND csyl.status = 'approved'
        ORDER BY csyl.uploaded_at DESC`,
       [id]
     );

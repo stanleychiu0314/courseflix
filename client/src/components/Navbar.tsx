@@ -13,7 +13,7 @@ import '../styles/Navbar.css';
 const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, isAuthenticated, logout, cartCount } = useAuth();
+  const { user, isAuthenticated, isAdmin, logout, cartCount } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -80,6 +80,14 @@ const Navbar: React.FC = () => {
           >
             Feedback
           </Link>
+          {isAdmin && (
+            <Link
+              to="/admin/syllabi"
+              className={`nav-link ${location.pathname.startsWith('/admin') ? 'active' : ''}`}
+            >
+              Admin
+            </Link>
+          )}
           <Link
             to="/about"
             className={`nav-link ${isActive('/about') ? 'active' : ''}`}
