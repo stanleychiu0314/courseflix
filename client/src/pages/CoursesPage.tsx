@@ -20,6 +20,7 @@ interface Course {
   rating: number;
   difficulty: string;
   tags: string[];
+  syllabusId: string | null;
 }
 
 interface Department {
@@ -282,7 +283,7 @@ const CoursesPage: React.FC = () => {
             <div className="filter-group">
               <div className="filter-label">CATEGORIES</div>
               <div className="filter-buttons">
-                {['HCA', 'Writing', 'FYS'].map((category) => (
+                {['HCA', 'SBS', 'INT'].map((category) => (
                   <button
                     key={category}
                     className={`filter-btn ${selectedCategories.includes(category) ? 'active' : ''}`}
@@ -293,7 +294,25 @@ const CoursesPage: React.FC = () => {
                 ))}
               </div>
             </div>
+
           </div>
+
+          {(searchQuery || selectedDepartment !== 'All Departments' || selectedDays.length > 0 || selectedTimes.length > 0 || selectedCategories.length > 0) && (
+            <div className="clear-filters-row">
+              <button
+                className="clear-filters-btn"
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedDepartment('All Departments');
+                  setSelectedDays([]);
+                  setSelectedTimes([]);
+                  setSelectedCategories([]);
+                }}
+              >
+                Clear All Filters
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Recommendation Banner */}
@@ -360,9 +379,23 @@ const CoursesPage: React.FC = () => {
                     <div className="course-meta">
                       <span className="meta-item">👤 {course.professor}</span>
                       <span className="meta-item">📅 {course.schedule}</span>
-                      <span className={`meta-badge ${course.difficulty.replace(' ', '-').toLowerCase()}`}>
-                        {course.difficulty}
-                      </span>
+                      {course.difficulty !== 'N/A' && (
+                        <span className={`meta-badge ${course.difficulty.replace(' ', '-').toLowerCase()}`}>
+                          {course.difficulty}
+                        </span>
+                      )}
+                      {course.syllabusId && (
+                        <button
+                          className="syllabus-pill"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.open(`${API_BASE_URL}/api/reviews/syllabus/${course.syllabusId}?inline=1`, '_blank');
+                          }}
+                        >
+                          View Syllabus
+                        </button>
+                      )}
                     </div>
                     <div className="course-tags">
                       {course.tags?.map((tag: string) => (

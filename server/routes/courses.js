@@ -67,7 +67,13 @@ router.get('/', async (req, res) => {
           JOIN review_tag_mapping rtm ON r.id = rtm.review_id
           JOIN tags tg ON rtm.tag_id = tg.id
           WHERE r.course_section_id = cs.id
-        ) as tags
+        ) as tags,
+        (
+          SELECT csyl.id
+          FROM course_syllabi csyl
+          WHERE csyl.course_section_id = cs.id AND csyl.status = 'approved'
+          LIMIT 1
+        ) as syllabus_id
       FROM courses c
       JOIN departments d ON c.department_id = d.id
       LEFT JOIN course_sections cs ON c.id = cs.course_id
@@ -206,7 +212,8 @@ router.get('/', async (req, res) => {
       departmentName: row.department_name,
       termLabel: row.term_label,
       reviewCount: row.review_count || 0,
-      wouldTakeAgain: row.would_take_again_percentage
+      wouldTakeAgain: row.would_take_again_percentage,
+      syllabusId: row.syllabus_id || null
     }));
 
     res.json({
@@ -356,6 +363,12 @@ router.get('/recommended', async (req, res) => {
           JOIN tags tg ON rtm.tag_id = tg.id
           WHERE r.course_section_id = cs.id
         ) as tags,
+        (
+          SELECT csyl.id
+          FROM course_syllabi csyl
+          WHERE csyl.course_section_id = cs.id AND csyl.status = 'approved'
+          LIMIT 1
+        ) as syllabus_id,
         CASE
           WHEN d.name = ANY($${majorMinorParam}) THEN 1
           WHEN d.name = ANY($${interestParam}) THEN 2
@@ -511,7 +524,8 @@ router.get('/recommended', async (req, res) => {
       departmentName: row.department_name,
       termLabel: row.term_label,
       reviewCount: row.review_count || 0,
-      wouldTakeAgain: row.would_take_again_percentage
+      wouldTakeAgain: row.would_take_again_percentage,
+      syllabusId: row.syllabus_id || null
     }));
 
     res.json({
