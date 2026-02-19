@@ -4,6 +4,7 @@
  * Optional:
  *   --wipe=true      (truncate users/reviews/schedules and related tables)
  *   --wipe=all       (truncate all core tables, including courses/sections/etc)
+ *   --course-id=UUID (limit reviews to a specific course_id)
  */
 
 'use strict';
@@ -20,6 +21,7 @@ const CONFIG = {
   negativeBiasRate: Number(args['negative-rate'] || 0.2),
   seed: args.seed ? Number(args.seed) : null,
   wipe: String(args.wipe || 'false').toLowerCase(),
+  courseId: args['course-id'] ? String(args['course-id']) : null,
 };
 
 const pool = new Pool({
@@ -109,7 +111,7 @@ async function main() {
     }
 
     const users = await insertUsers(client, CONFIG.users);
-    const sections = await fetchExistingSections(client);
+    const sections = await fetchExistingSections(client, CONFIG.courseId);
     const reviews = await insertReviewsByCourse(client, sections, users);
     await insertReviewTags(client, reviews);
 
@@ -170,7 +172,18 @@ function uniquePairs(count, aLen, bLen) {
   return [...pairs].map((key) => key.split(':').map(Number));
 }
 
-async function fetchExistingSections(client) {
+async function fetchExistingSections(client, courseId) {
+  if (courseId) {
+    const result = await client.query(
+      'SELECT id, term_id, course_id FROM course_sections WHERE course_id = $1',
+      [courseId]
+    );
+    if (result.rows.length === 0) {
+      throw new Error(`No course sections found for course_id=${courseId}.`);
+    }
+    return result.rows;
+  }
+
   const result = await client.query('SELECT id, term_id, course_id FROM course_sections');
   if (result.rows.length === 0) {
     throw new Error('No course sections found. Load real course/section data before generating reviews.');
