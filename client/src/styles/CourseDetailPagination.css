@@ -1,0 +1,71 @@
+.reviews-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.reviews-pagination .pagination-btn {
+  background: #fff;
+  border: 1px solid #e3e0d8;
+  color: #6a5c3d;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reviews-pagination .pagination-btn:hover:not(:disabled) {
+  background: #f3efe6;
+  border-color: #d6cfbf;
+}
+
+.reviews-pagination .pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.reviews-pagination .pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.reviews-pagination .pagination-page {
+  background: #fff;
+  border: 1px solid #e3e0d8;
+  color: #6a5c3d;
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 36px;
+}
+
+.reviews-pagination .pagination-page:hover {
+  background: #f3efe6;
+  border-color: #d6cfbf;
+}
+
+.reviews-pagination .pagination-page.active {
+  background: #d9c8a3;
+  border-color: #c2ae83;
+  color: #3b2f1c;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .reviews-pagination {
+    gap: 0.35rem;
+  }
+
+  .reviews-pagination .pagination-btn,
+  .reviews-pagination .pagination-page {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.6rem;
+  }
+}

@@ -63,6 +63,13 @@ docker compose down -v
 # View database logs
 docker compose logs -f db
 
+# Load schema data
+docker exec -i courseflix-db psql -U courseflix -d courseflix < db/seed-departments.sql
+docker exec -i courseflix-db psql -U courseflix -d courseflix < db/seed-terms.sql
+
+# Import course data
+env POSTGRES_HOST=127.0.0.1 POSTGRES_PORT=5432 POSTGRES_DB=<db> POSTGRES_USER=<user> POSTGRES_PASSWORD=<password> node db/import-courses.js
+
 # Connect to database directly
 docker exec -it courseflix-db psql -U courseflix -d courseflix
 ```
