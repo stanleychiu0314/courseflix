@@ -153,6 +153,21 @@ If you have an existing database and need to add Microsoft OAuth support:
 docker exec -it courseflix-db psql -U courseflix -d courseflix -c "ALTER TYPE oauth_provider_type ADD VALUE IF NOT EXISTS 'microsoft';"
 ```
 
+## Seed Export/Import (Shareable Data)
+
+Use these scripts to export the current database (schema + data) and reload it later.
+
+```bash
+# Full dump (schema + data)
+db/export-seed.sh
+
+# Data-only dump (assumes schema already exists)
+db/export-seed.sh --data-only
+
+# Import a dump file
+db/import-seed.sh db/seed-full.sql
+```
+
 ## Project Structure
 
 ```
