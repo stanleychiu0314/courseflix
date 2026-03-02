@@ -67,7 +67,13 @@ router.get('/', async (req, res) => {
           JOIN review_tag_mapping rtm ON r.id = rtm.review_id
           JOIN tags tg ON rtm.tag_id = tg.id
           WHERE r.course_section_id = cs.id
-        ) as tags
+        ) as tags,
+        (
+          SELECT csyl.id
+          FROM course_syllabi csyl
+          WHERE csyl.course_section_id = cs.id AND csyl.status = 'approved'
+          LIMIT 1
+        ) as syllabus_id
       FROM courses c
       JOIN departments d ON c.department_id = d.id
       LEFT JOIN course_sections cs ON c.id = cs.course_id
@@ -206,7 +212,8 @@ router.get('/', async (req, res) => {
       departmentName: row.department_name,
       termLabel: row.term_label,
       reviewCount: row.review_count || 0,
-      wouldTakeAgain: row.would_take_again_percentage
+      wouldTakeAgain: row.would_take_again_percentage,
+      syllabusId: row.syllabus_id || null
     }));
 
     res.json({
@@ -222,6 +229,313 @@ router.get('/', async (req, res) => {
     console.error('Error fetching courses:', err.message);
     console.error('Stack:', err.stack);
     res.status(500).json({ error: 'Failed to fetch courses', details: err.message });
+  }
+});
+
+/**
+ * GET /api/courses/recommended
+ * Fetch personalized course recommendations based on user profile and preferences.
+ * Requires authentication.
+ */
+router.get('/recommended', async (req, res) => {
+  try {
+    if (!req.session?.user?.id) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+
+    const userId = req.session.user.id;
+    const { search, department, term, days, times, categories, page, limit } = req.query;
+
+    const pageNum = Math.max(1, parseInt(page) || 1);
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 20));
+
+    // Fetch user profile
+    const profileResult = await db.query(
+      `SELECT major_1, major_2, minor_1, minor_2,
+              departments_of_interest, favorite_subjects
+       FROM user_profiles WHERE user_id = $1`,
+      [userId]
+    );
+    const profile = profileResult.rows[0] || {};
+
+    // Fetch user preferences
+    const prefsResult = await db.query(
+      `SELECT preferred_times::text[] as preferred_times,
+              preferred_days::text[] as preferred_days,
+              max_effort_level, preferred_class_size,
+              preferred_work_types::text[] as preferred_work_types
+       FROM user_course_preferences WHERE user_id = $1`,
+      [userId]
+    );
+    const prefs = prefsResult.rows[0] || {};
+
+    // Fetch courses taken (to exclude)
+    const takenResult = await db.query(
+      `SELECT course_id FROM user_courses_taken WHERE user_id = $1`,
+      [userId]
+    );
+    const takenCourseIds = takenResult.rows.map(r => r.course_id);
+
+    // Collect department names for major/minor
+    const majorMinorDepts = [profile.major_1, profile.major_2, profile.minor_1, profile.minor_2]
+      .filter(Boolean);
+
+    // Collect interest department names
+    const interestDepts = Array.isArray(profile.departments_of_interest)
+      ? profile.departments_of_interest
+      : [];
+
+    const allDepts = [...new Set([...majorMinorDepts, ...interestDepts])];
+
+    if (allDepts.length === 0) {
+      return res.json({
+        courses: [],
+        pagination: { page: pageNum, limit: limitNum, totalCount: 0, totalPages: 0 }
+      });
+    }
+
+    const prefTimes = Array.isArray(prefs.preferred_times) ? prefs.preferred_times : [];
+    const prefDays = Array.isArray(prefs.preferred_days) ? prefs.preferred_days : [];
+
+    const params = [];
+    let paramIndex = 1;
+
+    // $1: major/minor department names
+    params.push(majorMinorDepts.length > 0 ? majorMinorDepts : ['__none__']);
+    const majorMinorParam = paramIndex++;
+
+    // $2: interest department names (excluding major/minor to avoid double-counting)
+    const interestOnly = interestDepts.filter(d => !majorMinorDepts.includes(d));
+    params.push(interestOnly.length > 0 ? interestOnly : ['__none__']);
+    const interestParam = paramIndex++;
+
+    // $3: taken course IDs to exclude
+    params.push(takenCourseIds.length > 0 ? takenCourseIds : ['00000000-0000-0000-0000-000000000000']);
+    const takenParam = paramIndex++;
+
+    // $4: preferred times for scoring
+    params.push(prefTimes.length > 0 ? prefTimes : ['__none__']);
+    const timesParam = paramIndex++;
+
+    // $5: preferred days for scoring
+    params.push(prefDays.length > 0 ? prefDays : ['__none__']);
+    const daysParam = paramIndex++;
+
+    let innerQuery = `
+      SELECT DISTINCT ON (c.id, cs.id)
+        c.id,
+        c.code,
+        c.name,
+        c.description,
+        c.credits,
+        c.rating,
+        c.review_count,
+        c.avg_hours_per_week,
+        c.difficulty_rating,
+        c.would_take_again_percentage,
+        d.code as department_code,
+        d.name as department_name,
+        cs.id as section_id,
+        cs.max_seats,
+        cs.enrolled_count,
+        cs.attendance_policy,
+        t.label as term_label,
+        (
+          SELECT string_agg(p.name, ', ')
+          FROM section_instructors si
+          JOIN professors p ON si.professor_id = p.id
+          WHERE si.course_section_id = cs.id
+        ) as professors,
+        (
+          SELECT json_agg(json_build_object(
+            'day', sm.day::text,
+            'start_time', sm.start_time::text,
+            'end_time', sm.end_time::text,
+            'time_of_day', sm.time_of_day::text
+          ))
+          FROM section_meetings sm
+          WHERE sm.course_section_id = cs.id
+        ) as meetings,
+        (
+          SELECT array_agg(DISTINCT tg.name)
+          FROM reviews r
+          JOIN review_tag_mapping rtm ON r.id = rtm.review_id
+          JOIN tags tg ON rtm.tag_id = tg.id
+          WHERE r.course_section_id = cs.id
+        ) as tags,
+        (
+          SELECT csyl.id
+          FROM course_syllabi csyl
+          WHERE csyl.course_section_id = cs.id AND csyl.status = 'approved'
+          LIMIT 1
+        ) as syllabus_id,
+        CASE
+          WHEN d.name = ANY($${majorMinorParam}) THEN 1
+          WHEN d.name = ANY($${interestParam}) THEN 2
+          ELSE 3
+        END as priority,
+        COALESCE((
+          SELECT COUNT(*)
+          FROM section_meetings sm
+          WHERE sm.course_section_id = cs.id
+            AND (sm.time_of_day::text = ANY($${timesParam}) OR sm.day::text = ANY($${daysParam}))
+        ), 0) as schedule_score
+      FROM courses c
+      JOIN departments d ON c.department_id = d.id
+      LEFT JOIN course_sections cs ON c.id = cs.course_id
+      LEFT JOIN terms t ON cs.term_id = t.id
+      WHERE (d.name = ANY($${majorMinorParam}) OR d.name = ANY($${interestParam}))
+        AND c.id != ALL($${takenParam})
+    `;
+
+    // Additional filters from query params
+    if (search) {
+      innerQuery += ` AND (
+        c.name ILIKE $${paramIndex}
+        OR c.code ILIKE $${paramIndex}
+        OR EXISTS (
+          SELECT 1 FROM section_instructors si
+          JOIN professors p ON si.professor_id = p.id
+          WHERE si.course_section_id = cs.id AND p.name ILIKE $${paramIndex}
+        )
+      )`;
+      params.push(`%${search}%`);
+      paramIndex++;
+    }
+
+    if (department && department !== 'All Departments') {
+      innerQuery += ` AND d.name = $${paramIndex}`;
+      params.push(department);
+      paramIndex++;
+    }
+
+    if (term) {
+      innerQuery += ` AND t.label = $${paramIndex}`;
+      params.push(term);
+      paramIndex++;
+    }
+
+    if (days) {
+      const daysList = days.split(',').map(d => {
+        const dayMap = { 'Mon': 'Monday', 'Tue': 'Tuesday', 'Wed': 'Wednesday', 'Thu': 'Thursday', 'Fri': 'Friday' };
+        return dayMap[d] || d;
+      });
+      innerQuery += ` AND EXISTS (
+        SELECT 1 FROM section_meetings sm
+        WHERE sm.course_section_id = cs.id
+        AND sm.day = ANY($${paramIndex}::day_of_week_type[])
+      )`;
+      params.push(daysList);
+      paramIndex++;
+    }
+
+    if (times) {
+      const timesList = times.split(',');
+      innerQuery += ` AND EXISTS (
+        SELECT 1 FROM section_meetings sm
+        WHERE sm.course_section_id = cs.id
+        AND sm.time_of_day = ANY($${paramIndex}::time_of_day_type[])
+      )`;
+      params.push(timesList);
+      paramIndex++;
+    }
+
+    if (categories) {
+      const categoriesList = categories.split(',');
+      innerQuery += ` AND EXISTS (
+        SELECT 1 FROM course_category_mapping ccm
+        JOIN course_categories cc ON ccm.category_id = cc.id
+        WHERE ccm.course_id = c.id
+        AND cc.name = ANY($${paramIndex})
+      )`;
+      params.push(categoriesList);
+      paramIndex++;
+    }
+
+    innerQuery += ` ORDER BY c.id, cs.id`;
+
+    // Outer query: filter interest courses by effort/size prefs, sort by priority + schedule score
+    let outerQuery = `SELECT * FROM (${innerQuery}) AS scored WHERE priority <= 2`;
+
+    // For interest courses (priority=2), apply effort/size filters; major/minor (priority=1) pass through
+    if (prefs.max_effort_level) {
+      outerQuery += ` AND (priority = 1 OR difficulty_rating <= $${paramIndex} OR difficulty_rating IS NULL)`;
+      params.push(prefs.max_effort_level);
+      paramIndex++;
+    }
+
+    if (prefs.preferred_class_size) {
+      if (prefs.preferred_class_size === 'small') {
+        outerQuery += ` AND (priority = 1 OR max_seats < 20 OR max_seats IS NULL)`;
+      } else if (prefs.preferred_class_size === 'medium') {
+        outerQuery += ` AND (priority = 1 OR (max_seats >= 20 AND max_seats <= 50) OR max_seats IS NULL)`;
+      } else if (prefs.preferred_class_size === 'large') {
+        outerQuery += ` AND (priority = 1 OR max_seats > 50 OR max_seats IS NULL)`;
+      }
+    }
+
+    // Filter out generic courses (Undergraduate Research, Independent Study, etc.)
+    // by excluding courses that have 6+ sections with the same code and name in the result set
+    const filteredQuery = `
+      SELECT * FROM (
+        SELECT *, COUNT(*) OVER (PARTITION BY id) as section_count
+        FROM (${outerQuery}) as with_prefs
+      ) as with_counts
+      WHERE section_count < 6
+    `;
+
+    // Count total
+    const countQuery = `SELECT COUNT(*) as total FROM (${filteredQuery}) as recommended`;
+    const countResult = await db.query(countQuery, params);
+    const totalCount = parseInt(countResult.rows[0].total) || 0;
+    const totalPages = Math.ceil(totalCount / limitNum);
+
+    // Sort and paginate
+    const offset = (pageNum - 1) * limitNum;
+    const finalQuery = `
+      ${filteredQuery}
+      ORDER BY
+        priority ASC,
+        schedule_score DESC,
+        CAST(NULLIF(REGEXP_REPLACE(code, '[^0-9]', '', 'g'), '') AS INTEGER) ASC NULLS LAST,
+        REGEXP_REPLACE(code, '[0-9]', '', 'g') ASC
+      LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
+    `;
+    params.push(limitNum, offset);
+
+    const result = await db.query(finalQuery, params);
+
+    const courses = result.rows.map(row => ({
+      id: row.id,
+      sectionId: row.section_id,
+      code: row.code,
+      name: row.name,
+      description: row.description,
+      credits: row.credits,
+      professor: row.professors || 'TBA',
+      schedule: formatSchedule(row.meetings),
+      avgHoursWeek: parseFloat(row.avg_hours_per_week) || 0,
+      effortLevel: parseFloat(row.difficulty_rating) || 0,
+      classSize: row.max_seats ? String(row.max_seats) : 'N/A',
+      rating: parseFloat(row.rating) || 0,
+      difficulty: getDifficultyLabel(row.difficulty_rating),
+      tags: row.tags || [],
+      departmentCode: row.department_code,
+      departmentName: row.department_name,
+      termLabel: row.term_label,
+      reviewCount: row.review_count || 0,
+      wouldTakeAgain: row.would_take_again_percentage,
+      syllabusId: row.syllabus_id || null
+    }));
+
+    res.json({
+      courses,
+      pagination: { page: pageNum, limit: limitNum, totalCount, totalPages }
+    });
+  } catch (err) {
+    console.error('Error fetching recommended courses:', err.message);
+    console.error('Stack:', err.stack);
+    res.status(500).json({ error: 'Failed to fetch recommended courses', details: err.message });
   }
 });
 
@@ -350,6 +664,22 @@ router.get('/:id', async (req, res) => {
       percentage: parseFloat(r.percentage)
     }));
 
+    // Get syllabi for ALL sections of this course (so syllabi from any section show up)
+    let syllabi = [];
+    const syllabiResult = await db.query(
+      `SELECT csyl.id, csyl.file_name, csyl.mime_type
+       FROM course_syllabi csyl
+       JOIN course_sections cs ON csyl.course_section_id = cs.id
+       WHERE cs.course_id = $1 AND csyl.status = 'approved'
+       ORDER BY csyl.uploaded_at DESC`,
+      [id]
+    );
+    syllabi = syllabiResult.rows.map(r => ({
+      id: r.id,
+      fileName: r.file_name,
+      mimeType: r.mime_type,
+    }));
+
     // Get top tags from reviews
     const tagsQuery = `
       SELECT t.name, COUNT(*) as count
@@ -391,7 +721,8 @@ router.get('/:id', async (req, res) => {
       absencesAllowed: section.absences_allowed || 0,
       termLabel: section.term_label,
       departmentCode: course.department_code,
-      departmentName: course.department_name
+      departmentName: course.department_name,
+      syllabi,
     };
 
     res.json(response);

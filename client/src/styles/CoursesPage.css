@@ -1,6 +1,6 @@
 .courses-page {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #f5f0e8;
 }
 
 .courses-container {
@@ -12,6 +12,7 @@
 /* Search and Filters Section */
 .search-filters-section {
   background: white;
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 2rem;
   margin-bottom: 2rem;
@@ -123,9 +124,91 @@
   color: #1a1a1a;
 }
 
+/* Clear Filters */
+.clear-filters-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.clear-filters-btn {
+  padding: 0.5rem 1.25rem;
+  background: transparent;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  color: #999;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.clear-filters-btn:hover {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+/* Recommendation Banner */
+.recommendation-banner {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 15px;
+  color: #666;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.recommendation-banner-link {
+  color: #C4B084;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.recommendation-banner-link:hover {
+  color: #b39f73;
+}
+
+/* Recommended Header */
+.recommended-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.recommended-header-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #C4B084;
+}
+
+.toggle-courses-btn {
+  padding: 0.5rem 1.25rem;
+  background: transparent;
+  border: 2px solid #C4B084;
+  border-radius: 8px;
+  color: #C4B084;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.toggle-courses-btn:hover {
+  background: rgba(196, 176, 132, 0.1);
+}
+
 /* Results Section */
 .results-section {
   background: white;
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -239,24 +322,52 @@
 
 .meta-badge {
   padding: 0.25rem 0.75rem;
-  border-radius: 6px;
+  border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
-.meta-badge.hard {
-  background: rgba(220, 53, 69, 0.1);
+.meta-badge.very-hard {
+  background: rgba(220, 53, 69, 0.12);
   color: #dc3545;
 }
 
-.meta-badge.time-consuming {
-  background: rgba(255, 193, 7, 0.1);
-  color: #ffa000;
+.meta-badge.hard {
+  background: rgba(255, 152, 0, 0.12);
+  color: #e68a00;
+}
+
+.meta-badge.moderate {
+  background: rgba(255, 193, 7, 0.15);
+  color: #b38600;
 }
 
 .meta-badge.easy {
-  background: rgba(40, 167, 69, 0.1);
+  background: rgba(100, 190, 100, 0.15);
+  color: #3da84e;
+}
+
+.meta-badge.very-easy {
+  background: rgba(40, 167, 69, 0.12);
   color: #28a745;
+}
+
+.syllabus-pill {
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(41, 98, 255, 0.1);
+  color: #2962ff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.syllabus-pill:hover {
+  background: rgba(41, 98, 255, 0.2);
 }
 
 .course-tags {

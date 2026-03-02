@@ -2,6 +2,7 @@
 * `courses-scrapper.js` is used to scrape a list of all the courses Vanderbilt offers. Outputs course-list.txt file
 * `course-info-scraper` is used to scrape the information for a particular course (e.g., CS 2201).
 * `scrape-all` takes the list of courses and gets the course information for each individual course.
+* `add-categories` takes list of courses and class attribute (e.g., HCA) and adds that under the course in the json file
 
 
 # To Seed
@@ -22,6 +23,7 @@ Step 2: Start database and apply schema + seeds
 
 `docker exec -i courseflix-db psql -U courseflix -d courseflix < db/seed-terms.sql`
 
+`docker exec -i courseflix-db psql -U courseflix -d courseflix < db/migrations/20260212_syllabus_file_storage.sql`
 
 Step 3: Re-scrape with new fields
 

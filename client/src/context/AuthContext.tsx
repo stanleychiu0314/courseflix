@@ -7,11 +7,13 @@ interface User {
   email: string;
   name: string;
   initials: string;
+  isAdmin: boolean;
 }
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   isLoading: boolean;
   cartCount: number;
   login: (user: User) => void;
@@ -106,6 +108,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       value={{
         user,
         isAuthenticated: !!user,
+        isAdmin: !!user?.isAdmin,
         isLoading,
         cartCount,
         login,

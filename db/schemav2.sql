@@ -347,6 +347,66 @@ CREATE TABLE IF NOT EXISTS user_schedule_items (
 );
 
 -- =============================================================================
+-- USER PROFILES & PREFERENCES
+-- =============================================================================
+
+-- Extended user profile (1-to-1 with users)
+CREATE TABLE IF NOT EXISTS user_profiles (
+    user_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    avatar_url TEXT,
+
+    -- Academics
+    major_1 VARCHAR(100),
+    major_2 VARCHAR(100),
+    minor_1 VARCHAR(100),
+    minor_2 VARCHAR(100),
+    departments_of_interest TEXT[] DEFAULT '{}',
+    favorite_subjects TEXT[] DEFAULT '{}',
+
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- User course preferences (1-to-1 with users)
+CREATE TABLE IF NOT EXISTS user_course_preferences (
+    user_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+
+    preferred_times time_of_day_type[] DEFAULT '{}',
+    preferred_days day_of_week_type[] DEFAULT '{}',
+    max_effort_level INTEGER CHECK (max_effort_level IS NULL OR (max_effort_level >= 1 AND max_effort_level <= 5)),
+    preferred_class_size VARCHAR(20) CHECK (preferred_class_size IS NULL OR preferred_class_size IN ('small', 'medium', 'large', 'any')),
+    preferred_work_types TEXT[] DEFAULT '{}',
+
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Courses the user has already taken (many-to-many)
+CREATE TABLE IF NOT EXISTS user_courses_taken (
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    course_id UUID NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+    added_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, course_id)
+);
+
+-- Indexes for profile tables
+CREATE INDEX IF NOT EXISTS idx_user_courses_taken_user ON user_courses_taken(user_id);
+CREATE INDEX IF NOT EXISTS idx_user_courses_taken_course ON user_courses_taken(course_id);
+
+-- Triggers for updated_at
+DROP TRIGGER IF EXISTS update_user_profiles_updated_at ON user_profiles;
+CREATE TRIGGER update_user_profiles_updated_at
+BEFORE UPDATE ON user_profiles
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+DROP TRIGGER IF EXISTS update_user_course_preferences_updated_at ON user_course_preferences;
+CREATE TRIGGER update_user_course_preferences_updated_at
+BEFORE UPDATE ON user_course_preferences
+FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- =============================================================================
 -- FILES / SYLLABI
 -- =============================================================================
 
@@ -363,6 +423,17 @@ CREATE TABLE IF NOT EXISTS course_syllabi (
 
     UNIQUE(course_section_id, file_name)
 );
+
+-- Syllabus approval workflow
+DO $$ BEGIN
+    CREATE TYPE syllabus_status_type AS ENUM ('pending', 'approved', 'rejected');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+ALTER TABLE course_syllabi
+    ADD COLUMN IF NOT EXISTS status syllabus_status_type NOT NULL DEFAULT 'pending',
+    ADD COLUMN IF NOT EXISTS reviewed_by_user_id UUID REFERENCES users(id) ON DELETE SET NULL,
+    ADD COLUMN IF NOT EXISTS reviewed_at TIMESTAMPTZ,
+    ADD COLUMN IF NOT EXISTS rejection_reason TEXT;
 
 -- =============================================================================
 -- INDEXES FOR PERFORMANCE
@@ -418,6 +489,10 @@ CREATE INDEX IF NOT EXISTS idx_review_tag_mapping_tag ON review_tag_mapping(tag_
 -- Grading
 CREATE INDEX IF NOT EXISTS idx_grading_breakdown_section ON grading_breakdown(course_section_id);
 CREATE INDEX IF NOT EXISTS idx_grade_distribution_section ON grade_distribution(course_section_id);
+
+-- Syllabi
+CREATE INDEX IF NOT EXISTS idx_course_syllabi_status ON course_syllabi(status);
+CREATE INDEX IF NOT EXISTS idx_course_syllabi_section ON course_syllabi(course_section_id);
 
 -- =============================================================================
 -- TRIGGERS FOR AUTOMATIC UPDATES

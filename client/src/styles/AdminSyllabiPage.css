@@ -1,0 +1,381 @@
+.admin-syllabi-page {
+  min-height: 100vh;
+  background: #f5f0e8;
+}
+
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.admin-header {
+  margin-bottom: 2rem;
+}
+
+.admin-title {
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem;
+}
+
+.admin-subtitle {
+  color: #666;
+  margin: 0;
+}
+
+/* Status filter tabs */
+.status-filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-tab {
+  padding: 0.5rem 1.25rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  transition: all 0.3s;
+}
+
+.filter-tab:hover {
+  border-color: #C4B084;
+  color: #1a1a1a;
+}
+
+.filter-tab.active {
+  background: #C4B084;
+  border-color: #C4B084;
+  color: white;
+}
+
+/* Syllabus cards */
+.admin-syllabi-page .syllabi-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.syllabus-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+
+.syllabus-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.syllabus-card.status-pending {
+  border-left: 4px solid #f0ad4e;
+}
+
+.syllabus-card.status-approved {
+  border-left: 4px solid #5cb85c;
+}
+
+.syllabus-card.status-rejected {
+  border-left: 4px solid #d9534f;
+}
+
+.syllabus-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.syllabus-course-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.admin-syllabi-page .course-badge {
+  background: #1a1a1a;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.course-name-text {
+  font-weight: 500;
+  color: #333;
+}
+
+.term-badge {
+  background: #f0f0f0;
+  color: #666;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.pending {
+  background: #fef3cd;
+  color: #856404;
+}
+
+.status-badge.approved {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-badge.rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.syllabus-card-body {
+  margin-bottom: 1rem;
+}
+
+.syllabus-file-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.file-link {
+  color: #C4B084;
+  text-decoration: none;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.file-link:hover {
+  text-decoration: underline;
+}
+
+.file-link:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.file-size {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.syllabus-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.syllabus-review-info {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.rejection-reason {
+  color: #d9534f;
+  margin-top: 0.25rem;
+  font-style: normal;
+}
+
+/* Action buttons */
+.syllabus-card-actions {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.action-btn {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.approve-btn {
+  background: #5cb85c;
+  color: white;
+}
+
+.approve-btn:hover:not(:disabled) {
+  background: #4cae4c;
+}
+
+.reject-btn {
+  background: #d9534f;
+  color: white;
+}
+
+.reject-btn:hover:not(:disabled) {
+  background: #c9302c;
+}
+
+.cancel-btn {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.cancel-btn:hover:not(:disabled) {
+  background: #ccc;
+}
+
+.reject-confirm-btn {
+  background: #d9534f;
+  color: white;
+}
+
+/* Reject reason form */
+.reject-form {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.reject-reason-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.reject-reason-input:focus {
+  outline: none;
+  border-color: #C4B084;
+}
+
+/* States */
+.admin-loading,
+.admin-error,
+.admin-empty {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.admin-error {
+  color: #d9534f;
+}
+
+/* Pagination */
+.admin-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.admin-pagination button {
+  padding: 0.5rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.admin-pagination button:hover:not(:disabled) {
+  border-color: #C4B084;
+}
+
+.admin-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Preview Modal */
+.preview-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-content {
+  width: 90%;
+  height: 90%;
+  max-width: 1000px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.preview-close-btn {
+  padding: 0.4rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.preview-close-btn:hover {
+  border-color: #d9534f;
+  color: #d9534f;
+}
+
+.preview-iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-container { padding: 1rem; }
+  .syllabus-card-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .syllabus-meta { flex-direction: column; gap: 0.25rem; }
+  .reject-form { flex-direction: column; }
+}
