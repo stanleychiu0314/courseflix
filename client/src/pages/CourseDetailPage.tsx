@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
 import '../styles/CourseDetailPage.css';
+import '../styles/CourseDetailPagination.css';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -62,10 +63,14 @@ const CourseDetailPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [course, setCourse] = useState<CourseDetails | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviewsPage, setReviewsPage] = useState(1);
+  const [reviewsTotalPages, setReviewsTotalPages] = useState(1);
+  const [reviewsTotalCount, setReviewsTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [addingToCart, setAddingToCart] = useState(false);
   const [cartMessage, setCartMessage] = useState<string | null>(null);
+  const REVIEWS_PER_PAGE = 20;
   const [syllabusViewUrl, setSyllabusViewUrl] = useState<string | null>(null);
   const [syllabusLoading, setSyllabusLoading] = useState<string | null>(null);
 
@@ -168,12 +173,10 @@ const CourseDetailPage: React.FC = () => {
 
       setLoading(true);
       setError(null);
+      setReviewsPage(1);
 
       try {
-        const [courseRes, reviewsRes] = await Promise.all([
-          fetch(`${API_BASE_URL}/api/courses/${courseId}`),
-          fetch(`${API_BASE_URL}/api/courses/${courseId}/reviews`)
-        ]);
+        const courseRes = await fetch(`${API_BASE_URL}/api/courses/${courseId}`);
 
         if (!courseRes.ok) {
           throw new Error('Course not found');
@@ -181,11 +184,6 @@ const CourseDetailPage: React.FC = () => {
 
         const courseData = await courseRes.json();
         setCourse(courseData);
-
-        if (reviewsRes.ok) {
-          const reviewsData = await reviewsRes.json();
-          setReviews(reviewsData);
-        }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load course');
       } finally {
@@ -195,6 +193,53 @@ const CourseDetailPage: React.FC = () => {
 
     fetchCourseData();
   }, [courseId]);
+
+  useEffect(() => {
+    const fetchReviews = async (page: number = 1) => {
+      if (!courseId) return;
+
+      try {
+        const params = new URLSearchParams();
+        params.append('page', String(page));
+        params.append('limit', String(REVIEWS_PER_PAGE));
+        const reviewsRes = await fetch(
+          `${API_BASE_URL}/api/courses/${courseId}/reviews?${params.toString()}`
+        );
+        if (!reviewsRes.ok) {
+          setReviews([]);
+          setReviewsTotalPages(1);
+          setReviewsTotalCount(0);
+          return;
+        }
+
+        const reviewsData = await reviewsRes.json();
+        if (Array.isArray(reviewsData)) {
+          setReviews(reviewsData);
+          setReviewsPage(1);
+          setReviewsTotalPages(1);
+          setReviewsTotalCount(reviewsData.length);
+        } else {
+          setReviews(reviewsData.reviews || []);
+          setReviewsPage(reviewsData.pagination?.page || 1);
+          setReviewsTotalPages(reviewsData.pagination?.totalPages || 1);
+          setReviewsTotalCount(reviewsData.pagination?.totalCount || 0);
+        }
+      } catch {
+        setReviews([]);
+        setReviewsTotalPages(1);
+        setReviewsTotalCount(0);
+      }
+    };
+
+    fetchReviews(reviewsPage);
+  }, [courseId, reviewsPage]);
+
+  const handleReviewsPageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= reviewsTotalPages) {
+      setReviewsPage(newPage);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -344,7 +389,7 @@ const CourseDetailPage: React.FC = () => {
                 </div>
 
                 <h3 className="section-title" style={{ marginTop: '2rem' }}>
-                  DETAILED REVIEWS ({reviews.length})
+                  DETAILED REVIEWS ({reviewsTotalCount})
                 </h3>
                 <div className="reviews-list">
                   {reviews.length === 0 ? (
@@ -372,6 +417,61 @@ const CourseDetailPage: React.FC = () => {
                     ))
                   )}
                 </div>
+                {reviewsTotalPages > 1 && (
+                  <div className="reviews-pagination">
+                    <button
+                      className="pagination-btn"
+                      onClick={() => handleReviewsPageChange(1)}
+                      disabled={reviewsPage === 1}
+                    >
+                      « First
+                    </button>
+                    <button
+                      className="pagination-btn"
+                      onClick={() => handleReviewsPageChange(reviewsPage - 1)}
+                      disabled={reviewsPage === 1}
+                    >
+                      ‹ Prev
+                    </button>
+                    <div className="pagination-pages">
+                      {[...Array(Math.min(5, reviewsTotalPages))].map((_, i) => {
+                        let pageNum;
+                        if (reviewsTotalPages <= 5) {
+                          pageNum = i + 1;
+                        } else if (reviewsPage <= 3) {
+                          pageNum = i + 1;
+                        } else if (reviewsPage >= reviewsTotalPages - 2) {
+                          pageNum = reviewsTotalPages - 4 + i;
+                        } else {
+                          pageNum = reviewsPage - 2 + i;
+                        }
+                        return (
+                          <button
+                            key={pageNum}
+                            className={`pagination-page ${reviewsPage === pageNum ? 'active' : ''}`}
+                            onClick={() => handleReviewsPageChange(pageNum)}
+                          >
+                            {pageNum}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <button
+                      className="pagination-btn"
+                      onClick={() => handleReviewsPageChange(reviewsPage + 1)}
+                      disabled={reviewsPage === reviewsTotalPages}
+                    >
+                      Next ›
+                    </button>
+                    <button
+                      className="pagination-btn"
+                      onClick={() => handleReviewsPageChange(reviewsTotalPages)}
+                      disabled={reviewsPage === reviewsTotalPages}
+                    >
+                      Last »
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 

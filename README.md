@@ -63,6 +63,13 @@ docker compose down -v
 # View database logs
 docker compose logs -f db
 
+# Load schema data
+docker exec -i courseflix-db psql -U courseflix -d courseflix < db/seed-departments.sql
+docker exec -i courseflix-db psql -U courseflix -d courseflix < db/seed-terms.sql
+
+# Import course data
+env POSTGRES_HOST=127.0.0.1 POSTGRES_PORT=5432 POSTGRES_DB=<db> POSTGRES_USER=<user> POSTGRES_PASSWORD=<password> node db/import-courses.js
+
 # Connect to database directly
 docker exec -it courseflix-db psql -U courseflix -d courseflix
 ```
@@ -85,6 +92,23 @@ The backend runs on http://localhost:3000 and provides the following API endpoin
 - `POST /api/auth/microsoft/login` - Microsoft login (expects `{ idToken }`)
 - `GET /api/auth/me` - Current session
 - `POST /api/auth/logout` - Clear session
+
+### Synthetic data
+
+Generate synthetic users and reviews only:
+```bash
+node db/seed-synthetic.js --users=200 --min-reviews=2 --max-reviews=8 --positive-rate=0.35 --negative-rate=0.25 --seed=42
+```
+
+To wipe synthetic users and reviews first:
+```bash
+node db/seed-synthetic.js --wipe=true
+```
+
+To wipe all core tables (destructive):
+```bash
+node db/seed-synthetic.js --wipe=all
+```
 
 ### 3. Frontend (React + Vite)
 
@@ -134,6 +158,21 @@ If you have an existing database and need to add Microsoft OAuth support:
 ```bash
 # Add 'microsoft' to the oauth_provider_type enum
 docker exec -it courseflix-db psql -U courseflix -d courseflix -c "ALTER TYPE oauth_provider_type ADD VALUE IF NOT EXISTS 'microsoft';"
+```
+
+## Seed Export/Import (Shareable Data)
+
+Use these scripts to export the current database (schema + data) and reload it later.
+
+```bash
+# Full dump (schema + data)
+db/export-seed.sh
+
+# Data-only dump (assumes schema already exists)
+db/export-seed.sh --data-only
+
+# Import a dump file
+db/import-seed.sh db/seed-full.sql
 ```
 
 ## Project Structure

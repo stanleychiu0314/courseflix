@@ -739,6 +739,20 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/reviews', async (req, res) => {
   try {
     const { id } = req.params;
+    const { page, limit } = req.query;
+    const pageNum = Math.max(1, parseInt(page) || 1);
+    const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 20));
+    const offset = (pageNum - 1) * limitNum;
+
+    const countResult = await db.query(
+      `SELECT COUNT(*) as total
+       FROM reviews r
+       JOIN course_sections cs ON r.course_section_id = cs.id
+       WHERE cs.course_id = $1`,
+      [id]
+    );
+    const totalCount = parseInt(countResult.rows[0].total) || 0;
+    const totalPages = Math.ceil(totalCount / limitNum);
 
     const query = `
       SELECT
@@ -767,9 +781,10 @@ router.get('/:id/reviews', async (req, res) => {
       JOIN terms t ON cs.term_id = t.id
       WHERE cs.course_id = $1
       ORDER BY r.created_at DESC
+      LIMIT $2 OFFSET $3
     `;
 
-    const result = await db.query(query, [id]);
+    const result = await db.query(query, [id, limitNum, offset]);
 
     const reviews = result.rows.map(row => ({
       id: row.id,
@@ -784,7 +799,15 @@ router.get('/:id/reviews', async (req, res) => {
       wouldTakeAgain: row.would_take_again
     }));
 
-    res.json(reviews);
+    res.json({
+      reviews,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        totalCount,
+        totalPages
+      }
+    });
   } catch (err) {
     console.error('Error fetching reviews:', err);
     res.status(500).json({ error: 'Failed to fetch reviews' });
