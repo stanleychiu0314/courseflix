@@ -10,7 +10,7 @@ const SAMPLE_DEPARTMENTS = [
   { id: 2, code: 'MATH', name: 'Mathematics' },
 ];
 
-beforeEach(() => jest.clearAllMocks());
+beforeEach(() => jest.resetAllMocks());
 
 describe('GET /api/departments', () => {
   it('returns a list of departments', async () => {
