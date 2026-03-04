@@ -6,6 +6,9 @@ const pool = new Pool({
   user: process.env.POSTGRES_USER || 'courseflix',
   password: process.env.POSTGRES_PASSWORD || 'courseflix',
   database: process.env.POSTGRES_DB || 'courseflix',
+  ssl: process.env.POSTGRES_HOST && process.env.POSTGRES_HOST !== 'localhost'
+    ? { rejectUnauthorized: false }
+    : false,
 });
 
 module.exports = {
