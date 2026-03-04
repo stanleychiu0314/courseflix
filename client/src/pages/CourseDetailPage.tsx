@@ -11,7 +11,7 @@ interface Review {
   rating: number;
   difficulty: string;
   grade: string;
-  text: string;
+  text: string | null;
   date: string;
   tags: string[];
   helpfulCount?: number;
@@ -58,7 +58,7 @@ interface CourseDetails {
 const CourseDetailPage: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
   const navigate = useNavigate();
-  const { isAuthenticated, refreshCartCount } = useAuth();
+  const { isAuthenticated, isAdmin, refreshCartCount } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
   const [course, setCourse] = useState<CourseDetails | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -116,6 +116,19 @@ const CourseDetailPage: React.FC = () => {
         },
       },
     });
+  };
+
+  const handleRemoveReviewText = async (reviewId: string) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/admin/reviews/${reviewId}/text`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+      if (!res.ok) throw new Error('Failed to remove review text');
+      setReviews(prev => prev.map(r => r.id === reviewId ? { ...r, text: null } : r));
+    } catch {
+      alert('Failed to remove review text. Please try again.');
+    }
   };
 
   const handleAddToCart = async () => {
@@ -367,7 +380,19 @@ const CourseDetailPage: React.FC = () => {
                             </span>
                           ))}
                         </div>
-                        <p className="review-text">{review.text}</p>
+                        {review.text !== null ? (
+                          <p className="review-text">{review.text}</p>
+                        ) : (
+                          <p className="review-text-removed">[Review removed by admin]</p>
+                        )}
+                        {isAdmin && review.text !== null && (
+                          <button
+                            className="admin-remove-btn"
+                            onClick={() => handleRemoveReviewText(review.id)}
+                          >
+                            Remove Review
+                          </button>
+                        )}
                       </div>
                     ))
                   )}

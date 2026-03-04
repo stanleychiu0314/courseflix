@@ -269,7 +269,7 @@ CREATE TABLE IF NOT EXISTS reviews (
     grade_received grade_letter_type,
 
     -- Review content
-    text TEXT NOT NULL,
+    text TEXT,
     first_impression_word VARCHAR(50),
 
     -- Student perspective

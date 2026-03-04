@@ -177,4 +177,29 @@ router.patch('/syllabi/:id/reject', async (req, res) => {
   }
 });
 
+/**
+ * DELETE /api/admin/reviews/:reviewId/text
+ * Remove the written text of a review (sets text to NULL).
+ * The review row itself (rating, difficulty, etc.) is preserved.
+ */
+router.delete('/reviews/:reviewId/text', async (req, res) => {
+  try {
+    const { reviewId } = req.params;
+
+    const result = await db.query(
+      `UPDATE reviews SET text = NULL WHERE id = $1 RETURNING id`,
+      [reviewId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Review not found' });
+    }
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error removing review text:', err);
+    res.status(500).json({ error: 'Failed to remove review text' });
+  }
+});
+
 module.exports = router;
