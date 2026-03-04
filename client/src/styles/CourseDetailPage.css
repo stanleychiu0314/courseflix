@@ -377,6 +377,31 @@
   margin-bottom: 1rem;
 }
 
+.review-text-removed {
+  font-size: 14px;
+  font-style: italic;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+
+.admin-remove-btn {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  background: transparent;
+  border: 1px solid #e57373;
+  border-radius: 4px;
+  color: #e57373;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.admin-remove-btn:hover {
+  background: #e57373;
+  color: #fff;
+}
+
 .helpful-btn {
   padding: 0.5rem 1rem;
   background: transparent;
