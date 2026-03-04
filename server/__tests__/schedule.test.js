@@ -5,7 +5,7 @@ const request = require('supertest');
 const app = require('../app');
 const db = require('../db');
 
-beforeEach(() => jest.clearAllMocks());
+beforeEach(() => jest.resetAllMocks());
 
 describe('GET /api/schedule/count', () => {
   it('returns count:0 when the user is not logged in', async () => {

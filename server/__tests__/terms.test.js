@@ -10,7 +10,7 @@ const SAMPLE_TERMS = [
   { id: 2, season: 'Spring', year: 2025, label: 'Spring 2025', starts_on: '2025-01-13', ends_on: '2025-05-05' },
 ];
 
-beforeEach(() => jest.clearAllMocks());
+beforeEach(() => jest.resetAllMocks());
 
 describe('GET /api/terms', () => {
   it('returns a list of terms with camelCase keys', async () => {

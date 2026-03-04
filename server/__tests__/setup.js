@@ -6,3 +6,4 @@ process.env.POSTGRES_USER = 'courseflix';
 process.env.POSTGRES_PASSWORD = 'courseflix';
 process.env.POSTGRES_PORT = '5432';
 process.env.CORS_ORIGIN = 'http://localhost:5173';
+process.env.ADMIN_EMAILS = 'admin@vanderbilt.edu';

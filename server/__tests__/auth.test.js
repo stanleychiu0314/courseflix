@@ -10,7 +10,7 @@ jest.mock('jose', () => ({
 const request = require('supertest');
 const app = require('../app');
 
-beforeEach(() => jest.clearAllMocks());
+beforeEach(() => jest.resetAllMocks());
 
 describe('GET /api/auth/me', () => {
   it('returns 401 with authenticated:false when no session', async () => {
