@@ -56,6 +56,7 @@ router.post('/', upload.single('syllabus'), async (req, res) => {
     const grade = body.grade;
     const attendancePolicy = body.attendancePolicy;
     const comments = (body.comments || '').trim();
+    const absencesAllowed = parseInt(body.absencesAllowed, 10);
     const syllabusFile = req.file;
 
     if (!sectionId) {
@@ -188,6 +189,14 @@ router.post('/', upload.single('syllabus'), async (req, res) => {
           file_data = EXCLUDED.file_data,
           mime_type = EXCLUDED.mime_type`,
         [sectionId, userId, fileName, syllabusFile.size, syllabusFile.buffer, mimeType]
+      );
+    }
+
+    // Update absences_allowed on the section if provided
+    if (!isNaN(absencesAllowed) && absencesAllowed >= 0) {
+      await db.query(
+        'UPDATE course_sections SET absences_allowed = $1 WHERE id = $2',
+        [absencesAllowed, sectionId]
       );
     }
 

@@ -308,7 +308,6 @@ const CourseDetailPage: React.FC = () => {
             <div className="course-info-row">
               <span className="info-item">👤 {course.professor}</span>
               <span className="info-item">📅 {course.schedule}</span>
-              <span className="info-item">📍 {course.location}</span>
             </div>
           </div>
           <div className="course-header-rating">

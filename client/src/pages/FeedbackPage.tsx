@@ -165,6 +165,7 @@ const FeedbackPage: React.FC = () => {
       if (formData.firstWord) body.append('firstWord', formData.firstWord);
       if (formData.grade) body.append('grade', formData.grade);
       if (formData.attendancePolicy) body.append('attendancePolicy', formData.attendancePolicy);
+      if (formData.absencesAllowed > 0) body.append('absencesAllowed', String(formData.absencesAllowed));
       if (formData.syllabus) body.append('syllabus', formData.syllabus);
 
       const response = await fetch(`${API_BASE_URL}/api/reviews`, {
