@@ -33,11 +33,90 @@ router.get('/', async (req, res) => {
         c.name,
         c.description,
         c.credits,
-        c.rating,
+        (
+          SELECT ROUND(AVG(r.rating)::numeric, 2)
+          FROM reviews r
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
+        ) AS rating,
         c.review_count,
-        c.avg_hours_per_week,
-        c.difficulty_rating,
-        c.would_take_again_percentage,
+        (
+          SELECT ROUND(AVG(r.hours_per_week)::numeric, 2)
+          FROM reviews r
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
+        ) AS avg_hours_per_week,
+        (
+          SELECT ROUND(AVG(r.difficulty)::numeric, 2)
+          FROM reviews r
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
+        ) AS difficulty_rating,
+        (
+          SELECT ROUND(
+            (COUNT(CASE WHEN r.would_take_again THEN 1 END) * 100.0 / NULLIF(COUNT(r.id), 0))::numeric,
+            2
+          )
+          FROM reviews r
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
+        ) AS would_take_again_percentage,
         d.code as department_code,
         d.name as department_name,
         cs.id as section_id,
@@ -66,7 +145,22 @@ router.get('/', async (req, res) => {
           FROM reviews r
           JOIN review_tag_mapping rtm ON r.id = rtm.review_id
           JOIN tags tg ON rtm.tag_id = tg.id
-          WHERE r.course_section_id = cs.id
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
         ) as tags,
         (
           SELECT csyl.id
@@ -328,11 +422,90 @@ router.get('/recommended', async (req, res) => {
         c.name,
         c.description,
         c.credits,
-        c.rating,
+        (
+          SELECT ROUND(AVG(r.rating)::numeric, 2)
+          FROM reviews r
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
+        ) AS rating,
         c.review_count,
-        c.avg_hours_per_week,
-        c.difficulty_rating,
-        c.would_take_again_percentage,
+        (
+          SELECT ROUND(AVG(r.hours_per_week)::numeric, 2)
+          FROM reviews r
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
+        ) AS avg_hours_per_week,
+        (
+          SELECT ROUND(AVG(r.difficulty)::numeric, 2)
+          FROM reviews r
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
+        ) AS difficulty_rating,
+        (
+          SELECT ROUND(
+            (COUNT(CASE WHEN r.would_take_again THEN 1 END) * 100.0 / NULLIF(COUNT(r.id), 0))::numeric,
+            2
+          )
+          FROM reviews r
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
+        ) AS would_take_again_percentage,
         d.code as department_code,
         d.name as department_name,
         cs.id as section_id,
@@ -361,7 +534,22 @@ router.get('/recommended', async (req, res) => {
           FROM reviews r
           JOIN review_tag_mapping rtm ON r.id = rtm.review_id
           JOIN tags tg ON rtm.tag_id = tg.id
-          WHERE r.course_section_id = cs.id
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
         ) as tags,
         (
           SELECT csyl.id
@@ -558,9 +746,69 @@ router.get('/:id', async (req, res) => {
         c.credits,
         c.rating,
         c.review_count,
-        c.avg_hours_per_week,
-        c.difficulty_rating,
-        c.would_take_again_percentage,
+        (
+          SELECT ROUND(AVG(r.hours_per_week)::numeric, 2)
+          FROM reviews r
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
+        ) AS avg_hours_per_week,
+        (
+          SELECT ROUND(AVG(r.difficulty)::numeric, 2)
+          FROM reviews r
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
+        ) AS difficulty_rating,
+        (
+          SELECT ROUND(
+            (COUNT(CASE WHEN r.would_take_again THEN 1 END) * 100.0 / NULLIF(COUNT(r.id), 0))::numeric,
+            2
+          )
+          FROM reviews r
+          JOIN course_sections rev_cs ON r.course_section_id = rev_cs.id
+          WHERE rev_cs.course_id = c.id
+             OR EXISTS (
+               SELECT 1
+               FROM course_sections ts
+               JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+               JOIN section_instructors rev_cs_si ON rev_cs_si.professor_id = ts_si.professor_id
+                 AND rev_cs_si.course_section_id = rev_cs.id
+               JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+               JOIN section_meetings rev_cs_sm ON rev_cs_sm.course_section_id = rev_cs.id
+                 AND rev_cs_sm.day = ts_sm.day
+                 AND rev_cs_sm.start_time = ts_sm.start_time
+                 AND rev_cs_sm.end_time = ts_sm.end_time
+               WHERE ts.course_id = c.id
+                 AND ts.term_id = rev_cs.term_id
+             )
+        ) AS would_take_again_percentage,
         d.code as department_code,
         d.name as department_name
       FROM courses c
@@ -618,6 +866,49 @@ router.get('/:id', async (req, res) => {
     // Extract prerequisites from description text
     const prerequisites = extractPrerequisites(course.description);
 
+    // Find cross-listed sections: same professor AND same meeting time on the same target section
+    const crossListQuery = `
+      SELECT DISTINCT cs.id AS section_id, c.code AS course_code
+      FROM course_sections cs
+      JOIN courses c ON cs.course_id = c.id
+      WHERE cs.course_id != $1
+        AND EXISTS (
+          SELECT 1
+          FROM course_sections ts
+          JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+          JOIN section_instructors cs_si ON cs_si.professor_id = ts_si.professor_id
+            AND cs_si.course_section_id = cs.id
+          JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+          JOIN section_meetings cs_sm ON cs_sm.course_section_id = cs.id
+            AND cs_sm.day = ts_sm.day
+            AND cs_sm.start_time = ts_sm.start_time
+            AND cs_sm.end_time = ts_sm.end_time
+          WHERE ts.course_id = $1
+            AND ts.term_id = cs.term_id
+        )
+    `;
+    const crossListResult = await db.query(crossListQuery, [id]);
+    const crossListedSectionIds = crossListResult.rows.map(r => r.section_id);
+    const crossListedAs = [...new Set(crossListResult.rows.map(r => r.course_code))];
+
+    // Compute live stats across this course + cross-listed sections
+    const statsResult = await db.query(
+      `SELECT
+         ROUND(AVG(r.rating)::numeric, 2) AS rating,
+         COUNT(r.id) AS review_count,
+         ROUND(AVG(r.hours_per_week)::numeric, 2) AS avg_hours_per_week,
+         ROUND(AVG(r.difficulty)::numeric, 2) AS difficulty_rating,
+         ROUND(
+           (COUNT(CASE WHEN r.would_take_again THEN 1 END) * 100.0 / NULLIF(COUNT(r.id), 0))::numeric,
+           2
+         ) AS would_take_again_percentage
+       FROM reviews r
+       JOIN course_sections cs ON r.course_section_id = cs.id
+       WHERE cs.course_id = $1 OR r.course_section_id = ANY($2::uuid[])`,
+      [id, crossListedSectionIds]
+    );
+    const stats = statsResult.rows[0] || {};
+
     // Get grade distribution for this section
     const gradeDistQuery = `
       SELECT grade_letter, percentage
@@ -664,15 +955,16 @@ router.get('/:id', async (req, res) => {
       percentage: parseFloat(r.percentage)
     }));
 
-    // Get syllabi for ALL sections of this course (so syllabi from any section show up)
+    // Get syllabi for this course + cross-listed sections
     let syllabi = [];
     const syllabiResult = await db.query(
       `SELECT csyl.id, csyl.file_name, csyl.mime_type
        FROM course_syllabi csyl
        JOIN course_sections cs ON csyl.course_section_id = cs.id
-       WHERE cs.course_id = $1 AND csyl.status = 'approved'
+       WHERE (cs.course_id = $1 OR csyl.course_section_id = ANY($2::uuid[]))
+         AND csyl.status = 'approved'
        ORDER BY csyl.uploaded_at DESC`,
-      [id]
+      [id, crossListedSectionIds]
     );
     syllabi = syllabiResult.rows.map(r => ({
       id: r.id,
@@ -680,19 +972,19 @@ router.get('/:id', async (req, res) => {
       mimeType: r.mime_type,
     }));
 
-    // Get top tags from reviews
+    // Get top tags from reviews across this course + cross-listed sections
     const tagsQuery = `
       SELECT t.name, COUNT(*) as count
       FROM reviews r
       JOIN course_sections cs ON r.course_section_id = cs.id
       JOIN review_tag_mapping rtm ON r.id = rtm.review_id
       JOIN tags t ON rtm.tag_id = t.id
-      WHERE cs.course_id = $1
+      WHERE cs.course_id = $1 OR r.course_section_id = ANY($2::uuid[])
       GROUP BY t.name
       ORDER BY count DESC
       LIMIT 10
     `;
-    const tagsResult = await db.query(tagsQuery, [id]);
+    const tagsResult = await db.query(tagsQuery, [id, crossListedSectionIds]);
     const commentHighlights = tagsResult.rows.map(r => r.name);
 
     // Format response
@@ -706,16 +998,16 @@ router.get('/:id', async (req, res) => {
       maxSeats: section.max_seats || 0,
       professor: section.professors || 'TBA',
       schedule: formatSchedule(section.meetings),
-      rating: parseFloat(course.rating) || 0,
-      reviewCount: course.review_count || 0,
+      rating: parseFloat(stats.rating) || 0,
+      reviewCount: parseInt(stats.review_count) || 0,
       prerequisites,
       commentHighlights,
       gradeDistribution,
       gradeBreakdown,
-      avgHoursPerWeek: parseFloat(course.avg_hours_per_week) || 0,
-      difficulty: `${Math.round(parseFloat(course.difficulty_rating) || 0)}/5`,
-      wouldTakeAgain: course.would_take_again_percentage
-        ? `${Math.round(course.would_take_again_percentage)}%`
+      avgHoursPerWeek: parseFloat(stats.avg_hours_per_week) || 0,
+      difficulty: `${Math.round(parseFloat(stats.difficulty_rating) || 0)}/5`,
+      wouldTakeAgain: stats.would_take_again_percentage
+        ? `${Math.round(stats.would_take_again_percentage)}%`
         : 'N/A',
       attendancePolicy: section.attendance_policy || 'flexible',
       absencesAllowed: section.absences_allowed || 0,
@@ -723,6 +1015,7 @@ router.get('/:id', async (req, res) => {
       departmentCode: course.department_code,
       departmentName: course.department_name,
       syllabi,
+      crossListedAs,
     };
 
     res.json(response);
@@ -755,6 +1048,25 @@ router.get('/:id/reviews', async (req, res) => {
     const totalPages = Math.ceil(totalCount / limitNum);
 
     const query = `
+      WITH cross_listed_sections AS (
+        SELECT DISTINCT cs.id
+        FROM course_sections cs
+        WHERE cs.course_id != $1
+          AND EXISTS (
+            SELECT 1
+            FROM course_sections ts
+            JOIN section_instructors ts_si ON ts_si.course_section_id = ts.id
+            JOIN section_instructors cs_si ON cs_si.professor_id = ts_si.professor_id
+              AND cs_si.course_section_id = cs.id
+            JOIN section_meetings ts_sm ON ts_sm.course_section_id = ts.id
+            JOIN section_meetings cs_sm ON cs_sm.course_section_id = cs.id
+              AND cs_sm.day = ts_sm.day
+              AND cs_sm.start_time = ts_sm.start_time
+              AND cs_sm.end_time = ts_sm.end_time
+            WHERE ts.course_id = $1
+              AND ts.term_id = cs.term_id
+          )
+      )
       SELECT
         r.id,
         r.rating,
@@ -779,7 +1091,7 @@ router.get('/:id/reviews', async (req, res) => {
       FROM reviews r
       JOIN course_sections cs ON r.course_section_id = cs.id
       JOIN terms t ON cs.term_id = t.id
-      WHERE cs.course_id = $1
+      WHERE cs.course_id = $1 OR cs.id IN (SELECT id FROM cross_listed_sections)
       ORDER BY r.created_at DESC
       LIMIT $2 OFFSET $3
     `;
