@@ -3,7 +3,7 @@ const { scrapeCourse } = require('./course-info-scrapper.js');
 
 async function scrapeAllCourses() {
     // Read the course list file
-    const courseListText = fs.readFileSync('sample-course-list.txt', 'utf-8');
+    const courseListText = fs.readFileSync('course-list.txt', 'utf-8');
     const courseLines = courseListText.trim().split('\n');
 
     const allCoursesData = [];
