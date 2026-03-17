@@ -7,6 +7,7 @@ async function scrapeAllCourses() {
     const courseLines = courseListText.trim().split('\n');
 
     const allCoursesData = [];
+    const scrapedCodes = new Set(); // deduplicates variants that also appear explicitly in the course list
     let successCount = 0;
     let skippedCount = 0;
 
@@ -21,7 +22,7 @@ async function scrapeAllCourses() {
     // Parse all course lines first
     const courses = courseLines.map((line, index) => {
         const courseLine = line.trim();
-        const match = courseLine.match(/^([A-Z]+)\s+(\d+)$/);
+        const match = courseLine.match(/^([A-Z]+)\s+(\d+[A-Z]*)$/);
         if (!match) {
             console.log(`Skipping invalid line: ${courseLine}`);
             return null;
@@ -39,34 +40,46 @@ async function scrapeAllCourses() {
 
         const promises = batch.map(async ({ subject, catalogNumber }) => {
             try {
-                const sections = await scrapeCourse(subject, catalogNumber);
-                return { subject, catalogNumber, sections, error: null };
+                const courseResults = await scrapeCourse(subject, catalogNumber);
+                return { subject, catalogNumber, courseResults, error: null };
             } catch (error) {
-                return { subject, catalogNumber, sections: null, error };
+                return { subject, catalogNumber, courseResults: null, error };
             }
         });
 
         const results = await Promise.all(promises);
 
-        for (const { subject, catalogNumber, sections, error } of results) {
+        for (const { subject, catalogNumber, courseResults, error } of results) {
             if (error) {
                 console.error(`  Error scraping ${subject} ${catalogNumber}: ${error.message}`);
                 skippedCount++;
                 continue;
             }
 
-            if (sections && sections.length > 0) {
+            if (!courseResults || courseResults.length === 0) {
+                skippedCount++;
+                continue;
+            }
+
+            for (const result of courseResults) {
+                if (!result.sections || result.sections.length === 0) continue;
+
+                // Skip if already captured as a variant of a previous search
+                const courseCode = `${subject} ${result.catalogNumber}`;
+                if (scrapedCodes.has(courseCode)) continue;
+                scrapedCodes.add(courseCode);
+
                 const courseData = {
                     subject: subject,
-                    catalogNumber: catalogNumber,
-                    courseName: sections[0].courseName,
-                    courseTitle: sections[0].courseTitle,
-                    courseDescription: sections[0].courseDescription || '',
-                    requirements: sections[0].requirements || '',
-                    hours: sections[0].hours || '',
-                    term: sections[0].term || '',
-                    sections: sections.map(section => ({
+                    catalogNumber: result.catalogNumber,
+                    courseName: result.courseName,
+                    courseDescription: result.courseDescription || '',
+                    requirements: result.requirements || '',
+                    hours: result.hours || '',
+                    term: result.term || '',
+                    sections: result.sections.map(section => ({
                         section: section.section,
+                        courseTitle: section.courseTitle || '',
                         instructor: section.instructor,
                         days: section.days,
                         time: section.time,
@@ -76,9 +89,7 @@ async function scrapeAllCourses() {
 
                 allCoursesData.push(courseData);
                 successCount++;
-                console.log(`  ✓ ${subject} ${catalogNumber}`);
-            } else {
-                skippedCount++;
+                console.log(`  ✓ ${subject} ${result.catalogNumber}`);
             }
         }
 
@@ -89,7 +100,7 @@ async function scrapeAllCourses() {
     }
 
     // Save to JSON file
-    const outputFile = 'courses-data.json';
+    const outputFile = 'new-courses-data.json';
     fs.writeFileSync(outputFile, JSON.stringify(allCoursesData, null, 2), 'utf-8');
 
     console.log('\n========================================');

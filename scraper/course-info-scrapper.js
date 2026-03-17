@@ -1,198 +1,220 @@
 const puppeteer = require('puppeteer');
 
+const TARGET_TERM_CODE = '1060'; // "2026 Spring"
+
+// Returns an array of course objects found in the search results for the given subject/catalogNumber.
+// A single search may return multiple variants (e.g. PHYS 1601 and PHYS 1601L) as separate entries.
+// Each entry: { catalogNumber, courseName, courseDescription, requirements, hours, term, sections[] }
 async function scrapeCourse(subject, catalogNumber) {
-    // Launch browser (set headless: false to watch it work)
-    const browser = await puppeteer.launch({ 
-        headless: true,  // <-- Change to true once it's working
+    const browser = await puppeteer.launch({
+        headless: true,
     });
-    
+
     const page = await browser.newPage();
-    
-    // Go to the search page
-    await page.goto('https://more.app.vanderbilt.edu/more/SearchClasses!input.action', { 
-        waitUntil: 'networkidle2' 
+
+    await page.goto('https://more.app.vanderbilt.edu/more/SearchClasses!input.action', {
+        waitUntil: 'networkidle2'
     });
-    
+
+    // ===========================================
+    // STEP 0: SELECT THE CORRECT TERM
+    // ===========================================
+
+    await page.waitForSelector('#selectedTerm', { visible: true });
+    await page.select('#selectedTerm', TARGET_TERM_CODE);
+    await new Promise(resolve => setTimeout(resolve, 500));
+
     // ===========================================
     // STEP 1: FILL IN THE SEARCH FORM
     // ===========================================
 
     const SEARCH_INPUT_SELECTOR = '#searchClassSectionsInput';
-
+    await page.waitForSelector(SEARCH_INPUT_SELECTOR, { visible: true, timeout: 10000 });
     await page.type(SEARCH_INPUT_SELECTOR, `${subject} ${catalogNumber}`);
-    
-    
+
     // ===========================================
     // STEP 2: CLICK THE SEARCH BUTTON
     // ===========================================
-    
-    // Force-enable the button and click it via JavaScript
+
     await page.evaluate(() => {
         const btn = document.querySelector('#searchClassesButton-button');
         btn.disabled = false;
         btn.click();
     });
 
-    // Wait for results to load
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    
-    
+    // If no results for this term, return empty array silently
+    try {
+        await page.waitForSelector('table.classTable', { visible: true, timeout: 5000 });
+    } catch {
+        await browser.close();
+        return [];
+    }
+
     // ===========================================
-    // STEP 3: EXTRACT THE DATA
+    // STEP 3: EXTRACT BASIC DATA FROM TABLE ROWS
+    // Groups sections by catalog number so that a search for "PHYS 1601" captures
+    // both PHYS 1601 and PHYS 1601L as separate course entries in one browser session.
     // ===========================================
 
     const data = await page.evaluate((targetSubject, targetCatalog) => {
-        const results = [];
+        const coursesBycat = {}; // { catalogNumber: { courseName, sections[] } }
 
-        // Find all course tables
         const courseTables = document.querySelectorAll('table.classTable');
 
         courseTables.forEach((table) => {
-            // Get course name and description from the header
             const courseAbbrev = table.querySelector('.classAbbreviation')?.textContent?.trim() || '';
             const courseTitle = table.querySelector('.classDescription')?.textContent?.trim() || '';
 
-            // Check if this is the course we're looking for
-            // Extract subject and catalog number from courseAbbrev (e.g., "CS 1101:")
-            const courseMatch = courseAbbrev.match(/^([A-Z]+)\s+(\d+)/);
+            const courseMatch = courseAbbrev.match(/^([A-Z]+)\s+(\d+[A-Z]*)/);
             if (!courseMatch) return;
 
             const [, subject, catalog] = courseMatch;
-            if (subject !== targetSubject || catalog !== targetCatalog) return;
+            // Capture this course if same subject AND catalog starts with targetCatalog
+            // (e.g. targetCatalog "1601" matches "1601" and "1601L")
+            if (subject !== targetSubject || !catalog.startsWith(targetCatalog)) return;
 
-            // Get all class rows (sections) within this specific table
+            if (!coursesBycat[catalog]) {
+                coursesBycat[catalog] = { courseName: courseAbbrev, sections: [] };
+            }
+
             const rows = table.querySelectorAll('tr.classRow');
+            rows.forEach((row) => {
+                const sectionTd = row.querySelector('td.classSection');
+                const section = sectionTd?.textContent?.trim() || '';
+                const classNumber = sectionTd?.id?.replace('classNumber_', '') || '';
+                const instructor = row.querySelector('.classInstructor')?.textContent?.trim() || '';
+                const days = row.querySelector('.classMeetingDays')?.textContent?.trim().replace(/\s+/g, ' ') || '';
+                const time = row.querySelector('.classMeetingTimes')?.textContent?.trim().replace(/\s+/g, ' ') || '';
 
-        rows.forEach((row) => {
-            const section = row.querySelector('.classSection')?.textContent?.trim() || '';
-            const instructor = row.querySelector('.classInstructor')?.textContent?.trim() || '';
-            const days = row.querySelector('.classMeetingDays')?.textContent?.trim().replace(/\s+/g, ' ') || '';
-            const time = row.querySelector('.classMeetingTimes')?.textContent?.trim().replace(/\s+/g, ' ') || '';
-
-            // Extract just the enrollment numbers (e.g., "43/60")
-            const availabilityLink = row.querySelector('.classAvailability a.availableStatus');
-            const availability = availabilityLink?.textContent?.trim() || '';
-
-            results.push({
-                courseName: courseAbbrev,
-                courseTitle: courseTitle,
-                section: section,
-                instructor: instructor,
-                days: days,
-                time: time,
-                availability: availability
+                coursesBycat[catalog].sections.push({
+                    courseTitle,
+                    classNumber,
+                    section,
+                    instructor,
+                    days,
+                    time,
+                    availability: ''
+                });
             });
         });
-        });
 
-        return results;
+        return Object.entries(coursesBycat).map(([catalog, d]) => ({
+            catalogNumber: catalog,
+            courseName: d.courseName,
+            sections: d.sections,
+        }));
     }, subject, catalogNumber);
 
     // ===========================================
-    // STEP 4: GET COURSE DESCRIPTION FROM DETAIL PANEL
+    // STEP 4: OPEN DETAIL PANEL FOR EACH SECTION
+    // Gets availability for every section; gets description/requirements/hours/term
+    // from the first section of each course variant separately.
     // ===========================================
 
-    let courseDescription = '';
+    for (const courseResult of data) {
+        let isFirstSection = true;
+        let courseDescription = '';
+        let courseRequirements = '';
+        let courseHours = '';
+        let courseTerm = '';
 
-    if (data.length > 0) {
-        // Click on the first section of the CORRECT course to open the detail panel
-        // We need to find the table whose header matches our target subject/catalog,
-        // since the search results may include courses from other departments with the same number.
-        await page.waitForSelector('td.classSection');
+        for (const entry of courseResult.sections) {
+            try {
+                // Open detail panel via YAHOO event using classNumber (avoids fragile DOM index)
+                await page.evaluate((classNum, termCode) => {
+                    YAHOO.mis.student.Topics.showClassDetailPanel.fire({
+                        classNumber: classNum,
+                        termCode: termCode
+                    });
+                }, entry.classNumber, TARGET_TERM_CODE);
 
-        await page.evaluate((targetSubject, targetCatalog) => {
-            const tables = document.querySelectorAll('table.classTable');
-            for (const table of tables) {
-                const abbrev = table.querySelector('.classAbbreviation')?.textContent?.trim() || '';
-                const match = abbrev.match(/^([A-Z]+)\s+(\d+)/);
-                if (match && match[1] === targetSubject && match[2] === targetCatalog) {
-                    const section = table.querySelector('td.classSection');
-                    if (section) section.click();
-                    return;
+                await page.waitForSelector('#classDetailContainer', { visible: true, timeout: 10000 });
+                await page.waitForSelector('.availabilityNameValueTable', { visible: true, timeout: 10000 });
+
+                const panelData = await page.evaluate((getDetails) => {
+                    const availTable = document.querySelector('.availabilityNameValueTable');
+                    let capacity = '';
+                    let enrolled = '';
+                    if (availTable) {
+                        const rows = availTable.querySelectorAll('tr');
+                        for (const row of rows) {
+                            const label = row.querySelector('td.label')?.textContent?.trim() || '';
+                            const value = row.querySelector('td:not(.label)')?.textContent?.trim() || '';
+                            if (label === 'Class Capacity:') capacity = value;
+                            if (label === 'Total Enrolled:') enrolled = value;
+                        }
+                    }
+                    const availability = (enrolled !== '' && capacity !== '')
+                        ? `${enrolled}/${capacity}`
+                        : '';
+
+                    if (!getDetails) return { availability };
+
+                    // First section only: description, requirements, hours, term
+                    const detailPanels = Array.from(document.querySelectorAll('.detailPanel'));
+                    let description = '';
+                    for (const panel of detailPanels) {
+                        if (!panel.querySelector('table')) {
+                            description = panel.textContent.trim();
+                            break;
+                        }
+                    }
+
+                    let requirements = '';
+                    let hours = '';
+                    let term = '';
+                    const labels = Array.from(document.querySelectorAll('#classDetailContainer td.label'));
+
+                    const reqLabel = labels.find(l => l.textContent.trim() === 'Requirement(s):');
+                    if (reqLabel) requirements = reqLabel.nextElementSibling?.textContent?.trim() || '';
+
+                    const hoursLabel = labels.find(l => l.textContent.trim() === 'Hours:');
+                    if (hoursLabel) hours = hoursLabel.nextElementSibling?.textContent?.trim() || '';
+
+                    const termLabel = labels.find(l => l.textContent.trim() === 'Term:');
+                    if (termLabel) term = termLabel.nextElementSibling?.textContent?.trim() || '';
+
+                    return { availability, description, requirements, hours, term };
+                }, isFirstSection);
+
+                entry.availability = panelData.availability;
+
+                if (isFirstSection) {
+                    courseDescription = panelData.description;
+                    courseRequirements = panelData.requirements;
+                    courseHours = panelData.hours;
+                    courseTerm = panelData.term;
+                    isFirstSection = false;
                 }
+
+                // Close detail panel and wait for it to fully disappear before opening the next
+                await page.waitForSelector('#closeClassSectionDetailDialogButton-button', { visible: true });
+                await page.evaluate(() => {
+                    document.querySelector('#closeClassSectionDetailDialogButton-button').click();
+                });
+                await page.waitForSelector('#classDetailContainer', { hidden: true, timeout: 5000 }).catch(() => {});
+                await new Promise(resolve => setTimeout(resolve, 300));
+
+            } catch (err) {
+                console.error(`  Could not get details for ${courseResult.catalogNumber} section ${entry.section}: ${err.message}`);
+                try {
+                    await page.evaluate(() => {
+                        const btn = document.querySelector('#closeClassSectionDetailDialogButton-button');
+                        if (btn) btn.click();
+                    });
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                } catch (_) {}
             }
-        }, subject, catalogNumber);
+        }
 
-        // Wait for the detail panel to appear and content to load
-        await page.waitForSelector('#classDetailContainer', { visible: true });
-        await page.waitForSelector('#classDetailContainer .nameValueTable', { visible: true, timeout: 5000 });
-
-        // Extract the description and requirements from the detail panel
-        const courseDetails = await page.evaluate(() => {
-            // Get description - it's in the last detailPanel (the one without a table)
-            const detailPanels = Array.from(document.querySelectorAll('.detailPanel'));
-            let description = '';
-            for (const panel of detailPanels) {
-                // The description panel doesn't contain a table
-                if (!panel.querySelector('table')) {
-                    description = panel.textContent.trim();
-                    break;
-                }
-            }
-
-            // Get requirements from the label/value table
-            let requirements = '';
-            let hours = '';
-            const labels = Array.from(document.querySelectorAll('#classDetailContainer td.label'));
-
-            const requirementLabel = labels.find(label =>
-                label.textContent.trim() === 'Requirement(s):'
-            );
-            if (requirementLabel) {
-                const requirementCell = requirementLabel.nextElementSibling;
-                if (requirementCell) {
-                    requirements = requirementCell.textContent.trim();
-                }
-            }
-
-            const hoursLabel = labels.find(label =>
-                label.textContent.trim() === 'Hours:'
-            );
-            if (hoursLabel) {
-                const hoursCell = hoursLabel.nextElementSibling;
-                if (hoursCell) {
-                    hours = hoursCell.textContent.trim();
-                }
-            }
-
-            let term = '';
-            const termLabel = labels.find(label =>
-                label.textContent.trim() === 'Term:'
-            );
-            if (termLabel) {
-                const termCell = termLabel.nextElementSibling;
-                if (termCell) {
-                    term = termCell.textContent.trim();
-                }
-            }
-
-            return { description, requirements, hours, term };
-        });
-
-        courseDescription = courseDetails.description;
-        const courseRequirements = courseDetails.requirements;
-        const courseHours = courseDetails.hours;
-        const courseTerm = courseDetails.term;
-
-        // Close the detail panel
-        await page.waitForSelector('#closeClassSectionDetailDialogButton-button', { visible: true });
-        await page.evaluate(() => {
-            document.querySelector('#closeClassSectionDetailDialogButton-button').click();
-        });
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        // Add description, requirements, hours, and term to all sections
-        data.forEach(section => {
-            section.courseDescription = courseDescription;
-            section.requirements = courseRequirements;
-            section.hours = courseHours;
-            section.term = courseTerm;
-        });
+        courseResult.courseDescription = courseDescription;
+        courseResult.requirements = courseRequirements;
+        courseResult.hours = courseHours;
+        courseResult.term = courseTerm;
     }
 
     await browser.close();
     return data;
 }
 
-// Export the function so it can be used by other scripts
 module.exports = { scrapeCourse };

@@ -32,6 +32,7 @@ interface Syllabus {
 interface CourseDetails {
   id: string;
   sectionId: string | null;
+  sectionTitle?: string | null;
   code: string;
   credits: number;
   maxSeats: number;
@@ -305,7 +306,7 @@ const CourseDetailPage: React.FC = () => {
               <span className="badge badge-credits">{course.credits} Credits</span>
               <span className="badge badge-enrolled">{course.maxSeats} Max Seats</span>
             </div>
-            <h1 className="course-name">{course.name}</h1>
+            <h1 className="course-name">{course.sectionTitle || course.name}</h1>
             {course.crossListedAs && course.crossListedAs.length > 0 && (
               <div className="cross-listed-info">
                 Also cross-listed as: {course.crossListedAs.join(', ')}

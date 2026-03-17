@@ -9,6 +9,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 interface Course {
   id: string;
   sectionId: string;
+  sectionTitle?: string | null;
   code: string;
   name: string;
   professor: string;
@@ -374,7 +375,7 @@ const CoursesPage: React.FC = () => {
                   <div className="course-number">#{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</div>
                   <div className="course-main">
                     <h3 className="course-title">
-                      {course.code}: {course.name}
+                      {course.code}: {course.sectionTitle || course.name}
                     </h3>
                     <div className="course-meta">
                       <span className="meta-item">👤 {course.professor}</span>

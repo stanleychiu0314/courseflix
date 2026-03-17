@@ -23,8 +23,6 @@ Step 2: Start database and apply schema + seeds
 
 `docker exec -i courseflix-db psql -U courseflix -d courseflix < db/seed-terms.sql`
 
-`docker exec -i courseflix-db psql -U courseflix -d courseflix < db/migrations/20260212_syllabus_file_storage.sql`
-
 Step 3: Re-scrape with new fields
 
 (Note: Only run this script if you are trying to regenerate courses-data.json. Estimated time to run is around 90-150 minutes)

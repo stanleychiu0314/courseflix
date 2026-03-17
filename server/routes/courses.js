@@ -120,6 +120,7 @@ router.get('/', async (req, res) => {
         d.code as department_code,
         d.name as department_name,
         cs.id as section_id,
+        cs.section_title,
         cs.max_seats,
         cs.enrolled_count,
         cs.attendance_policy,
@@ -290,6 +291,7 @@ router.get('/', async (req, res) => {
     const courses = result.rows.map(row => ({
       id: row.id,
       sectionId: row.section_id,
+      sectionTitle: row.section_title || null,
       code: row.code,
       name: row.name,
       description: row.description,
@@ -509,6 +511,7 @@ router.get('/recommended', async (req, res) => {
         d.code as department_code,
         d.name as department_name,
         cs.id as section_id,
+        cs.section_title,
         cs.max_seats,
         cs.enrolled_count,
         cs.attendance_policy,
@@ -696,6 +699,7 @@ router.get('/recommended', async (req, res) => {
     const courses = result.rows.map(row => ({
       id: row.id,
       sectionId: row.section_id,
+      sectionTitle: row.section_title || null,
       code: row.code,
       name: row.name,
       description: row.description,
@@ -828,6 +832,7 @@ router.get('/:id', async (req, res) => {
     let sectionQuery = `
       SELECT
         cs.id as section_id,
+        cs.section_title,
         cs.max_seats,
         cs.enrolled_count,
         cs.attendance_policy,
@@ -991,6 +996,7 @@ router.get('/:id', async (req, res) => {
     const response = {
       id: course.id,
       sectionId: section.section_id || null,
+      sectionTitle: section.section_title || null,
       code: course.code,
       name: course.name,
       description: course.description,
