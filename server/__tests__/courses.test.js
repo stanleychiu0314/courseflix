@@ -131,6 +131,8 @@ describe('GET /api/courses/:id', () => {
     db.query
       .mockResolvedValueOnce({ rows: [courseRow] })  // course query
       .mockResolvedValueOnce({ rows: [] })            // section query (no section)
+      .mockResolvedValueOnce({ rows: [] })            // cross-list query
+      .mockResolvedValueOnce({ rows: [] })            // stats query
       .mockResolvedValueOnce({ rows: [] })            // syllabi query
       .mockResolvedValueOnce({ rows: [] });           // tags query
 

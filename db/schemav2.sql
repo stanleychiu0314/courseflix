@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS departments (
 -- Professors table
 CREATE TABLE IF NOT EXISTS professors (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255),
     department_id UUID REFERENCES departments(id) ON DELETE SET NULL,
     bio TEXT,
@@ -153,6 +153,9 @@ CREATE TABLE IF NOT EXISTS course_sections (
     -- If you have YES identifiers, these help uniqueness and imports:
     crn VARCHAR(20),
     section_number VARCHAR(20),
+
+    -- Per-section title (used for Special Topics where each section has a distinct topic)
+    section_title VARCHAR(500),
 
     -- Enrollment
     max_seats INTEGER NOT NULL CHECK (max_seats >= 0),
@@ -416,7 +419,9 @@ CREATE TABLE IF NOT EXISTS course_syllabi (
     uploaded_by_user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 
     file_name VARCHAR(255) NOT NULL,
-    file_url TEXT NOT NULL,
+    file_url TEXT,                   -- nullable; used for external links
+    file_data BYTEA,                 -- binary storage for uploaded files
+    mime_type VARCHAR(100),
     file_size INTEGER NOT NULL CHECK (file_size > 0),
 
     uploaded_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,

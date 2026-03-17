@@ -176,7 +176,7 @@ async function importCourses() {
                     credits = EXCLUDED.credits,
                     updated_at = CURRENT_TIMESTAMP
                 RETURNING id
-            `, [courseCode, course.courseTitle, departmentId, course.courseDescription, credits]);
+            `, [courseCode, course.sections[0]?.courseTitle || '', departmentId, course.courseDescription, credits]);
 
             const courseId = courseResult.rows[0].id;
             courseCount++;
@@ -187,14 +187,15 @@ async function importCourses() {
 
                 // Upsert section
                 const sectionResult = await client.query(`
-                    INSERT INTO course_sections (course_id, term_id, section_number, max_seats, enrolled_count)
-                    VALUES ($1, $2, $3, $4, $5)
+                    INSERT INTO course_sections (course_id, term_id, section_number, max_seats, enrolled_count, section_title)
+                    VALUES ($1, $2, $3, $4, $5, $6)
                     ON CONFLICT (course_id, term_id, section_number) DO UPDATE SET
                         max_seats = EXCLUDED.max_seats,
                         enrolled_count = EXCLUDED.enrolled_count,
+                        section_title = EXCLUDED.section_title,
                         updated_at = CURRENT_TIMESTAMP
                     RETURNING id
-                `, [courseId, termId, section.section, availability.max, availability.enrolled]);
+                `, [courseId, termId, section.section, availability.max, availability.enrolled, section.courseTitle || null]);
 
                 const sectionId = sectionResult.rows[0].id;
                 sectionCount++;
@@ -207,7 +208,7 @@ async function importCourses() {
                         const profResult = await client.query(`
                             INSERT INTO professors (name, department_id)
                             VALUES ($1, $2)
-                            ON CONFLICT DO NOTHING
+                            ON CONFLICT (name) DO NOTHING
                             RETURNING id
                         `, [section.instructor, departmentId]);
 
