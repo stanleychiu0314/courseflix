@@ -1,7 +1,18 @@
 var createError = require('http-errors');
 var express = require('express');
+var fs = require('fs');
 var path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+var rootEnvPath = path.join(__dirname, '..', '.env');
+var appEnvPath = path.join(__dirname, '.env');
+
+[
+  rootEnvPath,
+  appEnvPath,
+].forEach((candidatePath) => {
+  if (fs.existsSync(candidatePath)) {
+    require('dotenv').config({ path: candidatePath });
+  }
+});
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');

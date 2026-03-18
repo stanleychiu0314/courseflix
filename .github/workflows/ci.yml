@@ -86,3 +86,75 @@ jobs:
       - name: Run tests
         working-directory: server
         run: npm test
+
+  playwright-e2e:
+    name: Client E2E (Playwright)
+    runs-on: ubuntu-latest
+    needs:
+      - client-tests
+      - server-tests
+      - client-build
+      - client-lint
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: courseflix
+          POSTGRES_USER: courseflix
+          POSTGRES_PASSWORD: courseflix
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U courseflix"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install server dependencies
+        working-directory: server
+        run: npm ci
+
+      - name: Install client dependencies
+        working-directory: client
+        run: npm ci
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Load schema and e2e seed
+        env:
+          PGPASSWORD: courseflix
+        run: |
+          psql -h localhost -U courseflix -d courseflix -f db/schemav2.sql
+          psql -h localhost -U courseflix -d courseflix -f db/e2e-seed.sql
+
+      - name: Install Playwright browsers
+        working-directory: client
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright E2E tests
+        working-directory: client
+        env:
+          PLAYWRIGHT_TEST_TOKEN: e2e-ci-token
+          POSTGRES_HOST: localhost
+          ADMIN_EMAILS: admin@vanderbilt.edu
+        run: npm run e2e
+
+      - name: Upload Playwright artifacts
+        if: ${{ failure() || cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: |
+            client/playwright-report
+            client/test-results
+          if-no-files-found: ignore
