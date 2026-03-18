@@ -19,7 +19,11 @@ test('allows adding a course to schedule and displays it', async ({ browser, req
 
   try {
     await page.goto(`${UI_BASE_URL}/courses`);
-    await expect(page.getByText('CS 2201')).toBeVisible();
+    const courseCard = page
+      .locator('.course-card')
+      .filter({ has: page.locator('.course-title', { hasText: /^CS 2201:/i }) });
+    await expect(courseCard).toHaveCount(1);
+    await expect(courseCard).toBeVisible();
 
     await page.goto(`${UI_BASE_URL}/course/${COURSE_ID}`);
     await expect(page.getByRole('button', { name: /add to cart/i })).toBeVisible();
@@ -29,7 +33,7 @@ test('allows adding a course to schedule and displays it', async ({ browser, req
 
     await page.goto(`${UI_BASE_URL}/schedule`);
     await expect(page.getByRole('heading', { name: /my schedule/i })).toBeVisible();
-    await expect(page.getByText('CS 2201')).toBeVisible();
+    await expect(page.locator('.sidebar-course-code', { hasText: /^CS 2201$/i })).toBeVisible();
   } finally {
     await context.close();
   }
