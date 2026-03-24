@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-const TARGET_TERM_CODE = '1060'; // "2026 Spring"
+const TARGET_TERM_CODE = '1075'; // "2026 Fall"
 
 // Returns an array of course objects found in the search results for the given subject/catalogNumber.
 // A single search may return multiple variants (e.g. PHYS 1601 and PHYS 1601L) as separate entries.
