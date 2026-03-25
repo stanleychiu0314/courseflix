@@ -695,6 +695,7 @@ INSERT INTO tags (name, category_type) VALUES
     ('Exam Heavy', 'workload'),
     ('Project Heavy', 'workload'),
     ('Paper Heavy', 'workload'),
+    ('Assignment Heavy', 'workload'),
     ('Discussion-based', 'workload'),
     ('Challenging Projects', 'difficulty'),
     ('Great Professor', 'teaching_style'),
