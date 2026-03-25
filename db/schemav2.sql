@@ -17,6 +17,19 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pg_trgm";
 
 -- =============================================================================
+-- HELPERS
+-- =============================================================================
+
+-- Standardized updated-at trigger helper. Defined before any trigger references.
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- =============================================================================
 -- ENUMS
 -- =============================================================================
 
@@ -502,15 +515,6 @@ CREATE INDEX IF NOT EXISTS idx_course_syllabi_section ON course_syllabi(course_s
 -- =============================================================================
 -- TRIGGERS FOR AUTOMATIC UPDATES
 -- =============================================================================
-
--- update_updated_at helper
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = CURRENT_TIMESTAMP;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
 
 -- Apply updated_at triggers
 DROP TRIGGER IF EXISTS update_users_updated_at ON users;

@@ -29,6 +29,7 @@ npm run dev
 ```
 
 The application will be available at:
+
 - Frontend: http://localhost:5173
 - Backend API: http://localhost:3000
 
@@ -37,6 +38,7 @@ The application will be available at:
 ### 1. Database (PostgreSQL via Docker)
 
 Start the database:
+
 ```bash
 # Copy environment file (optional - defaults work out of the box)
 cp .env.example .env
@@ -46,6 +48,7 @@ docker compose up -d
 ```
 
 The database will be available on `localhost:5432` with:
+
 - Database: `courseflix`
 - User: `courseflix`
 - Password: `courseflix`
@@ -53,6 +56,7 @@ The database will be available on `localhost:5432` with:
 The schema (`db/schemav2.sql`) is automatically loaded on first startup.
 
 **Database commands:**
+
 ```bash
 # Stop the database
 docker compose down
@@ -83,6 +87,7 @@ npm start
 ```
 
 The backend runs on http://localhost:3000 and provides the following API endpoints:
+
 - `GET /api/courses` - List courses with search/filter/sort
 - `GET /api/courses/:id` - Get course details
 - `GET /api/courses/:id/reviews` - Get course reviews
@@ -96,16 +101,19 @@ The backend runs on http://localhost:3000 and provides the following API endpoin
 ### Synthetic data
 
 Generate synthetic users and reviews only:
+
 ```bash
 node db/seed-synthetic.js --users=200 --min-reviews=2 --max-reviews=8 --positive-rate=0.35 --negative-rate=0.25 --seed=42
 ```
 
 To wipe synthetic users and reviews first:
+
 ```bash
 node db/seed-synthetic.js --wipe=true
 ```
 
 To wipe all core tables (destructive):
+
 ```bash
 node db/seed-synthetic.js --wipe=all
 ```
@@ -195,4 +203,10 @@ CourseFlix/
 ├── scraper/               # Course data scraping utilities
 ├── docker-compose.yml     # PostgreSQL Docker configuration
 └── README.md
+```
+
+## Run Local CI Pipeline for testing
+
+```bash
+npm run ci:local
 ```

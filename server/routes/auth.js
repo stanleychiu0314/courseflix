@@ -11,6 +11,50 @@ const JWKS = createRemoteJWKSet(
 
 const VANDY_DOMAIN = 'vanderbilt.edu';
 
+const TEST_AUTH_HEADER = 'x-playwright-test-auth-token';
+
+function isTestAuthEnabled() {
+  return process.env.NODE_ENV === 'test' && process.env.PLAYWRIGHT_TEST_AUTH === 'true';
+}
+
+function isTestAuthAuthorized(req) {
+  const expectedToken = process.env.PLAYWRIGHT_TEST_TOKEN;
+  const providedToken = req.get(TEST_AUTH_HEADER);
+
+  if (!expectedToken) {
+    return false;
+  }
+
+  return providedToken === expectedToken;
+}
+
+async function setTestSession(req, res, user) {
+  return new Promise((resolve, reject) => {
+    req.session.regenerate(async (err) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      req.session.user = {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        initials: getInitials(user.name),
+      };
+
+      req.session.save((saveErr) => {
+        if (saveErr) {
+          reject(saveErr);
+          return;
+        }
+
+        resolve();
+      });
+    });
+  });
+}
+
 function isVanderbiltEmail(email) {
   if (!email || typeof email !== 'string') {
     return false;
@@ -117,6 +161,65 @@ router.post('/microsoft/login', async function(req, res) {
   } catch (error) {
     console.error('Microsoft login error:', error.message || error);
     return res.status(401).json({ message: 'Invalid or expired token' });
+  }
+});
+
+router.post('/test-login', async function(req, res) {
+  if (!isTestAuthEnabled()) {
+    return res.status(404).json({ message: 'Test login not enabled.' });
+  }
+
+  if (!isTestAuthAuthorized(req)) {
+    return res.status(401).json({ message: 'Missing or invalid test authentication token.' });
+  }
+
+  const emailRaw = typeof req.body?.email === 'string' ? req.body.email.trim() : '';
+  const nameRaw = typeof req.body?.name === 'string' ? req.body.name.trim() : '';
+
+  if (!emailRaw || !emailRaw.includes('@')) {
+    return res.status(400).json({ message: 'Invalid email for test login.' });
+  }
+
+  if (!isVanderbiltEmail(emailRaw)) {
+    return res.status(403).json({ message: 'Only @vanderbilt.edu accounts are allowed.' });
+  }
+
+  const email = emailRaw.toLowerCase();
+  const name = nameRaw || email.split('@')[0].replace(/[^a-zA-Z0-9]/g, ' ').trim() || 'Vanderbilt User';
+
+  try {
+    const result = await db.query(
+      `
+        INSERT INTO users (email, password_hash, name, oauth_provider, oauth_id)
+        VALUES ($1, 'playwright-test-user', $2, NULL, NULL)
+        ON CONFLICT (email)
+        DO UPDATE SET
+          name = EXCLUDED.name,
+          updated_at = CURRENT_TIMESTAMP
+        RETURNING id, email, name
+      `,
+      [email, name]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(500).json({ message: 'Test login failed.' });
+    }
+
+    await setTestSession(req, res, result.rows[0]);
+
+    return res.json({
+      authenticated: true,
+      user: {
+        id: result.rows[0].id,
+        email: result.rows[0].email,
+        name: result.rows[0].name,
+        initials: getInitials(result.rows[0].name),
+        isAdmin: isAdminEmail(result.rows[0].email),
+      },
+    });
+  } catch (error) {
+    console.error('Test login error:', error.message || error);
+    return res.status(500).json({ message: 'Unable to perform test login.' });
   }
 });
 
