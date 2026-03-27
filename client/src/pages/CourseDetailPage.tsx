@@ -18,11 +18,6 @@ interface Review {
   helpfulCount?: number;
 }
 
-interface GradeBreakdownItem {
-  name: string;
-  percentage: number;
-}
-
 interface Syllabus {
   id: string;
   fileName: string;
@@ -45,8 +40,6 @@ interface CourseDetails {
   description: string;
   prerequisites: string | null;
   commentHighlights: string[];
-  gradeDistribution: Record<string, number>;
-  gradeBreakdown: GradeBreakdownItem[];
   syllabi?: Syllabus[];
   avgHoursPerWeek: number;
   difficulty: string;
@@ -364,11 +357,8 @@ const CourseDetailPage: React.FC = () => {
           <button className={`tab ${activeTab === 'reviews' ? 'active' : ''}`} onClick={() => setActiveTab('reviews')}>
             Reviews
           </button>
-          <button className={`tab ${activeTab === 'grades' ? 'active' : ''}`} onClick={() => setActiveTab('grades')}>
-            Grade Distribution
-          </button>
-          <button className={`tab ${activeTab === 'breakdown' ? 'active' : ''}`} onClick={() => setActiveTab('breakdown')}>
-            Grade Breakdown
+          <button className={`tab ${activeTab === 'syllabus' ? 'active' : ''}`} onClick={() => setActiveTab('syllabus')}>
+            Syllabus
           </button>
         </div>
 
@@ -518,31 +508,9 @@ const CourseDetailPage: React.FC = () => {
               </div>
             )}
 
-            {activeTab === 'grades' && (
-              <div className="grades-content">
-                <h3 className="section-title">GRADE DISTRIBUTION - ALL SECTIONS</h3>
-                <div className="grade-bars">
-                  {course.gradeDistribution && Object.keys(course.gradeDistribution).length > 0 ? (
-                    Object.entries(course.gradeDistribution).map(([grade, percentage]) => (
-                      <div key={grade} className="grade-row">
-                        <div className="grade-label">{grade}</div>
-                        <div className="grade-bar-container">
-                          <div className="grade-bar" style={{ width: `${percentage}%` }}></div>
-                        </div>
-                        <div className="grade-percentage">{percentage}%</div>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="no-data">No grade distribution data available.</p>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'breakdown' && (
+            {activeTab === 'syllabus' && (
               <div className="breakdown-content">
-                {/* Course Syllabus */}
-                {course.syllabi && course.syllabi.length > 0 && (
+                {course.syllabi && course.syllabi.length > 0 ? (
                   <div className="syllabus-section">
                     <h3 className="section-title">COURSE SYLLABUS</h3>
                     <div className="syllabus-list">
@@ -568,27 +536,9 @@ const CourseDetailPage: React.FC = () => {
                       ))}
                     </div>
                   </div>
+                ) : (
+                  <p className="no-data">No syllabus available yet.</p>
                 )}
-
-                <h3 className="section-title" style={{ marginTop: course.syllabi?.length ? '2rem' : 0 }}>
-                  GRADE BREAKDOWN
-                </h3>
-                <div className="grade-breakdown-table">
-                  <div className="breakdown-header">
-                    <div className="breakdown-col">Requirements</div>
-                    <div className="breakdown-col">Grade %</div>
-                  </div>
-                  {course.gradeBreakdown && course.gradeBreakdown.length > 0 ? (
-                    course.gradeBreakdown.map((item: GradeBreakdownItem, idx: number) => (
-                      <div key={idx} className="breakdown-row">
-                        <div className="breakdown-col">{item.name}</div>
-                        <div className="breakdown-col">{item.percentage}</div>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="no-data">No grade breakdown data available.</p>
-                  )}
-                </div>
 
                 {/* Syllabus Viewer Modal */}
                 {syllabusViewUrl && (

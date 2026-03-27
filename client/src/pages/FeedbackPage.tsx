@@ -14,7 +14,7 @@ import '../styles/FeedbackPage.css';
  * - Upload syllabus: POST /api/courses/:courseId/syllabus (file upload)
  * - Feedback data structure should include:
  *   - courseId, overallRating, hoursPerWeek, effortLevel, wouldTakeAgain,
- *   - workloadTypes[], firstWord, grade, gradingBreakdown{}, syllabus (file), comments
+ *   - workloadTypes[], firstWord, grade, syllabus (file), comments
  */
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
@@ -27,11 +27,6 @@ interface Course {
   professor: string;
   schedule: string;
   termLabel: string;
-}
-
-interface GradingItem {
-  name: string;
-  percentage: number;
 }
 
 const FeedbackPage: React.FC = () => {
@@ -49,7 +44,6 @@ const FeedbackPage: React.FC = () => {
     attendancePolicy: '',
     absencesAllowed: 0,
     grade: '',
-    gradingBreakdown: [] as GradingItem[],
     syllabus: null as File | null,
     comments: '',
   });
@@ -193,7 +187,6 @@ const FeedbackPage: React.FC = () => {
         attendancePolicy: '',
         absencesAllowed: 0,
         grade: '',
-        gradingBreakdown: [],
         syllabus: null,
         comments: '',
       });
@@ -456,39 +449,10 @@ const FeedbackPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Question 10: Grading Breakdown */}
+          {/* Question 10: Syllabus Upload */}
           <div className="form-section">
             <label className="form-label">
               <span className="section-number">10</span>
-              What was the grading breakdown?<span className="optional">(Optional)</span>
-            </label>
-            <p className="form-description">Share how grades were calculated (e.g., exams, papers, projects, participation)</p>
-            <div className="grading-breakdown">
-              <details>
-                <summary className="breakdown-toggle">▼ Click to expand and enter grading breakdown</summary>
-                <div className="breakdown-content">
-                  <div className="breakdown-rows">
-                    {['Midterm Exam', 'Final Exam', 'Paper 1', 'Paper 2', 'Projects', 'Attendance', 'Participation'].map(
-                      (item, idx) => (
-                        <div key={idx} className="breakdown-row">
-                          <input type="text" className="breakdown-name" placeholder={`e.g., ${item}`} />
-                          <input type="number" className="breakdown-percentage" placeholder="0" min="0" max="100" />
-                          <span className="percentage-symbol">%</span>
-                        </div>
-                      )
-                    )}
-                  </div>
-                  <button className="add-row-btn">+ Add Row</button>
-                  <div className="breakdown-total">Total: 0%</div>
-                </div>
-              </details>
-            </div>
-          </div>
-
-          {/* Question 11: Syllabus Upload */}
-          <div className="form-section">
-            <label className="form-label">
-              <span className="section-number">11</span>
               Submit a copy of the syllabus<span className="optional">(Optional)</span>
             </label>
             <p className="form-description">Help future students by uploading the course syllabus (PDF format preferred)</p>
@@ -521,10 +485,10 @@ const FeedbackPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Question 12: Overall Comments */}
+          {/* Question 11: Overall Comments */}
           <div className="form-section">
             <label className="form-label">
-              <span className="section-number">12</span>
+              <span className="section-number">11</span>
               Overall Comments<span className="required">*</span>
             </label>
             <p className="form-description">Share your overall thoughts about this course. What should future students know?</p>
