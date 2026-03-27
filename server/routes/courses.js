@@ -166,7 +166,27 @@ router.get('/', async (req, res) => {
         (
           SELECT csyl.id
           FROM course_syllabi csyl
-          WHERE csyl.course_section_id = cs.id AND csyl.status = 'approved'
+          JOIN course_sections syll_cs ON syll_cs.id = csyl.course_section_id
+          WHERE csyl.status = 'approved'
+            AND (
+              -- Any syllabus from this course (including prior years)
+              syll_cs.course_id = c.id
+              OR
+              -- Any syllabus from a cross-listed equivalent section, including prior years
+              EXISTS (
+                SELECT 1
+                FROM section_instructors base_si
+                JOIN section_meetings base_sm ON base_sm.course_section_id = base_si.course_section_id
+                JOIN section_instructors syll_si ON syll_si.professor_id = base_si.professor_id
+                  AND syll_si.course_section_id = syll_cs.id
+                JOIN section_meetings syll_sm ON syll_sm.course_section_id = syll_cs.id
+                  AND syll_sm.day = base_sm.day
+                  AND syll_sm.start_time = base_sm.start_time
+                  AND syll_sm.end_time = base_sm.end_time
+                WHERE base_si.course_section_id = cs.id
+              )
+            )
+          ORDER BY csyl.uploaded_at DESC
           LIMIT 1
         ) as syllabus_id
       FROM courses c
@@ -557,7 +577,27 @@ router.get('/recommended', async (req, res) => {
         (
           SELECT csyl.id
           FROM course_syllabi csyl
-          WHERE csyl.course_section_id = cs.id AND csyl.status = 'approved'
+          JOIN course_sections syll_cs ON syll_cs.id = csyl.course_section_id
+          WHERE csyl.status = 'approved'
+            AND (
+              -- Any syllabus from this course (including prior years)
+              syll_cs.course_id = c.id
+              OR
+              -- Any syllabus from a cross-listed equivalent section, including prior years
+              EXISTS (
+                SELECT 1
+                FROM section_instructors base_si
+                JOIN section_meetings base_sm ON base_sm.course_section_id = base_si.course_section_id
+                JOIN section_instructors syll_si ON syll_si.professor_id = base_si.professor_id
+                  AND syll_si.course_section_id = syll_cs.id
+                JOIN section_meetings syll_sm ON syll_sm.course_section_id = syll_cs.id
+                  AND syll_sm.day = base_sm.day
+                  AND syll_sm.start_time = base_sm.start_time
+                  AND syll_sm.end_time = base_sm.end_time
+                WHERE base_si.course_section_id = cs.id
+              )
+            )
+          ORDER BY csyl.uploaded_at DESC
           LIMIT 1
         ) as syllabus_id,
         CASE
@@ -960,16 +1000,35 @@ router.get('/:id', async (req, res) => {
       percentage: parseFloat(r.percentage)
     }));
 
-    // Get syllabi for this course + cross-listed sections
+    // Get syllabi for this course + cross-listed equivalents, including prior years
     let syllabi = [];
     const syllabiResult = await db.query(
       `SELECT csyl.id, csyl.file_name, csyl.mime_type
        FROM course_syllabi csyl
-       JOIN course_sections cs ON csyl.course_section_id = cs.id
-       WHERE (cs.course_id = $1 OR csyl.course_section_id = ANY($2::uuid[]))
-         AND csyl.status = 'approved'
+       JOIN course_sections syll_cs ON csyl.course_section_id = syll_cs.id
+       WHERE csyl.status = 'approved'
+         AND (
+           -- Directly uploaded for this course (all years)
+           syll_cs.course_id = $1
+           OR
+           -- Cross-listed equivalent by shared instructor + identical meeting pattern, across years
+           EXISTS (
+             SELECT 1
+             FROM course_sections target_cs
+             JOIN section_instructors target_si ON target_si.course_section_id = target_cs.id
+             JOIN section_meetings target_sm ON target_sm.course_section_id = target_cs.id
+             JOIN section_instructors syll_si ON syll_si.professor_id = target_si.professor_id
+               AND syll_si.course_section_id = syll_cs.id
+             JOIN section_meetings syll_sm ON syll_sm.course_section_id = syll_cs.id
+               AND syll_sm.day = target_sm.day
+               AND syll_sm.start_time = target_sm.start_time
+               AND syll_sm.end_time = target_sm.end_time
+             WHERE target_cs.course_id = $1
+           )
+         )
+       -- Keep most recent uploads first for UI
        ORDER BY csyl.uploaded_at DESC`,
-      [id, crossListedSectionIds]
+      [id]
     );
     syllabi = syllabiResult.rows.map(r => ({
       id: r.id,

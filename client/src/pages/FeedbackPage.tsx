@@ -379,7 +379,7 @@ const FeedbackPage: React.FC = () => {
               </label>
               <p className="form-description">Select all that apply</p>
               <div className="checkbox-group">
-                {['Exam Heavy', 'Project Heavy', 'Paper Heavy', 'Discussion-based'].map((type) => (
+                {['Exam Heavy', 'Project Heavy', 'Paper Heavy', 'Assignment Heavy', 'Discussion-based'].map((type) => (
                   <label key={type} className={`checkbox-item ${formData.workloadTypes.includes(type) ? 'selected' : ''}`}>
                     <input
                       type="checkbox"
