@@ -53,6 +53,7 @@ interface CourseDetails {
   wouldTakeAgain: string;
   attendancePolicy: string;
   absencesAllowed: number;
+  termLabel?: string;
   departmentCode?: string;
   departmentName?: string;
   crossListedAs?: string[];
@@ -119,7 +120,7 @@ const CourseDetailPage: React.FC = () => {
           name: course?.name,
           professor: course?.professor,
           schedule: course?.schedule,
-          termLabel: 'Spring 2026', // You might want to get this from the course data
+          termLabel: course?.termLabel,
         },
       },
     });

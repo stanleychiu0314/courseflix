@@ -12,6 +12,7 @@ const outputPath = path.join(__dirname, 'seed-terms.sql');
 // Current terms - add more as needed
 const terms = [
     { season: 'Spring', year: 2026, label: 'Spring 2026' },
+    { season: 'Fall', year: 2026, label: 'Fall 2026' },
 ];
 
 let sql = `-- Auto-generated terms seed data
