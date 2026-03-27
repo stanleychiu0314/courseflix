@@ -371,7 +371,11 @@ const CoursesPage: React.FC = () => {
               <div className="no-results-message">No courses found matching your criteria.</div>
             ) : (
               courses.map((course: Course, index: number) => (
-                <Link to={`/course/${course.id}`} key={course.sectionId || course.id} className="course-card">
+                <Link
+                  to={`/course/${course.id}${course.sectionId ? `?sectionId=${encodeURIComponent(course.sectionId)}` : ''}`}
+                  key={course.sectionId || course.id}
+                  className="course-card"
+                >
                   <div className="course-number">#{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</div>
                   <div className="course-main">
                     <h3 className="course-title">

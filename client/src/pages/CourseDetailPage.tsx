@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
 import '../styles/CourseDetailPage.css';
@@ -61,6 +61,7 @@ interface CourseDetails {
 
 const CourseDetailPage: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { isAuthenticated, isAdmin, refreshCartCount } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
@@ -76,6 +77,7 @@ const CourseDetailPage: React.FC = () => {
   const REVIEWS_PER_PAGE = 20;
   const [syllabusViewUrl, setSyllabusViewUrl] = useState<string | null>(null);
   const [syllabusLoading, setSyllabusLoading] = useState<string | null>(null);
+  const selectedSectionId = searchParams.get('sectionId');
 
   const handleViewSyllabus = async (syllabus: Syllabus) => {
     setSyllabusLoading(syllabus.id);
@@ -192,7 +194,13 @@ const CourseDetailPage: React.FC = () => {
       setReviewsPage(1);
 
       try {
-        const courseRes = await fetch(`${API_BASE_URL}/api/courses/${courseId}`);
+        const courseParams = new URLSearchParams();
+        if (selectedSectionId) {
+          courseParams.append('sectionId', selectedSectionId);
+        }
+        const courseRes = await fetch(
+          `${API_BASE_URL}/api/courses/${courseId}${courseParams.toString() ? `?${courseParams.toString()}` : ''}`
+        );
 
         if (!courseRes.ok) {
           throw new Error('Course not found');
@@ -208,7 +216,7 @@ const CourseDetailPage: React.FC = () => {
     };
 
     fetchCourseData();
-  }, [courseId]);
+  }, [courseId, selectedSectionId]);
 
   useEffect(() => {
     const fetchReviews = async (page: number = 1) => {
@@ -218,6 +226,9 @@ const CourseDetailPage: React.FC = () => {
         const params = new URLSearchParams();
         params.append('page', String(page));
         params.append('limit', String(REVIEWS_PER_PAGE));
+        if (selectedSectionId) {
+          params.append('sectionId', selectedSectionId);
+        }
         const reviewsRes = await fetch(
           `${API_BASE_URL}/api/courses/${courseId}/reviews?${params.toString()}`
         );
@@ -248,7 +259,7 @@ const CourseDetailPage: React.FC = () => {
     };
 
     fetchReviews(reviewsPage);
-  }, [courseId, reviewsPage]);
+  }, [courseId, reviewsPage, selectedSectionId]);
 
   const handleReviewsPageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= reviewsTotalPages) {
