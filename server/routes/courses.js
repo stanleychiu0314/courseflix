@@ -1114,22 +1114,7 @@ router.get('/:id/reviews', async (req, res) => {
     const pageNum = Math.max(1, parseInt(page) || 1);
     const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 20));
     const offset = (pageNum - 1) * limitNum;
-
-    // Anchor to the most recent section for this course so we can
-    // scope review/tag crosslisting to the same professor(s).
-    let targetSectionId = sectionId || null;
-    if (!targetSectionId) {
-      const targetSectionResult = await db.query(
-        `SELECT cs.id
-         FROM course_sections cs
-         JOIN terms t ON cs.term_id = t.id
-         WHERE cs.course_id = $1
-         ORDER BY t.year DESC, t.season DESC
-         LIMIT 1`,
-        [id]
-      );
-      targetSectionId = targetSectionResult.rows[0]?.id || null;
-    }
+    const targetSectionId = sectionId || null;
 
     const countResult = await db.query(
       `SELECT COUNT(*) as total
