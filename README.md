@@ -4,6 +4,12 @@ CourseFlix is a comprehensive course evaluation and scheduling platform designed
 
 > Team project built for Vanderbilt CS 4289. Mirrored here from the class org repo for portfolio purposes. Built with [@jbaoho](https://github.com/jbaoho), [@Adam924](https://github.com/Adam924), [@adamchenedu](https://github.com/adamchenedu), and [@jamiefong81](https://github.com/jamiefong81).
 
+## Screenshots
+
+| Course search | Course detail |
+| --- | --- |
+| ![Course list](docs/screenshots/course-list.png) | ![Course detail](docs/screenshots/course-detail.png) |
+
 ## Prerequisites
 
 - Node.js (v18 or higher)
